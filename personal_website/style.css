@@ -1,0 +1,308 @@
+/* 
+   Theme: Editorial Minimalist
+   Vibe: Sam Harris / Adam Grant / Cal Newport
+   Fonts: Inter (Sans-serif)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Color Palette - Strict Editorial */
+    --bg-body: #F8F8F8;
+    /* Off-White - Reduces glare */
+    --bg-card: #FFFFFF;
+    /* Pure White - For cards */
+
+    --text-primary: #003366;
+    /* Deep Navy - Authority */
+    --text-secondary: #475569;
+    /* Slate 600 - Readable body text */
+    --text-muted: #94a3b8;
+    /* Slate 400 - Meta info */
+
+    --border-subtle: #E5E5E5;
+    /* Very subtle border */
+
+    /* Spacing & Layout */
+    --container-max: 1100px;
+    --card-gap: 24px;
+
+    /* Typography */
+    --font-main: 'Inter', sans-serif;
+    --line-height-loose: 1.6;
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: var(--line-height-loose);
+    overflow: hidden;
+    /* No scroll on Home */
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+/* Main App Container */
+#app {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Home View - The "Editorial Dashboard" */
+.home-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+}
+
+/* Header Area */
+.header-area {
+    margin-bottom: 4rem;
+    /* Generous whitespace */
+    text-align: center;
+    width: 100%;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    /* Not too bold */
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Navigation Grid - The "Cards" */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Mobile default */
+    gap: var(--card-gap);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .nav-grid {
+        grid-template-columns: repeat(4, 1fr);
+        /* Desktop 4 cols */
+    }
+}
+
+.nav-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    /* Subtle rounding */
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Editorial alignment */
+    justify-content: space-between;
+    height: 160px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 51, 102, 0.08);
+    /* Soft navy shadow */
+    border-color: transparent;
+}
+
+.nav-card i {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.nav-card span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+/* Content Overlay - The "Pages" */
+.content-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-card);
+    /* White background for reading */
+    z-index: 50;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Smooth ease-out */
+    display: flex;
+    flex-direction: column;
+}
+
+.content-overlay.active {
+    transform: translateY(0);
+}
+
+/* Content Header */
+.content-header {
+    padding: 2rem;
+    max-width: var(--container-max);
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-btn {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.back-btn:hover {
+    color: var(--text-primary);
+}
+
+/* Content Body */
+.content-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 2rem 4rem;
+}
+
+.content-container {
+    max-width: 800px;
+    /* Optimal reading width */
+    margin: 0 auto;
+}
+
+/* Typography in Content */
+.content-container h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.content-container h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.content-container p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    /* Slightly larger for reading */
+}
+
+/* Placeholders */
+.placeholder-image {
+    width: 100%;
+    height: 300px;
+    background-color: #F1F5F9;
+    /* Very light grey */
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #CBD5E1;
+    font-size: 0.9rem;
+}
+
+/* Blog List - Minimal */
+.blog-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.blog-item:first-child {
+    padding-top: 0;
+}
+
+.blog-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.blog-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.blog-title:hover {
+    color: #0056b3;
+    /* Subtle blue on hover */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .nav-grid {
+        gap: 16px;
+    }
+
+    .nav-card {
+        height: 140px;
+        padding: 1.5rem;
+    }
+}

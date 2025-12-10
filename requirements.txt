@@ -1,0 +1,8 @@
+python-telegram-bot
+openai
+pypdf
+moviepy
+python-dotenv
+requests
+Pillow
+google-generativeai

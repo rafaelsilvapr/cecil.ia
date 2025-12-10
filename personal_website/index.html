@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Doutor | Educação & Evidência</title>
+    <meta name="description" content="Consultoria educacional baseada em evidências.">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome (Minimal Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- Home View -->
+        <main class="home-view">
+            <header class="header-area">
+                <h1 class="main-title">Transformando a Educação com Evidência e Arte</h1>
+                <p class="subtitle">Gestão de Sala de Aula • Indisciplina • Pesquisa Aplicada</p>
+            </header>
+
+            <nav class="nav-grid">
+                <!-- Card 1 -->
+                <article class="nav-card" onclick="openTab('consultoria')">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Palestras e Consultoria</span>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="nav-card" onclick="openTab('livros')">
+                    <i class="fas fa-book"></i>
+                    <span>Livros e Publicações</span>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="nav-card" onclick="openTab('professor')">
+                    <i class="fas fa-university"></i>
+                    <span>Professor (Unipampa)</span>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="nav-card" onclick="openTab('musico')">
+                    <i class="fas fa-music"></i>
+                    <span>Músico</span>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="nav-card" onclick="openTab('blog')">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Blog</span>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="nav-card" onclick="openTab('imprensa')">
+                    <i class="fas fa-microphone"></i>
+                    <span>Imprensa e Mídia</span>
+                </article>
+
+                <!-- Card 7 -->
+                <article class="nav-card" onclick="openTab('sobre')">
+                    <i class="fas fa-user"></i>
+                    <span>Sobre Mim</span>
+                </article>
+
+                <!-- Card 8 -->
+                <article class="nav-card" onclick="openTab('contato')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contato</span>
+                </article>
+            </nav>
+        </main>
+
+        <!-- Content Overlay -->
+        <div id="content-overlay" class="content-overlay">
+            <header class="content-header">
+                <div class="back-btn" onclick="closeTab()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </div>
+                <!-- Optional: Breadcrumb or Title here if needed -->
+            </header>
+
+            <div class="content-body">
+                <div id="dynamic-content" class="content-container">
+                    <!-- Content injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Content Templates -->
+    <div style="display: none;">
+
+        <!-- Consultoria -->
+        <article id="content-consultoria">
+            <h2>Palestras e Consultoria</h2>
+            <div class="placeholder-image">Foto: Palestrando em Evento</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                laborum.</p>
+        </article>
+
+        <!-- Livros -->
+        <article id="content-livros">
+            <h2>Livros e Publicações</h2>
+            <div class="placeholder-image">Capa do Livro Principal</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum
+                vestibulum. Cras venenatis euismod malesuada.</p>
+        </article>
+
+        <!-- Professor -->
+        <article id="content-professor">
+            <h2>Professor (Unipampa)</h2>
+            <div class="placeholder-image">Foto: Sala de Aula Universitária</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed non risus. Suspendisse
+                lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.</p>
+        </article>
+
+        <!-- Músico -->
+        <article id="content-musico">
+            <h2>Músico e Compositor</h2>
+            <div class="placeholder-image">Foto: Tocando Instrumento</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero. Sed
+                dignissim lacinia nunc.</p>
+        </article>
+
+        <!-- Blog -->
+        <section id="content-blog">
+            <h2>Artigos Recentes</h2>
+            <div class="blog-list">
+                <div class="blog-item">
+                    <span class="blog-category">Gestão de Sala de Aula</span>
+                    <h3 class="blog-title">Lorem Ipsum Dolor Sit Amet</h3>
+                    <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+                <div class="blog-item">
+                    <span class="blog-category">Indisciplina</span>
+                    <h3 class="blog-title">Sed Ut Perspiciatis Unde Omnis</h3>
+                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                </div>
+                <div class="blog-item">
+                    <span class="blog-category">Pesquisa</span>
+                    <h3 class="blog-title">At Vero Eos Et Accusamus</h3>
+                    <p>Dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Imprensa -->
+        <article id="content-imprensa">
+            <h2>Imprensa e Mídia</h2>
+            <div class="placeholder-image">Logos de Veículos de Mídia</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus
+                ante dapibus diam.</p>
+        </article>
+
+        <!-- Sobre -->
+        <article id="content-sobre">
+            <h2>Sobre Mim</h2>
+            <div class="placeholder-image">Foto de Perfil Profissional</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in ipsum sit amet pede facilisis laoreet.
+                Donec lacus nunc, viverra nec.</p>
+        </article>
+
+        <!-- Contato -->
+        <article id="content-contato">
+            <h2>Contato</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p><strong>Email:</strong> contato@exemplo.com</p>
+        </article>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

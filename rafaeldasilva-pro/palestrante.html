@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palestrante | Rafael Rodrigues da Silva</title>
+  <meta name="description"
+    content="Palestras sobre Gestão de Sala de Aula, Inovação Educacional e Ensino Baseado em Evicências." />
+</head>
+
+<body>
+  <!-- Header injected via layout.js -->
+
+  <div id="app">
+    <!-- Hero for Speaker -->
+    <section class="hero-speaker" style="background-color: var(--color-primary); color: white; padding: 5rem 0;">
+      <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div>
+          <span
+            style="text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); font-weight: 600;">Palestras
+            & Consultoria</span>
+          <h1 style="font-size: 3.5rem; margin-top: 1rem; color: white;">Educação com Propósito e Evidência.</h1>
+          <p style="font-size: 1.25rem; opacity: 0.9; margin-bottom: 2rem;">
+            Leve para sua escola ou evento uma visão transformadora sobre gestão de sala de aula e aprendizagem.
+          </p>
+          <a href="#contato" class="btn btn-primary"
+            style="background-color: var(--color-accent); color: white;">Solicitar Orçamento</a>
+        </div>
+        <div style="text-align: right;">
+          <!-- Image with mic or speaking -->
+          <img src="/assets/uploaded_image_4_1765859024622.jpg" alt="Rafael Palestrando"
+            style="max-width: 100%; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);">
+        </div>
+      </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section class="container" style="padding: 6rem 0;">
+      <h2 style="text-align: center; margin-bottom: 4rem;">Temas de Impacto</h2>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+
+        <div class="topic-card"
+          style="padding: 2rem; background: white; border: 1px solid var(--color-border); border-radius: 8px;">
+          <h3 style="color: var(--color-primary);">Gestão de Sala de Aula</h3>
+          <p>Estratégias práticas baseadas em evidências para criar um ambiente propício ao aprendizado, reduzindo
+            conflitos e aumentando o engajamento.</p>
+        </div>
+
+        <div class="topic-card"
+          style="padding: 2rem; background: white; border: 1px solid var(--color-border); border-radius: 8px;">
+          <h3 style="color: var(--color-primary);">Ensino Baseado em Evidências</h3>
+          <p>O que a ciência diz sobre como aprendemos? Desmistificando neuromitos e aplicando a ciência cognitiva na
+            prática pedagógica.</p>
+        </div>
+
+        <div class="topic-card"
+          style="padding: 2rem; background: white; border: 1px solid var(--color-border); border-radius: 8px;">
+          <h3 style="color: var(--color-primary);">Inovação & Criatividade</h3>
+          <p>Como preparar alunos para um futuro incerto sem perder a essência humana. A interseção entre arte,
+            tecnologia e educação.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Proof / Experience (Conceptual) -->
+    <section style="background-color: #f1f5f9; padding: 4rem 0;">
+      <div class="container" style="text-align: center;">
+        <h2 style="margin-bottom: 2rem;">Experiência Comprovada</h2>
+        <p style="max-width: 700px; margin: 0 auto; color: var(--color-text-muted);">
+          Com anos de atuação em universidades e escolas, trago uma bagagem teórica sólida combinada com a vivência real
+          dos desafios educacionais.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contato" class="container" style="padding: 6rem 0; max-width: 800px;">
+      <h2 style="text-align: center; margin-bottom: 2rem;">Vamos Conversar?</h2>
+      <form style="display: grid; gap: 1.5rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <input type="text" placeholder="Nome"
+            style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 4px;">
+          <input type="email" placeholder="Email"
+            style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 4px;">
+        </div>
+        <input type="text" placeholder="Instituição / Evento"
+          style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 4px;">
+        <textarea placeholder="Mensagem (Data, local, objetivo)" rows="5"
+          style="padding: 1rem; border: 1px solid var(--color-border); border-radius: 4px;"></textarea>
+        <button type="submit" class="btn btn-primary" style="justify-self: start;">Enviar Mensagem</button>
+      </form>
+    </section>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

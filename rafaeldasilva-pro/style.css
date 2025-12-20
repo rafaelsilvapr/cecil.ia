@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+:root {
+    /* Brand Colors */
+    --color-primary: #0f172a;
+    /* Deep Navy/Slate for Authority */
+    --color-accent: #f59e0b;
+    /* Vibrant Amber/Orange for Creativity/Curiosity */
+    --color-accent-hover: #d97706;
+
+    /* Neutral Colors */
+    --color-bg: #f8fafc;
+    /* Slate 50 - Off-white clean background */
+    --color-surface: #ffffff;
+    --color-text-main: #1e293b;
+    /* Slate 800 */
+    --color-text-muted: #64748b;
+    /* Slate 500 */
+    --color-border: #e2e8f0;
+
+    /* Typography */
+    --font-sans: 'Inter', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    /* For headers/titles to add sophistication */
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-serif);
+    color: var(--color-primary);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-sm);
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent);
+}
+
+/* Layout Utilities */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+.grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition-fast);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Header/Nav - Sam Harris Style Structure */
+header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-family: var(--font-sans);
+    /* Clean, modern logo */
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-main);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--color-accent);
+}
+
+.nav-links a.active {
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 4px;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.mobile-menu-toggle span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    transition: all var(--transition-smooth);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-surface);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: right var(--transition-smooth);
+}
+
+.mobile-menu.active {
+    right: 0;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-nav-links li {
+    margin: 1.5rem 0;
+}
+
+.mobile-nav-links a {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-primary);
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-primary);
+    color: white;
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-xl);
+}
+
+.footer-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+/* Animations */
+.card,
+.blog-card {
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.card:hover,
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    .hero .container {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+    }
+
+    .hero-image {
+        display: none;
+    }
+}
+
+/* Minimalist Blog Listing */
+.blog-minimal-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.blog-card-minimal {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: opacity var(--transition-fast);
+}
+
+.blog-card-minimal:last-child {
+    border-bottom: none;
+}
+
+.blog-card-minimal .post-meta {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.blog-card-minimal .post-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.blog-card-minimal .post-title a:hover {
+    color: var(--color-accent);
+}
+
+.blog-card-minimal .post-excerpt {
+    color: var(--color-text-main);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+.blog-card-minimal .read-more {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Reading Mode (Editorial Style) */
+.reading-mode {
+    max-width: 720px;
+    /* Optimal reading width */
+    margin: 6rem auto;
+    padding: 0 1.5rem;
+}
+
+.post-header {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.post-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-meta .category-tag {
+    background: var(--color-primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 1rem;
+}
+
+.post-excerpt {
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    font-family: var(--font-serif);
+    font-style: italic;
+}
+
+.post-body.serif {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    /* Pleasant to read */
+    color: #1a1a1a;
+}
+
+.post-body p {
+    margin-bottom: 2rem;
+}
+
+.post-body h2 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-footer {
+    margin-top: 6rem;
+    padding-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .post-header h1 {
+        font-size: 2.25rem;
+    }
+
+    .post-excerpt {
+        font-size: 1.1rem;
+    }
+}

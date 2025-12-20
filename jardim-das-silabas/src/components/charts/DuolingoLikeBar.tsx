@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -6,9 +5,8 @@ import {
   CategoryScale,
   LinearScale,
   Tooltip,
-  ChartOptions,
-  ChartData
 } from 'chart.js';
+import type { ChartOptions, ChartData } from 'chart.js';
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip);
 
 import tokens from '../../../design/tokens/lovable.tokens.json';

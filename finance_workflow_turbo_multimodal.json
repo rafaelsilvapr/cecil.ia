@@ -1,0 +1,309 @@
+{
+    "name": "Assistente Financeiro - Turbo Multimodal (Áudio + Foto)",
+    "nodes": [
+        {
+            "parameters": {
+                "updates": [
+                    "message"
+                ],
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.telegramTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                -200,
+                0
+            ],
+            "id": "telegram-trigger",
+            "name": "Telegram Trigger"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "boolean": [
+                        {
+                            "value1": "={{ $json.message.voice || $json.message.audio }}",
+                            "value2": true
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                40,
+                0
+            ],
+            "id": "check-is-audio",
+            "name": "É Áudio?"
+        },
+        {
+            "parameters": {
+                "operation": "getFile",
+                "fileId": "={{ $json.message.voice.file_id || $json.message.audio.file_id }}",
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.1,
+            "position": [
+                260,
+                -120
+            ],
+            "id": "telegram-get-file",
+            "name": "Baixar Áudio do Telegram"
+        },
+        {
+            "parameters": {
+                "resource": "audio",
+                "operation": "transcribe",
+                "binaryPropertyName": "data",
+                "options": {
+                    "language": "pt"
+                }
+            },
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1,
+            "position": [
+                480,
+                -120
+            ],
+            "id": "openai-whisper",
+            "name": "OpenAI Whisper (Transcrever)"
+        },
+        {
+            "parameters": {
+                "mode": "combine",
+                "combinationMode": "mergeByPosition",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.merge",
+            "typeVersion": 2.1,
+            "position": [
+                700,
+                0
+            ],
+            "id": "merge-paths",
+            "name": "Juntar Caminhos"
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "={{ $json.text || $json.message.text }}",
+                "options": {
+                    "systemMessage": "Você é um extrator de dados financeiros de alta precisão.\n\nSEU OBJETIVO:\nReceber texto (transcrito de áudio ou digitado) ou imagem (recibo) e extrair UMA LISTA de transações financeiras no formato JSON exato abaixo.\nNÃO converse. NÃO explique. APENAS retorne o JSON.\n\nContexto: Se o texto for uma transcrição de áudio, ele pode conter erros fonéticos. Tente corrigir pelo contexto (ex: \"cem reais\" = 100.00).\n\nFORMATO DE SAÍDA OBRIGATÓRIO:\n{\n  \"items\": [\n    {\n      \"descricao\": \"Nome refinado do item (ex: Leite Integral)\",\n      \"valor\": 0.00 (mantenha numérico),\n      \"tipo\": \"Saída\" (ou Entrada),\n      \"categoria\": \"Categoria Inferida (ex: Alimentação)\",\n      \"origem\": \"Carteira/Banco (se identificável)\"\n    }\n  ],\n  \"resumo_mensagem\": \"Texto curto p/ usuário (ex: 'Li 3 itens no total de R$ 40')\"\n}\n\nREGRAS:\n1. Se for imagem de nota fiscal, extraia TODOS os itens individualmente.\n2. Se for texto (ex: \"Gastei 10 no Uber e 20 na Pizza\"), crie 2 itens.\n3. Se não houver transação (ex: \"Oi\"), retorne \"items\": [] e uma mensagem de saudação."
+                }
+            },
+            "type": "@n8n/n8n-nodes-langchain.chainLlm",
+            "typeVersion": 1,
+            "position": [
+                920,
+                0
+            ],
+            "id": "gemini-extractor-chain",
+            "name": "Extrator Inteligente (Gemini)"
+        },
+        {
+            "parameters": {
+                "modelName": "models/gemini-1.5-pro",
+                "options": {}
+            },
+            "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+            "typeVersion": 1,
+            "position": [
+                920,
+                220
+            ],
+            "id": "google-gemini-model",
+            "name": "Google Gemini Model"
+        },
+        {
+            "parameters": {
+                "jsCode": "const llmOutput = $input.item.json.text;\nlet parsed;\ntry {\n  const cleanJson = llmOutput.replace(/^```json/g, '').replace(/^```/g, '').replace(/```$/g, '');\n  parsed = JSON.parse(cleanJson);\n} catch (e) {\n  parsed = { items: [], resumo_mensagem: \"Erro ao ler dados: \" + llmOutput };\n}\nreturn parsed;"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1280,
+                0
+            ],
+            "id": "json-parser",
+            "name": "Parse JSON"
+        },
+        {
+            "parameters": {
+                "fieldToSplitOut": "items",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.itemLists",
+            "typeVersion": 3,
+            "position": [
+                1500,
+                0
+            ],
+            "id": "split-items",
+            "name": "Split Itens (Loop)"
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "value": "1IFFAt7QyeVLR2UPEWBhHHkk6ssEmc4jEOVxuvHKi2Gw",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Transações",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Descricao": "={{ $json.descricao }}",
+                        "Valor": "={{ $json.valor }}",
+                        "Tipo": "={{ $json.tipo }}",
+                        "Categoria": "={{ $json.categoria }}",
+                        "Origem": "={{ $json.origem }}"
+                    }
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4,
+            "position": [
+                1720,
+                0
+            ],
+            "id": "gsheets-append",
+            "name": "Gravar no Sheets"
+        },
+        {
+            "parameters": {
+                "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+                "text": "={{ $('Parse JSON').item.json.resumo_mensagem }}",
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.1,
+            "position": [
+                1500,
+                240
+            ],
+            "id": "telegram-reply",
+            "name": "Responder Usuario"
+        }
+    ],
+    "connections": {
+        "Telegram Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "É Áudio?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "É Áudio?": {
+            "main": [
+                [
+                    {
+                        "node": "Baixar Áudio do Telegram",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Juntar Caminhos",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Baixar Áudio do Telegram": {
+            "main": [
+                [
+                    {
+                        "node": "OpenAI Whisper (Transcrever)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "OpenAI Whisper (Transcrever)": {
+            "main": [
+                [
+                    {
+                        "node": "Juntar Caminhos",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Juntar Caminhos": {
+            "main": [
+                [
+                    {
+                        "node": "Extrator Inteligente (Gemini)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Google Gemini Model": {
+            "ai_language_model": [
+                [
+                    {
+                        "node": "Extrator Inteligente (Gemini)",
+                        "type": "ai_language_model",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Extrator Inteligente (Gemini)": {
+            "main": [
+                [
+                    {
+                        "node": "Parse JSON",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Parse JSON": {
+            "main": [
+                [
+                    {
+                        "node": "Split Itens (Loop)",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Responder Usuario",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Split Itens (Loop)": {
+            "main": [
+                [
+                    {
+                        "node": "Gravar no Sheets",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

@@ -1,0 +1,221 @@
+{
+    "name": "Assistente Financeiro - Gemini Power (Item por Item)",
+    "nodes": [
+        {
+            "parameters": {
+                "updates": [
+                    "message"
+                ],
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.telegramTrigger",
+            "typeVersion": 1.1,
+            "position": [
+                0,
+                0
+            ],
+            "id": "telegram-trigger",
+            "name": "Telegram Trigger"
+        },
+        {
+            "parameters": {
+                "options": {
+                    "systemMessage": "Você é um especialista em finanças pessoais e assistente contábil focado em micro-detalhes.\n\n### OBJETIVO CRÍTICO (NOTAS FISCAIS):\nAo receber uma imagem (Nota Fiscal/Recibo), você NUNCA deve registrar apenas o valor total.\nVocê deve ler o OCR, identificar CADA ITEM comprado individualmente e registrar UMA transação para cada item.\n\nExemplo: Se a nota tem \"Pão (R$ 5,00)\" e \"Leite (R$ 4,00)\", você deve executar a ação de registrar gasto DUAS VEZES:\n1. Descrição: \"Pão\", Valor: 5.00\n2. Descrição: \"Leite\", Valor: 4.00\n\nIsso é fundamental para que eu possa pedir relatórios do tipo \"Quanto gastei com Pão esse ano?\".\n\n### Outros Objetivos:\n1. Registrar entradas (Salários, Cachês) e saídas comuns.\n2. Manter registro de Dívidas.\n3. Fornecer relatórios financeiros quando solicitado.\n\n### Regras:\n- Categorize cada item individualmente (Ex: Pão = Alimentação).\n- Se a descrição do item na nota for confusa, melhore-a para ficar legível (Ex: \"TRIGO DONA BENTA\" -> \"Farinha de Trigo Dona Benta\")."
+                }
+            },
+            "type": "n8n-nodes-base.aiAgent",
+            "typeVersion": 1,
+            "position": [
+                220,
+                0
+            ],
+            "id": "ai-agent",
+            "name": "AI Financeiro"
+        },
+        {
+            "parameters": {
+                "modelName": "models/gemini-1.5-pro",
+                "options": {}
+            },
+            "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+            "typeVersion": 1,
+            "position": [
+                180,
+                280
+            ],
+            "id": "google-gemini-model",
+            "name": "Google Gemini Model"
+        },
+        {
+            "parameters": {
+                "name": "add_transaction",
+                "description": "Adiciona uma transação (gasto ou entrada) na planilha. DEVE SER CHAMADA MÚLTIPLAS VEZES, uma para cada item individual de uma nota fiscal.",
+                "toolDescription": "Adiciona uma transação financeira.",
+                "schema": "{\"type\":\"object\",\"properties\":{\"Descricao\":{\"type\":\"string\",\"description\":\"Nome específico do produto ou transação (Ex: 'Leite Integral', 'Gasolina Aditivada')\"},\"Valor\":{\"type\":\"number\",\"description\":\"Valor monetário exato do item\"},\"Tipo\":{\"type\":\"string\",\"enum\":[\"Entrada\",\"Saída\"],\"description\":\"Entrada ou Saída\"},\"Categoria\":{\"type\":\"string\",\"description\":\"Ex: Alimentação, Transporte, Lazer, Salário, Cachê\"},\"Origem\":{\"type\":\"string\",\"description\":\"Ex: Nubank, Carteira, Itaú\"},\"Meta_Associada\":{\"type\":\"string\",\"description\":\"Se relacionado a uma meta específica\"}},\"required\":[\"Descricao\",\"Valor\",\"Tipo\",\"Categoria\"]}"
+            },
+            "type": "@n8n/n8n-nodes-langchain.tool",
+            "typeVersion": 1,
+            "position": [
+                480,
+                280
+            ],
+            "id": "tool-add-transaction",
+            "name": "Add Transaction Tool"
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "value": "1IFFAt7QyeVLR2UPEWBhHHkk6ssEmc4jEOVxuvHKi2Gw",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Transações",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Descricao": "={{ $fromAI(\"Descricao\") }}",
+                        "Valor": "={{ $fromAI(\"Valor\") }}",
+                        "Tipo": "={{ $fromAI(\"Tipo\") }}",
+                        "Categoria": "={{ $fromAI(\"Categoria\") }}",
+                        "Origem": "={{ $fromAI(\"Origem\") }}",
+                        "Meta_Associada": "={{ $fromAI(\"Meta_Associada\") }}"
+                    }
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4,
+            "position": [
+                720,
+                280
+            ],
+            "id": "gs-add-transaction",
+            "name": "GSheets Add Transaction"
+        },
+        {
+            "parameters": {
+                "name": "add_debt",
+                "description": "Registra uma nova dívida ou compromisso financeiro a longo prazo.",
+                "toolDescription": "Registra uma nova dívida.",
+                "schema": "{\"type\":\"object\",\"properties\":{\"Nome_Divida\":{\"type\":\"string\"},\"Credor\":{\"type\":\"string\"},\"Valor_Original\":{\"type\":\"number\"},\"Saldo_Devedor_Atual\":{\"type\":\"number\"},\"Taxa_Juros_Mensal\":{\"type\":\"number\"},\"Data_Vencimento_Final\":{\"type\":\"string\"},\"Status\":{\"type\":\"string\"}},\"required\":[\"Nome_Divida\",\"Credor\",\"Valor_Original\"]}"
+            },
+            "type": "@n8n/n8n-nodes-langchain.tool",
+            "typeVersion": 1,
+            "position": [
+                480,
+                480
+            ],
+            "id": "tool-add-debt",
+            "name": "Add Debt Tool"
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "value": "1IFFAt7QyeVLR2UPEWBhHHkk6ssEmc4jEOVxuvHKi2Gw",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "Dívidas",
+                    "mode": "name"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Nome_Divida": "={{ $fromAI(\"Nome_Divida\") }}",
+                        "Credor": "={{ $fromAI(\"Credor\") }}",
+                        "Valor_Original": "={{ $fromAI(\"Valor_Original\") }}",
+                        "Saldo_Devedor_Atual": "={{ $fromAI(\"Saldo_Devedor_Atual\") }}",
+                        "Taxa_Juros_Mensal": "={{ $fromAI(\"Taxa_Juros_Mensal\") }}",
+                        "Data_Vencimento_Final": "={{ $fromAI(\"Data_Vencimento_Final\") }}",
+                        "Status": "={{ $fromAI(\"Status\") }}"
+                    }
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4,
+            "position": [
+                720,
+                480
+            ],
+            "id": "gs-add-debt",
+            "name": "GSheets Add Debt"
+        }
+    ],
+    "connections": {
+        "Telegram Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "AI Financeiro",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Google Gemini Model": {
+            "ai_language_model": [
+                [
+                    {
+                        "node": "AI Financeiro",
+                        "type": "ai_language_model",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Add Transaction Tool": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Financeiro",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "GSheets Add Transaction": {
+            "main": [
+                [
+                    {
+                        "node": "Add Transaction Tool",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Add Debt Tool": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "AI Financeiro",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "GSheets Add Debt": {
+            "main": [
+                [
+                    {
+                        "node": "Add Debt Tool",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Músico | Rafael Rodrigues da Silva</title>
+  <meta name="description" content="Composições, Duo com Cibele Martinez e discografia de Rafael Rodrigues da Silva." />
+</head>
+
+<body>
+  <!-- Header injected via layout.js -->
+
+  <div id="app">
+    <!-- Hero -->
+    <section class="hero"
+      style="position: relative; height: 60vh; min-height: 400px; display: flex; align-items: center; background-color: #0f172a; color: white;">
+      <div class="container"
+        style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 10;">
+        <div class="hero-content">
+          <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #f59e0b;">Músico & Compositor</h1>
+          <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
+            A música como extensão da linguagem e expressão da sensibilidade humana.
+          </p>
+        </div>
+        <div class="hero-image" style="display: flex; justify-content: flex-end;">
+          <img src="/assets/uploaded_image_0_1765859024622.jpg" alt="Rafael com Violão"
+            style="max-height: 50vh; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+        </div>
+      </div>
+    </section>
+
+    <!-- Sub-Navigation (Anchors) -->
+    <nav
+      style="background: white; border-bottom: 1px solid var(--color-border); position: sticky; top: 80px; z-index: 90;">
+      <div class="container">
+        <ul style="display: flex; gap: 2rem; list-style: none; padding: 1rem 0; overflow-x: auto;">
+          <li><a href="#compositor" style="font-weight: 500;">Compositor</a></li>
+          <li><a href="#duo" style="font-weight: 500;">Duo com Cibele Martinez</a></li>
+          <li><a href="#escutar" style="font-weight: 500;">Onde Escutar</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Section: Compositor -->
+    <section id="compositor" class="container" style="padding: 6rem 0;">
+      <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: var(--color-primary);">Compositor</h2>
+      <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div>
+          <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--color-text-muted);">
+            Minhas composições transitam entre o popular e o erudito, buscando harmonias que desafiam mas acolhem. O
+            processo criativo é, para mim, um ato de investigação constante.
+          </p>
+          <!-- Placeholder for sheet music or audio clip -->
+          <div style="background: #f1f5f9; padding: 2rem; border-radius: 8px;">
+            <p style="font-style: italic;">"A música começa onde a palavra termina."</p>
+          </div>
+        </div>
+        <!-- Relevant image or abstract visual could go here -->
+      </div>
+    </section>
+
+    <!-- Section: Duo -->
+    <section id="duo" style="background-color: #f8fafc; padding: 6rem 0;">
+      <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: var(--color-primary);">Duo com Cibele Martinez</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 800px;">
+          Uma parceria que celebra a música instrumental brasileira e internacional, com arranjos refinados e
+          interpretações emocionantes.
+        </p>
+        <!-- Gallery Placeholder -->
+        <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+          <div style="aspect-ratio: 16/9; background: #ddd; border-radius: 4px;"></div>
+          <div style="aspect-ratio: 16/9; background: #ddd; border-radius: 4px;"></div>
+          <div style="aspect-ratio: 16/9; background: #ddd; border-radius: 4px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Onde Escutar -->
+    <section id="escutar" class="container" style="padding: 6rem 0;">
+      <h2 style="font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">Onde Escutar</h2>
+      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+        <a href="#" class="btn btn-outline" style="min-width: 200px; text-align: center;">Spotify</a>
+        <a href="#" class="btn btn-outline" style="min-width: 200px; text-align: center;">Apple Music</a>
+        <a href="#" class="btn btn-outline" style="min-width: 200px; text-align: center;">YouTube</a>
+      </div>
+    </section>
+
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

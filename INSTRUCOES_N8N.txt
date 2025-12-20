@@ -1,0 +1,16 @@
+🤖 *Assistente Financeiro Atualizado*
+
+Fiz a alteração fundamental no **cérebro do agente**. Agora a regra principal dele é: **Micro-detalhes**.
+
+**O que mudou na nova versão:**
+1.  **Regra de Ouro:** "Ao receber uma imagem, NUNCA registre apenas o total. Identifique CADA ITEM e registre separadamente."
+2.  **Exemplo no Prompt:** Dei um exemplo explícito de que *Pão* e *Leite* devem virar duas linhas na planilha, e não uma linha de "Padaria".
+3.  **Refinamento de Descrição:** Pedi para ele limpar nomes feios de nota fiscal (ex: "TRIGO D. BENTA" vira "Farinha de Trigo Dona Benta").
+
+Salvei o novo arquivo como:
+`finance_workflow_gemini_detailed.json`
+
+**Para aplicar (já que não consigo clicar por você):**
+1.  No n8n, **Import from File...** -> selecione `finance_workflow_gemini_detailed.json`.
+2.  **Reconecte** o nó do `Telegram` (Bot), `Gemini` (API Key) e `Google Sheets` (Conta).
+3.  **Teste de Fogo:** Mande uma foto de nota fiscal e veja a mágica de ele preencher 10 linhas na planilha de uma vez! 🔥

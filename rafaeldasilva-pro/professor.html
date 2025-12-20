@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professor | Rafael Rodrigues da Silva</title>
+  <meta name="description" content="Ensino, Pesquisa e Extensão por Rafael Rodrigues da Silva." />
+</head>
+
+<body>
+  <!-- Header injected via layout.js -->
+
+  <div id="app">
+    <!-- Hero -->
+    <section class="hero"
+      style="position: relative; height: 60vh; min-height: 400px; display: flex; align-items: center; background-color: #f8fafc;">
+      <div class="container"
+        style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 10;">
+        <div class="hero-content">
+          <span
+            style="color: var(--color-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Acadêmico</span>
+          <h1 style="font-size: 3.5rem; margin: 0.5rem 0 1.5rem; color: var(--color-primary);">Ensino, Pesquisa &
+            Extensão.</h1>
+          <p style="font-size: 1.25rem; margin-bottom: 2rem; color: var(--color-text-muted);">
+            A universidade como espaço de transformação social e construção do saber.
+          </p>
+        </div>
+        <div class="hero-image" style="display: flex; justify-content: flex-end;">
+          <img src="/assets/uploaded_image_2_1765859024622.jpg" alt="Rafael em Sala de Aula"
+            style="max-height: 50vh; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+        </div>
+      </div>
+    </section>
+
+    <!-- Sub-Navigation (Anchors) -->
+    <nav
+      style="background: white; border-bottom: 1px solid var(--color-border); position: sticky; top: 80px; z-index: 90;">
+      <div class="container">
+        <ul style="display: flex; gap: 2rem; list-style: none; padding: 1rem 0;">
+          <li><a href="#ensino" style="font-weight: 500;">Ensino</a></li>
+          <li><a href="#pesquisa" style="font-weight: 500;">Pesquisa</a></li>
+          <li><a href="#extensao" style="font-weight: 500;">Extensão</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Section: Ensino -->
+    <section id="ensino" class="container" style="padding: 6rem 0;">
+      <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: var(--color-primary);">Ensino</h2>
+      <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--color-text-muted); max-width: 800px;">
+        Atuo na graduação e pós-graduação, ministrando disciplinas relacionadas à Gestão, Didática e Cognição. Minha
+        abordagem pedagógica prioriza o aluno ativo e o rigor conceitual.
+      </p>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+        <!-- Course Card 1 -->
+        <div style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px;">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">Gestão de Sala de Aula</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted);">Estratégias para um ambiente de aprendizado
+            eficaz.</p>
+        </div>
+        <!-- Course Card 2 -->
+        <div style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px;">
+          <h4 style="color: var(--color-primary); margin-bottom: 0.5rem;">Didática do Ensino Superior</h4>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted);">Metodologias ativas e avaliação.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Pesquisa -->
+    <section id="pesquisa" style="background-color: #f1f5f9; padding: 6rem 0;">
+      <div class="container">
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: var(--color-primary);">Pesquisa</h2>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 4rem;">
+          <div>
+            <h3 style="margin-bottom: 1rem;">Focos de Investigação</h3>
+            <ul style="list-style: disc; padding-left: 1.5rem; color: var(--color-text-main);">
+              <li style="margin-bottom: 0.5rem;">Ciências Cognitivas aplicadas à Educação</li>
+              <li style="margin-bottom: 0.5rem;">Impacto da instrução explícita na aprendizagem</li>
+              <li style="margin-bottom: 0.5rem;">Formação de professores baseada em evidências</li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin-bottom: 1rem;">Publicações Recentes</h3>
+            <p style="color: var(--color-text-muted);">Acesse meu currículo Lattes para a lista completa.</p>
+            <a href="#"
+              style="color: var(--color-accent); font-weight: 500; margin-top: 1rem; display: inline-block;">Ver Lattes
+              &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Extensão -->
+    <section id="extensao" class="container" style="padding: 6rem 0;">
+      <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: var(--color-primary);">Extensão</h2>
+      <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--color-text-muted);">
+        Projetos que levam o conhecimento da universidade para a comunidade.
+      </p>
+      <!-- Project list placeholder -->
+      <div style="background: white; border: 1px solid var(--color-border); border-radius: 8px; padding: 2rem;">
+        <h3>Projeto Educação em Pauta</h3>
+        <p>Série de workshops para professores da rede pública.</p>
+      </div>
+    </section>
+
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

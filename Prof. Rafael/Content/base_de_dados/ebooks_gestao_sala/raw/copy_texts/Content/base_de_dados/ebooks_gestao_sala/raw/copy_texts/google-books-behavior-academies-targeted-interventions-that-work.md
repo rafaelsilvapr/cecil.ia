@@ -1,0 +1,5 @@
+# Behavior Academies: Targeted Interventions That Work!
+
+Source: google_books_meta
+
+With student behavioral problems and teacher turnover at all-time highs, educators need behavioral interventions that work. With its practical behavior intervention method, this book replaces problematic behaviors with essential life skills for school and beyond. Educators can implement effective targeted interventions in twenty-five minutes or less using eight predefined behavior academies and a process to create their own. This book will help K-12 educators: Address their own beliefs about students' challenging behavior Learn the eight behavior academies and their corresponding life skills Identify the core components of an academy's initial, ongoing, and exit sessions Build their own behavior academy with a clearly outlined process Use behavior rehearsal cards for an academy's ongoing sessions Contents: Introduction Chapter 1: Behavior Mindset Chapter 2: Behavior Academy Chapter 3: Behavior Academy Structure Chapter 4: Behavior Academy Rehearsal Cards Chapter 5: Build Your Own Behavior Academy Chapter 6: Frequently Asked Questions and Additional Tools

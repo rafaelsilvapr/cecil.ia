@@ -1,0 +1,5 @@
+# Classroom Management: Effective Strategies
+
+Source: google_books_meta
+
+The process through which teachers ensure the smooth running of classroom lessons is known as classroom management. It includes the prevention of disruptive behavior which could potentially hamper the teaching process. Classroom management is an integral part of classroom education since it supports the efficient execution of curriculum development, helps in the development of best teaching practices, and putting them into action. Some of the approaches towards effective classroom management are assertive discipline, culturally responsive classroom management, constructivist discipline, and discipline without stress, punishments or rewards. There are various techniques, which are employed by teachers for the purpose of classroom management such as preventive techniques and rote discipline. This book unfolds the effective strategies of classroom management which will be crucial for the progress of this field in the future. It consists of contributions made by international experts. The book attempts to assist those with a goal of delving into this field.

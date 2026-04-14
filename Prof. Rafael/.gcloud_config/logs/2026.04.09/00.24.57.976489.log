@@ -1,0 +1,27 @@
+2026-04-09 00:24:58,089 DEBUG    root            Running [gcloud] with arguments: [-v: "None"]
+2026-04-09 00:24:58,821 DEBUG    root            Loaded Command Group: ['gcloud', 'version']
+2026-04-09 00:24:58,864 DEBUG    root            Running [gcloud.version] with arguments: []
+2026-04-09 00:24:59,306 DEBUG    root            Failed to check metadata server: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+2026-04-09 00:24:59,313 DEBUG    root            On GCE from server: False
+2026-04-09 00:24:59,519 DEBUG    root            Chosen display Format:flattened[no-pad,separator=" "]
+2026-04-09 00:24:59,914 INFO     root            Display format: "flattened[no-pad,separator=" "]"
+2026-04-09 00:25:00,857 INFO     ___FILE_ONLY___ Google Cloud SDK
+2026-04-09 00:25:01,308 INFO     ___FILE_ONLY___  
+2026-04-09 00:25:01,315 INFO     ___FILE_ONLY___ 564.0.0
+
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ bq
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___  
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ 2.1.31
+
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ core
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___  
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ 2026.04.03
+
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ gcloud-crc32c
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___  
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ 1.0.0
+
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ gsutil
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___  
+2026-04-09 00:25:01,316 INFO     ___FILE_ONLY___ 5.36
+

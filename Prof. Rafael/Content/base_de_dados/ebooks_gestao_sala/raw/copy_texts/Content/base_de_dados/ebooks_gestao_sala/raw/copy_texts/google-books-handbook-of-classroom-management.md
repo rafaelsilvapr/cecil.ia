@@ -1,0 +1,5 @@
+# Handbook of Classroom Management
+
+Source: google_books_meta
+
+The Handbook of Classroom Management, Third Edition, is an authoritative treatment of the latest science and development in the study of classroom management in schools. Evidence-based classroom management practices and programs are essential to enhancing students' academic, behavioral, social-emotional, and motivational outcomes across grade levels. This comprehensive volume collects scholarship and cutting-edge research for graduate students and faculty of psychology, teacher education, curriculum and instruction, special education, and beyond. The book has been thoroughly revised and expanded with updated coverage of foundational topics such as effective instruction, preventative strategies, positive behavior intervention and supports, family-school relationships, legal issues, and other related topics, while also giving new attention to social justice, students on the autism spectrum, and adaptations across urban, rural, and virtual contexts.

@@ -1,0 +1,123 @@
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_6.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_7.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_5.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_11.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_10.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_4.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_0.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_1.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_3.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_2.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_9.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/temp/output/frame_8.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/rafaeldasilva-pro/public/assets/uploaded_image_4_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/rafaeldasilva-pro/public/assets/uploaded_image_1_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/rafaeldasilva-pro/public/assets/uploaded_image_0_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/rafaeldasilva-pro/public/assets/uploaded_image_3_1765859024622.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/rafaeldasilva-pro/public/assets/uploaded_image_2_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_6.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_7.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_5.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_11.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_10.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_4.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_0.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_1.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_3.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_2.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_9.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/output/frame_8.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/rafaeldasilva-pro/dist/assets/uploaded_image_4_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/rafaeldasilva-pro/dist/assets/uploaded_image_1_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/rafaeldasilva-pro/dist/assets/uploaded_image_0_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/rafaeldasilva-pro/dist/assets/uploaded_image_3_1765859024622.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/rafaeldasilva-pro/dist/assets/uploaded_image_2_1765859024622.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/wedding_setup_ceremony.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/corporate_events_grid.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/reference_site_layout_1768094020374.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/corporate_events_detail.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/wedding_kiss_ceremony.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/administradores.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/educacao_ambiental_detail.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/drive_access_denied_1768094250422.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/entrance.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/pesca_real.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/educacao_ambiental_grid.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/lazer_pesca_grid.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/leisure.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/nature.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/real_entrance.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/rancho_hb_wedding_hall_1768094677030.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/uploaded_image_1_1768091273654.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/rancho_hb_leisure_pool_1768094703986.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/wedding.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/rancho_hb_entrance_1768094663309.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/rancho_hb_lake_nature_1768094689954.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/projetos/websites/hb_site/dist/assets/uploaded_image_1_1768092511696.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/Professor Rafael/scripts/sample_carousel/slide_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/Professor Rafael/scripts/sample_carousel/slide_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/Professor Rafael/scripts/sample_carousel/slide_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/Professor Rafael/scripts/assets/canvas_cta.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/Professor Rafael/scripts/assets/canvas_content.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output/tiktok_proposal_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output/proposal_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output/tiktok_proposal_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output/proposal_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output/proposal_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output/tiktok_proposal_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output_youtube/yt_motivational_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output_youtube/yt_motivational_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output_youtube/yt_motivational_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output_youtube/yt_proposal_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output_youtube/yt_proposal_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/scripts/output_youtube/yt_proposal_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/5_worship_music/03_dappytkeys_11.3M_be_still.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/5_worship_music/01_dappytkeys_50.8M_alone_with_god.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/5_worship_music/02_dappytkeys_13.5M_holy_spirit.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/4_biblical_stories/02_grace_digital_5.7M_three_heavens.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/4_biblical_stories/03_grace_digital_5.5M_archangel_michael.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/4_biblical_stories/01_grace_digital_8.0M_second_coming.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/6_anxiety_trust/03_above_inspiration_5.5M_give_it_to_god.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/6_anxiety_trust/01_above_inspiration_7.1M_let_go_trust.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/6_anxiety_trust/02_above_inspiration_5.6M_trust_gods_timing.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/2_sleep_night/03_grace_for_purpose_3.1M_late_night_prayers.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/2_sleep_night/01_grace_for_purpose_5.9M_night_prayer_sleep.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/2_sleep_night/02_grace_for_purpose_3.1M_play_every_night.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/3_motivational_speech/02_above_inspiration_9.9M_billy_graham.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/3_motivational_speech/03_above_inspiration_9.5M_inky_johnson.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/3_motivational_speech/01_above_inspiration_39.3M_denzel_washington.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/1_morning_prayer/03_grace_for_purpose_8.5M_best_morning_prayers.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/1_morning_prayer/01_above_inspiration_16.6M_morning_blessings.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/reference_thumbnails/1_morning_prayer/02_dailyeffectiveprayer_11.5M_morning_prayer.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Produção de conteúdo/silva.ia/Soul Anchored/assets/watermark.png
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output/tiktok_proposal_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output/proposal_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output/tiktok_proposal_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output/proposal_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output/proposal_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output/tiktok_proposal_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output_youtube/yt_motivational_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output_youtube/yt_motivational_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output_youtube/yt_motivational_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output_youtube/yt_proposal_1.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output_youtube/yt_proposal_3.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/scripts/output_youtube/yt_proposal_2.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/5_worship_music/03_dappytkeys_11.3M_be_still.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/5_worship_music/01_dappytkeys_50.8M_alone_with_god.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/5_worship_music/02_dappytkeys_13.5M_holy_spirit.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/4_biblical_stories/02_grace_digital_5.7M_three_heavens.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/4_biblical_stories/03_grace_digital_5.5M_archangel_michael.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/4_biblical_stories/01_grace_digital_8.0M_second_coming.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/6_anxiety_trust/03_above_inspiration_5.5M_give_it_to_god.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/6_anxiety_trust/01_above_inspiration_7.1M_let_go_trust.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/6_anxiety_trust/02_above_inspiration_5.6M_trust_gods_timing.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/2_sleep_night/03_grace_for_purpose_3.1M_late_night_prayers.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/2_sleep_night/01_grace_for_purpose_5.9M_night_prayer_sleep.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/2_sleep_night/02_grace_for_purpose_3.1M_play_every_night.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/3_motivational_speech/02_above_inspiration_9.9M_billy_graham.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/3_motivational_speech/03_above_inspiration_9.5M_inky_johnson.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/3_motivational_speech/01_above_inspiration_39.3M_denzel_washington.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/1_morning_prayer/03_grace_for_purpose_8.5M_best_morning_prayers.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/1_morning_prayer/01_above_inspiration_16.6M_morning_blessings.jpg
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/reference_thumbnails/1_morning_prayer/02_dailyeffectiveprayer_11.5M_morning_prayer.webp
+/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Silva.ia/Soul Anchored/assets/watermark.png

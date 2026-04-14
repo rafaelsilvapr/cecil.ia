@@ -1,0 +1,5 @@
+# La Disciplina Escolar: Propuesta de Trabajo en el Marco Global Del Ce
+
+Source: google_books_meta
+
+Este libro ofrece un enfoque practico que permite al lector comprender los patrones de conducta que se dan en la escuela, y utilizarlos para identificar ciertos componentes clave de la vida escolar con los que estan relacionados. Para todo ello, se basa principalmente en tres niveles: - el nivel de la escuela considerada globalmente, donde se incluyen aspectos como el ideario, el plan de estudios y la organizacion misma del centro; - el nivel del aula, en el cual se examinan el contexto de la clase, los roles de los alumnos y el papel del profesor como director del grupo; -el nivel individual, donde se tratan el contexto en el que se da una determinada conducta, el porque de la misma y aquellos datos sobre el entorno familiar que podemos considerar mas relevantes. El texto pretende asi facilitar a los profesores la comprension de los problemas de conducta y ayudarles a enfrentarse a ellos de la manera mas conveniente, ademas de definir cual es la relacion mas apropiada entre la actividad tutorial y la disciplina escolar a medio y largo plazo.

@@ -1,0 +1,5 @@
+# The School Climate Solution: Creating a Culture of Excellence from the Classroom to the Staff Room
+
+Source: google_books_meta
+
+Research shows that a socially-emotionally supportive setting is the solution to increasing student achievement. The School Climate Solution helps kids and adults master critical social-emotional skills, encourages student leadership, provides effective and compassionate behavior management strategies, and raises academic performance. With dozens of fun and easy-to-do activities and community meeting agendas, this book provides everything you need to create a positive learning environment in any classroom, school, or school community. Based on William Glasser's Choice Theory and steeped in social-emotional learning, the book shows educators how to engage the whole school community in identifying and celebrating its positive values. For use by principals, teachers, counselors, coaches, or any other school leaders looking to improve classroom climate, the strategies in this book have been tested in schools, and they work. Digital content includes customizable forms from the book.

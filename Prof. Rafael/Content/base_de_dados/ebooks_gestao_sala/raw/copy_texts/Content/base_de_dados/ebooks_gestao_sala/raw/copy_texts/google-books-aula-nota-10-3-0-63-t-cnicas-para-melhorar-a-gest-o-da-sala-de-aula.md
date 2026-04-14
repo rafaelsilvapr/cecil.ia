@@ -1,0 +1,5 @@
+# Aula Nota 10 3.0: 63 Técnicas para Melhorar a Gestão da Sala de Aula
+
+Source: google_books_meta
+
+Ensinar é um dos trabalhos mais importantes e, geralmente, um dos mais difíceis. Excelentes professores estão sempre se empenhando em aprender e melhorar suas aulas, e não importa o quão bons eles sejam, sempre há algo a ser aprimorado. Aula nota 10 3.0 é a edição revisada, ampliada e atualizada do estudo de Doug Lemov sobre a experiência de professores com alto desempenho nas escolas. Nela, o autor resgata seu repertório de técnicas que já inspira práticas didáticas de todo o mundo e propõe um novo olhar para as estratégias de ensino, mostrando não apenas o que fazer em sala de aula, mas também por que fazer. Esta edição inclui mais de dez novas técnicas para a gestão da sala de aula; demonstrações de atividades completas em vídeo; formas práticas de ensinar considerando a equidade e a justiça social; discussões aprofundadas sobre as técnicas e sua relação com a ciência cognitiva na aprendizagem.

@@ -1,0 +1,9 @@
+2026-04-09 00:17:06,821 DEBUG    root            Loaded Command Group: ['gcloud', 'components']
+2026-04-09 00:17:06,889 DEBUG    root            Loaded Command Group: ['gcloud', 'components', 'update_macos_python']
+2026-04-09 00:17:06,890 DEBUG    root            Running [gcloud.components.update-macos-python] with arguments: [-h: "None"]
+2026-04-09 00:17:06,915 INFO     ___FILE_ONLY___ Usage: gcloud components update-macos-python [optional flags]
+  optional flags may be  --help
+
+For detailed information on this command and its flags, run:
+  gcloud components update-macos-python --help
+

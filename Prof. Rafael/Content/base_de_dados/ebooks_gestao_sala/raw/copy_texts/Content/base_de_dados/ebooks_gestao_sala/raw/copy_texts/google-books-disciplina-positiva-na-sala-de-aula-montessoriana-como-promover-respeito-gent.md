@@ -1,0 +1,5 @@
+# Disciplina Positiva na sala de aula montessoriana: Como promover respeito, gentileza e responsabilidade em sala de aula
+
+Source: google_books_meta
+
+A Disciplina Positiva, desenvolvida por Jane Nelsen e baseada nos trabalhos dos psiquiatras Alfred Adler e Rudolf Dreikurs, é uma abordagem que promove respeito mútuo, gentileza e responsabilidade. É uma referência internacional para milhares de pais e professores! Os autores salientam que preparar um ambiente socioemocional é tão importante – e tão crucial para a normalização – como preparar um ambiente físico, e oferecem soluções práticas e conselhos valiosos para os professores criarem uma atmosfera de cooperação, contribuição e consciência social em sala de aula, para alunos de qualquer idade. Os professores aprenderão a: - Estabelecer e manter limites efetivos com as crianças. - Promover autorregulação e responsabilidade nas crianças. - Encorajar a comunicação aberta com os alunos. - Ajudar as crianças a alcançar o senso de pertencimento (aceitação) e importância.

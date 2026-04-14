@@ -1,0 +1,27 @@
+2026-04-09 00:17:19,684 DEBUG    root            Loaded Command Group: ['gcloud', 'components']
+2026-04-09 00:17:19,701 DEBUG    root            Loaded Command Group: ['gcloud', 'components', 'update_macos_python']
+2026-04-09 00:17:19,703 DEBUG    root            Running [gcloud.components.update-macos-python] with arguments: []
+2026-04-09 00:17:19,710 DEBUG    root            Loaded Command Group: ['gcloud']
+2026-04-09 00:17:19,729 DEBUG    root            Loaded Command Group: ['gcloud', 'config']
+2026-04-09 00:17:19,762 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv']
+2026-04-09 00:17:20,106 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv', 'create']
+2026-04-09 00:17:20,108 DEBUG    root            Running [gcloud.config.virtualenv.create] with arguments: [--python-to-use: "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"]
+2026-04-09 00:17:20,109 INFO     ___FILE_ONLY___ Creating virtualenv...
+
+2026-04-09 00:17:20,109 DEBUG    root            Executing command: ['/Library/Frameworks/Python.framework/Versions/3.13/bin/python3', '-m', 'venv', '/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/.gcloud_config/virtenv']
+2026-04-09 00:17:20,118 DEBUG    root            On GCE from disk cache: False
+2026-04-09 00:18:10,222 DEBUG    ___FILE_ONLY___ 
+2026-04-09 00:18:10,859 DEBUG    ___FILE_ONLY___ 
+2026-04-09 00:18:11,038 INFO     ___FILE_ONLY___ Installing modules...
+
+2026-04-09 00:18:11,088 DEBUG    root            Executing command: ['/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/.gcloud_config/virtenv/bin/pip3', 'install', '--log', '/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/.gcloud_config/virtenv/install_module.log', '--disable-pip-version-check', 'crcmod', 'grpcio', 'pyopenssl==24.2.1', 'google_crc32c', 'certifi', 'https://github.com/googleapis/enterprise-certificate-proxy/releases/download/v0.3.6/cryptography-42.0.7-cp39-abi3-macosx_10_12_universal2.whl', 'setuptools']
+2026-04-09 00:19:32,807 DEBUG    root            Chosen display Format:default
+2026-04-09 00:19:34,985 INFO     root            Display format: "default"
+2026-04-09 00:19:42,438 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv', 'enable']
+2026-04-09 00:19:43,020 DEBUG    root            Running [gcloud.config.virtualenv.enable] with arguments: []
+2026-04-09 00:19:43,724 INFO     ___FILE_ONLY___ Virtual env enabled.
+
+2026-04-09 00:19:43,751 DEBUG    root            Chosen display Format:default
+2026-04-09 00:19:43,806 INFO     root            Display format: "default"
+2026-04-09 00:19:44,323 DEBUG    root            Chosen display Format:default
+2026-04-09 00:19:44,528 INFO     root            Display format: "default"

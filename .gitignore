@@ -1,12 +1,8 @@
-venv/
-.env
-__pycache__/
-*.pyc
-.DS_Store
-token.json
-credentials.json
-jardim-das-silabas/node_modules/
-jardim-das-silabas/dist/
-CEO project/
-Silva-IA/
-Silva-IA/
+.venv/
+.adk_venv/
+google-cloud-sdk/
+tmp/
+output/
+node_modules/
+.claude/
+.gcloud_config/

@@ -19,10 +19,10 @@ Este documento substitui a leitura anterior baseada em notebooks mais difusos e 
 - Racional: e o bloco mais rapido de aplicar e o que mais gera sensacao imediata de ordem.
 
 ### 2. Prevenção e preparação
-- Quantidade estimada: 6 protocolos (Capítulo 2); margem 4–8 conforme fusões (o `GUIA_OFICIAL` lista 8 subcapítulos fechados para o Cap. 2).
+- Quantidade estimada: 6 protocolos (Capítulo 2); margem 4–8 conforme fusões (o `GUIA_OFICIAL` lista 8 temas-candidatos e o manuscrito fecha 6 protocolos finais).
 - Margem de erro: 4 a 8.
 - Funcao no livro: reduzir probabilidade de caos antes que ele apareca.
-- O que costuma entrar aqui: regras positivas, contrato social, withitness, overlapping, momentum, adequacao da demanda, wait-time e recepcao planejada.
+- O que costuma entrar aqui: regras positivas, contrato social, withitness, overlapping, momentum, adequacao da demanda, wait-time, perguntas estrategicas e recepcao planejada.
 - Racional: e o bloco que prepara a sala para que as respostas posteriores funcionem melhor.
 
 ### 3. Gestão do fluxo da aula

@@ -4,7 +4,7 @@
 Este arquivo organiza a base editorial dos **~40 protocolos** (subcapítulos) do ebook, agrupados nos **6 capítulos** temáticos. Nomenclatura: `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`.
 
 - Os protocolos nao aparecem numerados neste texto-base de trabalho.
-- Os **títulos finais de cada protocolo** serão escolhidos e fundidos a partir destes temas.
+- Os **temas abaixo são candidatos editoriais**; os **títulos finais de cada protocolo** serão escolhidos e fundidos a partir destes temas.
 - O livro deve abrir com controlos visiveis de rotina e ambiente.
 - O bloco de correcao e desescalada deve receber o maior peso narrativo.
 - Familia, equipe e apoio externo ficam no final.
@@ -14,7 +14,7 @@ Este arquivo organiza a base editorial dos **~40 protocolos** (subcapítulos) do
 - "Registrar no livro" e o gatilho que transforma a reflexao em escrita final.
 
 ## Modo de trabalho do projeto
-Enquanto um **protocolo** (ou um capítulo em discussão) estiver em maturação:
+Enquanto um **tema-candidato** ou um **protocolo** estiver em maturação:
 
 - primeiro vem a troca de ideias;
 - depois vem a sintese das opcoes possiveis;
@@ -216,7 +216,7 @@ Este bloco cria a base preventiva para que a indisciplina apareca menos e com me
 - Quebra-gelo e construcao de pertencimento - entrar na aula como comunidade, nao como um bloco frio.
 
 ### Estrutura de trabalho do Capítulo 2 (Prevenção e preparação)
-O Capítulo 2 deve condensar estes 8 candidatos-tema antes da fusao final em **6 a 8 protocolos** (o `GUIA_OFICIAL` fixa **8** subcapítulos nomeados; o planejamento numérico permite 6 com margem).
+O Capítulo 2 deve condensar estes 8 candidatos-tema antes da fusao final em **6 protocolos finais** no manuscrito (o `GUIA_OFICIAL` fixa **8 temas-candidatos** no mapa editorial e o manuscrito fecha 6 protocolos).
 
 1. Regras positivas
    - Poucas regras, claras, afirmativas e faceis de lembrar.
@@ -244,7 +244,7 @@ O Capítulo 2 deve condensar estes 8 candidatos-tema antes da fusao final em **6
    - A funcao aqui e prevenir tedio, frustracao e rejeicao.
 
 ### Recomendacao editorial para o Capítulo 2
-Se a fusao final seguir a logica mais forte de prevençao, os 8 candidatos acima podem virar 6 subcapitulos assim:
+Se a fusao final seguir a logica mais forte de prevençao, os 8 candidatos acima podem virar 6 subcapitulos finais assim:
 
 - Regras positivas + contrato social
 - Primeiras duas semanas / boot camp preventivo
@@ -254,7 +254,7 @@ Se a fusao final seguir a logica mais forte de prevençao, os 8 candidatos acima
 - Demanda academica + pertencimento/clima
 
 ### Nota de continuidade
-Os **protocolos** de numeracao **03 a 40** no manuscrito (isto e, todo o conteudo apos os dois primeiros protocolos) serao escritos a partir deste mapa e do `GUIA_OFICIAL`. Evite confundir com "Capítulo 3 a 6 do livro".
+Os **protocolos** de numeracao **03 a 40** no manuscrito (isto e, todo o conteudo apos os dois primeiros protocolos) serao escritos a partir deste mapa e do `GUIA_OFICIAL`. Evite confundir com "Capítulo 3 a 6 do livro". No Capítulo 2, os 8 temas-candidatos do guia e do mapa editorial se condensam em 6 protocolos finais no manuscrito.
 Nesta versao de trabalho, o material antigo foi removido para evitar conflito com a arquitetura nova.
 
 ## Macro bloco 3 - Gestao do fluxo da aula

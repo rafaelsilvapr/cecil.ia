@@ -53,7 +53,7 @@ Estes documentos definem **o quê**, **por quê** e **como** a marca opera.
 
 - **[GUIA_OFICIAL_40_PROTOCOLOS.md](GUIA_OFICIAL_40_PROTOCOLOS.md)**
   - Codex estrutural do e-book "Gestão de Sala de Aula sem Caos"
-  - **6 capítulos** do livro; **~40 protocolos** (subcapítulos), até ~2 páginas cada; tabela de nomenclatura no ficheiro
+  - **6 capítulos** do livro; **~40 protocolos** (subcapítulos), até ~2 páginas cada; no Capítulo 2 o guia trabalha temas-candidatos e o manuscrito fecha 6 protocolos finais
   - Estrutura de cada protocolo: Seco → O que evitar → Caixa técnica → História pessoal → Impacto diário → Leitura adicional
   - Separação entre discussão e registro explícito
 

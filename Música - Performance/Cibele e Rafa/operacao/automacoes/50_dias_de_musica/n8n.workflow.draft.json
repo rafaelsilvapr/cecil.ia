@@ -1,0 +1,608 @@
+{
+  "name": "Cibele e Rafa - 50 Dias de Musica",
+  "active": false,
+  "settings": {
+    "timezone": "America/Sao_Paulo",
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodes": [
+    {
+      "id": "50dias-001",
+      "name": "Workflow Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1560,
+        -320
+      ],
+      "parameters": {
+        "color": 5,
+        "width": 740,
+        "height": 260,
+        "content": "# 50 Dias de Musica - End-to-End\nWorkflow unico no n8n.\n\nO fluxo:\n- le o catalogo\n- escolhe o dia da serie\n- baixa o video do Google Drive\n- monta as legendas de forma deterministica\n- chama os publicadores de cada plataforma\n- atualiza status e log\n\nAjustes manuais apos importar:\n- credenciais do Google Sheets\n- credenciais do Google Drive\n- endpoints e tokens dos publicadores HTTP\n- planilha e abas reais\n- validacao do formato de retorno de cada publisher"
+      }
+    },
+    {
+      "id": "50dias-002",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1380,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 9,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "50dias-003",
+      "name": "Read Catalogo Videos",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1120,
+        0
+      ],
+      "notes": "Ajuste documentId e sheetName para a sua planilha real. A serie usa as colunas drive_file_id, arquivo_nome, musica, compositor, interprete, origem_autoral, genero_musical, observacoes_editoriais, serie_50_dias, ordem_50_dias, status_publicacao.",
+      "notesInFlow": true,
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_SHEET_ID/edit",
+          "__regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultName": "catalogo_videos",
+          "cachedResultUrl": ""
+        },
+        "range": "A:Z",
+        "options": {
+          "valueRenderMode": "FORMATTED_VALUE"
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": "50dias-004",
+      "name": "Select Day Item And Build Captions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -840,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(item => item.json);\nconst state = $getWorkflowStaticData('global');\nconst currentDay = Number(state.serie50DiaAtual || 1);\n\nif (currentDay > 50) {\n  throw new Error('A serie 50 dias de musica ja terminou. Reinicie o contador manualmente no workflow static data.');\n}\n\nconst text = (value) => String(value ?? '').trim();\nconst isYes = (value) => ['sim', 'yes', 'true', '1'].includes(text(value).toLowerCase());\nconst asNumber = (value, fallback = 9999) => {\n  const num = Number(value);\n  return Number.isFinite(num) ? num : fallback;\n};\n\nconst candidates = rows\n  .filter((row) => isYes(row.serie_50_dias))\n  .filter((row) => text(row.status_publicacao).toLowerCase() === 'pronto')\n  .sort((a, b) => asNumber(a.ordem_50_dias) - asNumber(b.ordem_50_dias));\n\nif (!candidates.length) {\n  throw new Error('Nenhum item elegivel encontrado para a serie 50 dias de musica.');\n}\n\nconst selected = candidates.find((row) => asNumber(row.ordem_50_dias, 0) === currentDay);\nif (!selected) {\n  throw new Error(`Nao encontrei item elegivel para o dia ${currentDay}. Verifique as colunas serie_50_dias, ordem_50_dias e status_publicacao.`);\n}\n\nconst musica = text(selected.musica) || 'Musica a confirmar';\nconst compositor = text(selected.compositor) || 'a confirmar';\nconst interprete = text(selected.interprete) || 'a confirmar';\nconst genero = text(selected.genero_musical);\nconst origemAutoral = text(selected.origem_autoral).toLowerCase();\nconst header = compositor && compositor !== 'a confirmar'\n  ? `#${currentDay} ${musica} (${compositor})`\n  : `#${currentDay} ${musica}`;\n\nconst songLine = genero\n  ? `${musica} aparece hoje em clima de ${genero}, em um recorte curto para seguir a serie.`\n  : `${musica} aparece hoje em um recorte curto para seguir a serie.`;\n\nlet artistLine = '';\nif (origemAutoral === 'autor_proprio' && compositor !== 'a confirmar') {\n  artistLine = `${compositor} assina esta composicao, em mais um ponto do repertorio autoral do projeto.`;\n} else if (compositor !== 'a confirmar' && interprete !== 'a confirmar' && compositor !== interprete) {\n  artistLine = `${compositor} assina a canção, aqui lembrada na leitura ligada a ${interprete}.`;\n} else if (interprete !== 'a confirmar') {\n  artistLine = `${interprete} ajuda a manter essa musica viva na memoria de quem escuta.`;\n} else if (compositor !== 'a confirmar') {\n  artistLine = `${compositor} e o nome por tras da composicao de hoje.`;\n} else {\n  artistLine = 'Uma musica que segue encontrando escuta em diferentes leituras.';\n}\n\nconst ctaAudio = 'Ouça Samba da Gabriela nas plataformas de streaming e no YouTube.';\nconst ctas = {\n  tiktok: 'Siga para acompanhar os proximos dias da serie.',\n  instagram: 'Siga para acompanhar os proximos dias da serie.',\n  facebook: 'Acompanhe a pagina para seguir os proximos dias da serie.',\n  youtube: 'Inscreva-se no canal para acompanhar os proximos dias da serie.'\n};\n\nconst buildCaption = (platform) => [header, songLine, artistLine, ctaAudio, ctas[platform]].join('\\n');\n\nreturn [{\n  json: {\n    ...selected,\n    numero_do_dia: currentDay,\n    drive_file_id: text(selected.drive_file_id || selected.video_id),\n    header,\n    song_line: songLine,\n    artist_line: artistLine,\n    caption_tiktok: buildCaption('tiktok'),\n    caption_instagram: buildCaption('instagram'),\n    caption_facebook: buildCaption('facebook'),\n    caption_youtube: buildCaption('youtube')\n  }\n}];"
+      }
+    },
+    {
+      "id": "50dias-005",
+      "name": "Download Video From Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -560,
+        0
+      ],
+      "notes": "Esta node baixa o arquivo binario do Google Drive. Ajuste a credential e confirme se o campo de saida binaria sera `data`.",
+      "notesInFlow": true,
+      "parameters": {
+        "resource": "file",
+        "operation": "download",
+        "fileId": "={{ $json.drive_file_id }}",
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": "50dias-006",
+      "name": "Publish TikTok",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -280,
+        -180
+      ],
+      "notes": "Placeholder para o publicador real de TikTok. Se voce usar Blotato ou outro gateway, substitua a URL e a autenticacao. Idealmente envie o binario `data` e `caption_tiktok`.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://REPLACE_WITH_TIKTOK_PUBLISHER_ENDPOINT",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_TIKTOK_PUBLISHER_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formData",
+              "name": "caption",
+              "value": "={{ $('Select Day Item And Build Captions').first().json.caption_tiktok }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "50dias-007",
+      "name": "Capture TikTok Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -180
+      ],
+      "parameters": {
+        "jsCode": "const original = $('Select Day Item And Build Captions').first().json;\nconst response = $input.first().json || {};\nreturn [{\n  json: {\n    ...original,\n    tiktok_status: response.statusCode && response.statusCode >= 200 && response.statusCode < 300 ? 'postado' : 'erro_tiktok',\n    tiktok_response: response\n  },\n  binary: $input.first().binary\n}];"
+      }
+    },
+    {
+      "id": "50dias-008",
+      "name": "Publish Instagram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        -180
+      ],
+      "notes": "Placeholder para o publicador real de Instagram. Pode ser gateway externo, API de Instagram ou outro mecanismo aprovado por voce.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://REPLACE_WITH_INSTAGRAM_PUBLISHER_ENDPOINT",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_INSTAGRAM_PUBLISHER_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formData",
+              "name": "caption",
+              "value": "={{ $('Capture TikTok Status').first().json.caption_instagram }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "50dias-009",
+      "name": "Capture Instagram Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -180
+      ],
+      "parameters": {
+        "jsCode": "const previous = $('Capture TikTok Status').first().json;\nconst response = $input.first().json || {};\nreturn [{\n  json: {\n    ...previous,\n    instagram_status: response.statusCode && response.statusCode >= 200 && response.statusCode < 300 ? 'postado' : 'erro_instagram',\n    instagram_response: response\n  },\n  binary: $input.first().binary\n}];"
+      }
+    },
+    {
+      "id": "50dias-010",
+      "name": "Publish Facebook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        -180
+      ],
+      "notes": "Placeholder para o publicador real de Facebook. Pode usar Facebook Graph API ou gateway externo. Ajuste URL, token e campos do multipart.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://REPLACE_WITH_FACEBOOK_PUBLISHER_ENDPOINT",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_FACEBOOK_PUBLISHER_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formData",
+              "name": "caption",
+              "value": "={{ $('Capture Instagram Status').first().json.caption_facebook }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "50dias-011",
+      "name": "Capture Facebook Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        -180
+      ],
+      "parameters": {
+        "jsCode": "const previous = $('Capture Instagram Status').first().json;\nconst response = $input.first().json || {};\nreturn [{\n  json: {\n    ...previous,\n    facebook_status: response.statusCode && response.statusCode >= 200 && response.statusCode < 300 ? 'postado' : 'erro_facebook',\n    facebook_response: response\n  },\n  binary: $input.first().binary\n}];"
+      }
+    },
+    {
+      "id": "50dias-012",
+      "name": "Publish YouTube",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1400,
+        -180
+      ],
+      "notes": "Placeholder para o publicador real de YouTube. Se preferir, troque esta node pelo node oficial do YouTube com operacao de upload.",
+      "notesInFlow": true,
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://REPLACE_WITH_YOUTUBE_PUBLISHER_ENDPOINT",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_YOUTUBE_PUBLISHER_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formData",
+              "name": "caption",
+              "value": "={{ $('Capture Facebook Status').first().json.caption_youtube }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "50dias-013",
+      "name": "Finalize Publish Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const previous = $('Capture Facebook Status').first().json;\nconst response = $input.first().json || {};\nconst youtube_status = response.statusCode && response.statusCode >= 200 && response.statusCode < 300 ? 'postado' : 'erro_youtube';\nconst statuses = [previous.tiktok_status, previous.instagram_status, previous.facebook_status, youtube_status];\nconst allOk = statuses.every((status) => status === 'postado');\nconst anyOk = statuses.some((status) => status === 'postado');\nconst state = $getWorkflowStaticData('global');\nconst currentDay = Number(state.serie50DiaAtual || 1);\n\nif (allOk) {\n  state.serie50DiaAtual = currentDay + 1;\n  state.serie50UltimoPublicado = previous.drive_file_id || '';\n  state.serie50UltimaExecucao = new Date().toISOString();\n}\n\nreturn [{\n  json: {\n    ...previous,\n    youtube_status,\n    youtube_response: response,\n    publish_success: allOk,\n    final_status: allOk ? 'postado' : (anyOk ? 'pendente_canal' : 'erro'),\n    numero_publicado_50_dias: allOk ? currentDay : null,\n    data_publicacao_50_dias: allOk ? new Date().toISOString() : null,\n    proximo_dia: allOk ? currentDay + 1 : currentDay\n  }\n}];"
+      }
+    },
+    {
+      "id": "50dias-014",
+      "name": "Update Catalogo Video",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [
+        1960,
+        -120
+      ],
+      "notes": "Atualiza a linha do catalogo com o status final da serie.",
+      "notesInFlow": true,
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_SHEET_ID/edit",
+          "__regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultName": "catalogo_videos",
+          "cachedResultUrl": ""
+        },
+        "columnToMatchOn": "drive_file_id",
+        "valueToMatchOn": "={{ $json.drive_file_id }}",
+        "fieldsUi": {
+          "values": [
+            {
+              "column": "numero_publicado_50_dias",
+              "fieldValue": "={{ $json.numero_publicado_50_dias }}"
+            },
+            {
+              "column": "data_publicacao_50_dias",
+              "fieldValue": "={{ $json.data_publicacao_50_dias }}"
+            },
+            {
+              "column": "status_publicacao",
+              "fieldValue": "={{ $json.final_status }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": ""
+        }
+      }
+    },
+    {
+      "id": "50dias-015",
+      "name": "Append Publicacoes Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1960,
+        120
+      ],
+      "notes": "Grava uma linha de log por execucao.",
+      "notesInFlow": true,
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REPLACE_WITH_SHEET_ID/edit",
+          "__regex": "https:\\/\\/(?:drive|docs)\\.google\\.com(?:\\/.*|)\\/d\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gid=0",
+          "cachedResultName": "publicacoes_log",
+          "cachedResultUrl": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {
+            "data": "={{ $now.toISO() }}",
+            "numero_do_dia": "={{ $json.numero_do_dia }}",
+            "video_id": "={{ $json.drive_file_id }}",
+            "musica": "={{ $json.musica }}",
+            "caption_tiktok": "={{ $json.caption_tiktok }}",
+            "caption_instagram": "={{ $json.caption_instagram }}",
+            "caption_facebook": "={{ $json.caption_facebook }}",
+            "caption_youtube": "={{ $json.caption_youtube }}",
+            "tiktok_status": "={{ $json.tiktok_status }}",
+            "instagram_status": "={{ $json.instagram_status }}",
+            "facebook_status": "={{ $json.facebook_status }}",
+            "youtube_status": "={{ $json.youtube_status }}",
+            "final_status": "={{ $json.final_status }}"
+          }
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "",
+          "name": ""
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Catalogo Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Catalogo Videos": {
+      "main": [
+        [
+          {
+            "node": "Select Day Item And Build Captions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Day Item And Build Captions": {
+      "main": [
+        [
+          {
+            "node": "Download Video From Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video From Drive": {
+      "main": [
+        [
+          {
+            "node": "Publish TikTok",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish TikTok": {
+      "main": [
+        [
+          {
+            "node": "Capture TikTok Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture TikTok Status": {
+      "main": [
+        [
+          {
+            "node": "Publish Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Instagram": {
+      "main": [
+        [
+          {
+            "node": "Capture Instagram Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture Instagram Status": {
+      "main": [
+        [
+          {
+            "node": "Publish Facebook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Facebook": {
+      "main": [
+        [
+          {
+            "node": "Capture Facebook Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Capture Facebook Status": {
+      "main": [
+        [
+          {
+            "node": "Publish YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish YouTube": {
+      "main": [
+        [
+          {
+            "node": "Finalize Publish Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalize Publish Status": {
+      "main": [
+        [
+          {
+            "node": "Update Catalogo Video",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Append Publicacoes Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}

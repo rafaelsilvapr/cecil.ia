@@ -2,7 +2,7 @@
 
 ## Estrutura do ebook (referência única)
 
-O manuscrito do ebook **Gestão de sala de aula sem caos** organiza o conteúdo em **6 capítulos** do livro e **~40 protocolos** (subcapítulos). Nomenclatura e regras de redação: `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`. Rascunhos por protocolo: `Content/base_de_dados/ebooks_gestao_sala/manuscrito/`.
+O manuscrito do ebook **Gestão de sala de aula sem caos** organiza o conteúdo em **6 capítulos** do livro e **~40 protocolos** (subcapítulos). No Capítulo 2, o guia e o mapa editorial podem listar **8 temas-candidatos**, mas o manuscrito trabalha com **6 protocolos finais**. Nomenclatura e regras de redação: `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`. Rascunhos por protocolo: `Content/base_de_dados/ebooks_gestao_sala/manuscrito/`.
 
 ## Status
 Base ampliada em 2026-04-08 com 94 ofertas catalogadas.

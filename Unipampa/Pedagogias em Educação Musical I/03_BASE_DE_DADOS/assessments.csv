@@ -1,0 +1,5 @@
+assessment_id,nome,tipo,peso,max_score,ano_periodo,descricao
+prova_1,Prova 1,prova,3,10,2026/1,Primeira prova com consulta
+prova_2,Prova 2,prova,3,10,2026/1,Segunda prova com consulta
+memorias,Memorias,continuada,2,10,2026/1,Registros e tarefas do projeto de extensao
+trabalho,Trabalho,pratico,2,10,2026/1,Planejamento e execucao da atividade final

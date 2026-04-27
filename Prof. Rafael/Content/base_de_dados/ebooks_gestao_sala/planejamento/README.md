@@ -17,6 +17,7 @@ Este diretorio guarda a camada de decisao de titulo e o sistema de escrita para 
 ## Nova hierarquia do ebook de protocolos
 - **Livro em 6 capítulos** (macro blocos). Ver nomenclatura canónica em `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`.
 - O corpo do livro é feito de **~40 protocolos** (subcapítulos), cada um com até ~2 páginas, condensados da literatura de gestão de sala.
+- No Capítulo 2, o planejamento pode listar **8 temas-candidatos**, mas o manuscrito fecha **6 protocolos finais** (09–14). Não misturar a camada de análise com a camada de escrita final.
 - A leitura segue **seis capítulos** nesta ordem: organização do ambiente e rotina → prevenção e preparação → gestão do fluxo da aula → correção e desescalada → relação e clima → família/equipe/apoio externo.
 - A distribuição sugerida de **protocolos por capítulo** é: **8, 6, 7, 12, 4 e 3** (total 40), com margens de ajuste descritas no guia e no mapa editorial.
 - O bloco de familia/equipe deve ficar no final.

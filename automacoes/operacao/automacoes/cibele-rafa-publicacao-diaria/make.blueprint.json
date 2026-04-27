@@ -1,0 +1,375 @@
+{
+  "name": "Cibele e Rafa - Publicacao Diaria",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-sheets:searchRows",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "sheetName": "cycle_state",
+        "tableContainsHeaders": true,
+        "query": "select * where state_id = 'cycle_state' limit 1",
+        "limit": 1
+      },
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "google-sheets:searchRows",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "sheetName": "catalogo_videos",
+        "tableContainsHeaders": true,
+        "query": "select * where status = 'pronto' order by arquivo_nome asc limit 500",
+        "limit": 500
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "code:runCode",
+      "version": 1,
+      "mapper": {
+        "language": "javascript",
+        "inputFormat": "codeEditor",
+        "code": "const rows = Array.isArray(input.eligible_rows) ? input.eligible_rows : []; const stateRows = Array.isArray(input.cycle_state) ? input.cycle_state : (input.cycle_state ? [input.cycle_state] : []); const state = stateRows[0] || {}; const keyOf = (row) => row.video_id || row.id || row['0'] || ''; const copy = (value) => JSON.parse(JSON.stringify(value || {})); const pool = rows.map((row) => copy(row)); if (!pool.length) throw new Error('No eligible rows found in catalogo_videos.'); let order = []; if (state.cycle_order_json) { try { order = JSON.parse(state.cycle_order_json); } catch (e) { order = []; } } if (!Array.isArray(order) || !order.length) { order = pool.map(keyOf).sort(() => Math.random() - 0.5); } let position = Number(state.cycle_position || 0); if (position >= order.length) { order = pool.map(keyOf).sort(() => Math.random() - 0.5); position = 0; } let selectedId = order[position]; let selectedRow = pool.find((row) => keyOf(row) === selectedId); if (!selectedRow) { selectedRow = pool[0]; selectedId = keyOf(selectedRow); position = 0; } const origemAutoral = String(selectedRow.origem_autoral || '').trim() || ((String(selectedRow.compositor || '').includes('Rafael da Silva') || String(selectedRow.arquivo_nome || '').includes('Rafael da Silva')) ? 'autor_proprio' : 'equilibrado'); selectedRow.origem_autoral = origemAutoral; const cycleId = state.cycle_id || ('cycle_' + Date.now()); return { selected_row: selectedRow, cycle_state: { state_id: state.state_id || 'cycle_state', cycle_id: cycleId, cycle_order_json: JSON.stringify(order), cycle_position: position + 1, last_video_id: keyOf(selectedRow), updated_at: new Date().toISOString() } };",
+        "input": {
+          "eligible_rows": "{{2}}",
+          "cycle_state": "{{1}}"
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "google-sheets:updateRow",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "sheetName": "cycle_state",
+        "tableContainsHeaders": true,
+        "rowNumber": "{{1.rowNumber}}",
+        "state_id": "{{3.cycle_state.state_id}}",
+        "cycle_id": "{{3.cycle_state.cycle_id}}",
+        "cycle_order_json": "{{3.cycle_state.cycle_order_json}}",
+        "cycle_position": "{{3.cycle_state.cycle_position}}",
+        "last_video_id": "{{3.cycle_state.last_video_id}}",
+        "updated_at": "{{3.cycle_state.updated_at}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 5,
+      "module": "google-sheets:updateRow",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "sheetName": "catalogo_videos",
+        "tableContainsHeaders": true,
+        "rowNumber": "{{3.selected_row.rowNumber}}",
+        "video_id": "{{3.selected_row.video_id}}",
+        "arquivo_nome": "{{3.selected_row.arquivo_nome}}",
+        "musica": "{{3.selected_row.musica}}",
+        "compositor": "{{3.selected_row.compositor}}",
+        "interprete": "{{3.selected_row.interprete}}",
+        "origem_autoral": "{{3.selected_row.origem_autoral}}",
+        "genero_musical": "{{3.selected_row.genero_musical}}",
+        "contexto_gravacao": "{{3.selected_row.contexto_gravacao}}",
+        "status": "publishing",
+        "observacoes_editoriais": "{{3.selected_row.observacoes_editoriais}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 6,
+      "module": "google-drive:getAFile",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136148
+      },
+      "mapper": {
+        "select": "map",
+        "file": "{{3.selected_row.video_id}}",
+        "formatDrawings": "image/jpeg",
+        "formatDocuments": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "formatSpreadsheets": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "formatPresentations": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 7,
+      "module": "openai-gpt-3:CreateCompletion",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 107818
+      },
+      "mapper": {
+        "select": "chat",
+        "max_tokens": "1200",
+        "temperature": "0.7",
+        "top_p": "1",
+        "n_completions": "1",
+        "response_format": "json_object",
+        "parseJSONResponse": true,
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "assistant",
+            "content": "Voce e um agente editorial do projeto Cibele e Rafael. Gere apenas um JSON valido, sem texto extra, com as chaves caption_tiktok, hashtags_tiktok, caption_instagram, hashtags_instagram, caption_facebook, hashtags_facebook, caption_youtube, hashtags_youtube, show_mentioned e cta_type. Escreva sempre Cibele, nunca Cybele. Nunca cite Spotify. Independente de a musica ser autoral ou nao, inclua um convite natural para as pessoas buscarem \"Samba da Gabriela\" e outras composicoes de Rafael da Silva nas plataformas de streaming de audio e no YouTube. Use uma formulacao comum e natural nas redes, como buscar, procurar ou encontrar, sem soar robotico. Se a obra tiver origem_autoral = autor_proprio, mencione com leveza que e composicao de Rafael da Silva. Se observacoes_editoriais contiver SERVICO:, inclua um bloco curto com o que, quando e onde. Adapte o tom para cada plataforma. TikTok: curto e direto. Instagram: caloroso e musical. Facebook: claro e humano. YouTube: inclua #shorts. As captions devem ficar prontas para publicar e podem conter hashtags no final. As hashtags tambem devem ser retornadas em lista, com as tags ja iniciando com #."
+          },
+          {
+            "role": "user",
+            "content": "Dados do video: musica={{3.selected_row.musica}}; compositor={{3.selected_row.compositor}}; interprete={{3.selected_row.interprete}}; origem_autoral={{3.selected_row.origem_autoral}}; genero_musical={{3.selected_row.genero_musical}}; contexto_gravacao={{3.selected_row.contexto_gravacao}}; observacoes_editoriais={{3.selected_row.observacoes_editoriais}}. Retorne um JSON com captions e hashtags por plataforma."
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1800,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:openai-gpt-3",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "restore": {
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "openai-gpt-3"
+              },
+              "label": "OpenAI"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 11,
+      "module": "blotato:media",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7355631
+      },
+      "mapper": {
+        "url": "{{6.webContentLink}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 12,
+      "module": "blotato:Post",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7253891
+      },
+      "mapper": {
+        "platform": "tiktok",
+        "text": "{{7.result.caption_tiktok}}",
+        "mediaUrls": "{{11.url}}",
+        "useNextFreeSlot": false,
+        "tiktokAccountId": "38929",
+        "privacyLevel": "PUBLIC_TO_EVERYONE",
+        "isDraft": false,
+        "isAiGenerated": false,
+        "autoAddMusic": false,
+        "disabledComments": false,
+        "disabledDuet": false,
+        "disabledStitch": false,
+        "isBrandedContent": false,
+        "isYourBrand": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 2400,
+          "y": -150
+        }
+      }
+    },
+    {
+      "id": 13,
+      "module": "blotato:Post",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7355631
+      },
+      "mapper": {
+        "platform": "instagram",
+        "text": "{{7.result.caption_instagram}}",
+        "mediaUrls": "{{11.url}}",
+        "useNextFreeSlot": false,
+        "instagramAccountId": "31043",
+        "instagramMediaType": "reel"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2400,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 14,
+      "module": "facebook-pages:uploadAReel",
+      "version": 6,
+      "parameters": {
+        "__IMTCONN__": 7577193
+      },
+      "mapper": {
+        "data": "{{6.data}}",
+        "title": "{{3.selected_row.arquivo_nome}}",
+        "page_id": "899535463253558",
+        "fileName": "{{6.name}}",
+        "description": "{{7.result.caption_facebook}}",
+        "uploadMethod": "data"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2400,
+          "y": 150
+        }
+      }
+    },
+    {
+      "id": 15,
+      "module": "youtube:uploadVideo",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7355787
+      },
+      "mapper": {
+        "data": "{{6.data}}",
+        "title": "{{3.selected_row.arquivo_nome}}",
+        "license": "youtube",
+        "fileName": "{{6.name}}",
+        "categoryId": "27",
+        "description": "{{7.result.caption_youtube}}",
+        "privacyStatus": "public",
+        "containsSyntheticMedia": false,
+        "selfDeclaredMadeForKids": false,
+        "notifySubscribers": true
+      },
+      "metadata": {
+        "designer": {
+          "x": 2400,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 16,
+      "module": "google-sheets:updateRow",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "sheetName": "catalogo_videos",
+        "tableContainsHeaders": true,
+        "rowNumber": "{{3.selected_row.rowNumber}}",
+        "video_id": "{{3.selected_row.video_id}}",
+        "arquivo_nome": "{{3.selected_row.arquivo_nome}}",
+        "musica": "{{3.selected_row.musica}}",
+        "compositor": "{{3.selected_row.compositor}}",
+        "interprete": "{{3.selected_row.interprete}}",
+        "origem_autoral": "{{3.selected_row.origem_autoral}}",
+        "genero_musical": "{{3.selected_row.genero_musical}}",
+        "contexto_gravacao": "{{3.selected_row.contexto_gravacao}}",
+        "status": "published",
+        "observacoes_editoriais": "{{3.selected_row.observacoes_editoriais}} | publicado em {{now}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2700,
+          "y": 150
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "us2.make.com",
+    "notes": [
+      "Google Sheets connection placeholder uses __IMTCONN__ = 7136195 and must be remapped after import if needed.",
+      "This export-style blueprint keeps the existing publication branch intact and is now import-shaped instead of spec-shaped.",
+      "The agenda service block is prepared through caption rules and can be wired later with a dedicated calendar step."
+    ]
+  }
+}

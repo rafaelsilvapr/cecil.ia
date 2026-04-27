@@ -8,16 +8,24 @@ from pathlib import Path
 
 
 SRC = Path(
-    "/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/Produtos/ebook - Sala de aula sob controle.docx"
+    "/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/Produtos/ebook - Gestao de sala de aula sem caos.docx"
 )
 
-NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+NS = {
+    "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "cp": "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+    "dc": "http://purl.org/dc/elements/1.1/",
+}
 W = "{%s}" % NS["w"]
 
-OLD_TOC = "Capítulo 1 - Quando a aula começa e a turma já está fora do eixo"
-NEW_TOC = "Capítulo 1 - Deslocamentos e chegada à sala"
-OLD_HEADING = "Capítulo 1 - Quando a aula começa e a turma já está fora do eixo"
-NEXT_HEADING = "Capítulo 2 - Prevenção e preparação"
+CANONICAL_TITLE = "Gestão de sala de aula sem caos: 40 protocolos práticos para reduzir a indisciplina no dia a dia"
+TITLE_REPLACEMENTS = {
+    "Sala de aula sob controle": "Gestão de sala de aula sem caos",
+    "Título: Sala de aula sob controle: manual para aulas de 45 minutos com alta aprendizagem e menos estresse.": "Título: Gestão de sala de aula sem caos: 40 protocolos práticos para reduzir a indisciplina no dia a dia.",
+    "Título: Gestão de sala de aula sem caos: manual para aulas de 45 minutos com alta aprendizagem e menos estresse.": "Título: Gestão de sala de aula sem caos: 40 protocolos práticos para reduzir a indisciplina no dia a dia.",
+    "Distribuição oficial dos 40 capítulos": "Distribuição oficial dos ~40 protocolos",
+    "Nota editorial: o sumário acima já reflete a arquitetura oficial de 40 capítulos. O corpo abaixo ainda preserva um rascunho de trabalho anterior e será reestruturado ao longo da consolidação do livro.": "Nota editorial: o sumário acima já reflete a arquitetura oficial de 6 capítulos e ~40 protocolos. O corpo abaixo ainda preserva um rascunho de trabalho anterior e será reestruturado ao longo da consolidação do livro.",
+}
 
 
 def make_p(text: str = "", style: str | None = None, bold: bool = False) -> ET.Element:
@@ -46,56 +54,71 @@ def para_text(el: ET.Element) -> str | None:
     return "".join(t.text or "" for t in el.findall(".//w:t", NS)).strip()
 
 
-def main() -> None:
-    chapter_nodes = [
-        make_p("Capítulo 1 - Deslocamentos e chegada à sala", style="Heading1", bold=True),
-        make_p("Texto de abertura do capítulo:", style="Heading2", bold=True),
-        make_p(
-            "Este capítulo organiza a entrada do professor na rotina da aula, do deslocamento ao fechamento, para que a sala comece e termine sob comando, com calma, previsibilidade e autoridade."
-        ),
-        make_p(
-            "A habilidade central aqui é transformar cada transição em rotina: chegar, ocupar o espaço, iniciar a aula, sustentar a ordem e encerrar sem caos."
-        ),
+def set_paragraph_text(p: ET.Element, text: str) -> None:
+    for child in list(p):
+        if child.tag != W + "pPr":
+            p.remove(child)
+    r = ET.SubElement(p, W + "r")
+    t = ET.SubElement(r, W + "t")
+    if text.startswith(" ") or text.endswith(" "):
+        t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
+    t.text = text
+
+
+def replace_text_in_paragraphs(root: ET.Element, replacements: dict[str, str]) -> None:
+    for p in root.findall(".//w:p", NS):
+        current = para_text(p)
+        if not current:
+            continue
+        new_text = current
+        for old, new in replacements.items():
+            if old in new_text:
+                new_text = new_text.replace(old, new)
+        if new_text != current:
+            set_paragraph_text(p, new_text)
+
+
+def find_child_index(children: list[ET.Element], needle: str) -> int:
+    for idx, el in enumerate(children):
+        txt = para_text(el)
+        if txt and needle in txt:
+            return idx
+    raise RuntimeError(f"Não encontrei o trecho '{needle}' no documento")
+
+
+def update_core_title(corexml: Path) -> None:
+    tree = ET.parse(corexml)
+    root = tree.getroot()
+    title = root.find("dc:title", NS)
+    if title is None:
+        title = ET.SubElement(root, "{%s}title" % NS["dc"])
+    title.text = CANONICAL_TITLE
+    tree.write(corexml, xml_declaration=True, encoding="utf-8")
+
+
+def chapter1_additions() -> list[ET.Element]:
+    return [
+        make_p("6. Protocolo do sinal mestre para silêncio", style="Heading2", bold=True),
+        make_p("Situação: a turma fala por cima da instrução e cada novo pedido de silêncio custa energia."),
+        make_p("Protocolo seco: usar um único sinal combinado para pausar a sala e retomar o foco sem repetir a ordem em voz alta."),
+        make_p("O que evitar: falar por cima do ruído, inventar sinais diferentes a cada dia ou transformar o pedido de silêncio em disputa de volume."),
+        make_p("Ideia central: o silêncio precisa virar comando visível, curto e previsível."),
         make_p(),
-        make_p("1. Protocolo de deslocamentos e chegada à sala", style="Heading2", bold=True),
-        make_p(
-            "Situação: a aula termina e a próxima começa sem uma passagem clara; o corredor, a fila ou a troca de sala viram parte do problema."
-        ),
-        make_p(
-            "Protocolo seco: definir um modo fixo de sair, entrar, tomar lugar e iniciar a tarefa, respeitando as regras gerais da escola e sem entrar na lógica de competir por simpatia."
-        ),
-        make_p(
-            "O que evitar: querer ser o herói da turma, negociar regras de corredor no improviso ou agir como se a regra institucional só valesse quando convém."
-        ),
-        make_p(
-            "Ideia central: se o professor discordar de uma regra, leva a proposta para a instância correta; o protocolo não é romper a escola, é fazer a rotina funcionar dentro dela."
-        ),
+        make_p("7. Protocolo de delegação de tarefas e ajudantes da classe", style="Heading2", bold=True),
+        make_p("Situação: o professor tenta fazer tudo sozinho e perde tempo em tarefas operacionais que poderiam ser distribuídas."),
+        make_p("Protocolo seco: repartir funções simples e claras para a turma, com ajudantes da classe e pequenas rotinas de apoio."),
+        make_p("O que evitar: transformar ajudantes em prêmio simbólico sem função real ou criar cargos que só geram disputa social."),
+        make_p("Ideia central: liderança forte também sabe canalizar responsabilidade para a turma."),
         make_p(),
-        make_p("2. Protocolo de cheque do estado mental", style="Heading2", bold=True),
-        make_p("Situação: o professor chega carregado, ansioso, irritado ou com medo e isso contamina a entrada."),
-        make_p("Protocolo seco: antes de entrar, respirar fundo, notar o próprio estado e assumir uma postura calma e assertiva."),
-        make_p("O que evitar: entrar acelerado, reagir no impulso ou deixar o próprio humor governar a sala."),
-        make_p("Ideia central: o estado emocional do líder influencia o clima da turma, então a entrada começa em quem conduz a aula."),
-        make_p(),
-        make_p("3. Protocolo “Turma é ninguém”", style="Heading2", bold=True),
-        make_p("Situação: a turma não responde, não silencia ou dispersa quando o professor fala com o grupo inteiro."),
-        make_p("Protocolo seco: parar de falar com “a turma” como bloco abstrato e dirigir instruções pessoa por pessoa, pelo nome."),
-        make_p("O que evitar: repetir “turma, turma, turma” esperando um coletivo que não age como unidade."),
-        make_p("Ideia central: em sala de aula, a autoridade acontece em relações pessoais, não em uma massa indistinta."),
-        make_p(),
-        make_p("4. Protocolo de rotinas para abertura e encerramento", style="Heading2", bold=True),
-        make_p("Situação: a aula começa solta, termina solta e o professor perde energia nos dois extremos."),
-        make_p("Protocolo seco: usar um ritual fixo de abertura, visualização do objetivo, acompanhamento do andamento e fechamento organizado."),
-        make_p("O que evitar: improvisar a abertura todos os dias ou encerrar a aula sem revisar o que foi feito."),
-        make_p("Ideia central: a aula precisa mostrar ao aluno onde está, para onde vai e quando termina."),
-        make_p(),
-        make_p("5. Protocolo do espaço físico e sua conquista", style="Heading2", bold=True),
-        make_p("Situação: a sala parece ter donos informais, cantos fixos e territórios invisíveis que limitam a circulação do professor."),
-        make_p("Protocolo seco: caminhar pela sala, reorganizar o espaço quando necessário e treinar os alunos para recolocar tudo no lugar sem bagunça."),
-        make_p("O que evitar: ficar preso ao quadro, pedir permissão ao espaço ou aceitar territórios intocáveis dentro da sala."),
-        make_p("Ideia central: a sala pertence ao trabalho pedagógico, não aos grupos que se formaram dentro dela."),
+        make_p("8. Protocolo de fechamento da aula: limpeza e saída organizada", style="Heading2", bold=True),
+        make_p("Situação: a aula termina em desordem, com material espalhado, barulho e saída sem comando."),
+        make_p("Protocolo seco: reservar um fechamento curto para limpeza, recolhimento, revisão final e saída sob orientação docente."),
+        make_p("O que evitar: deixar o fim da aula ao acaso ou aceitar que o encerramento seja o momento em que a turma devolve o caos para o corredor."),
+        make_p("Ideia central: uma boa aula termina com a mesma clareza com que começou."),
     ]
 
+
+def main() -> None:
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         with zipfile.ZipFile(SRC, "r") as zin:
@@ -108,31 +131,31 @@ def main() -> None:
         if body is None:
             raise RuntimeError("document.xml sem body")
 
+        replace_text_in_paragraphs(root, TITLE_REPLACEMENTS)
+
         children = list(body)
+        chapter1_idx = find_child_index(children, "Capítulo 1 - Deslocamentos e chegada à sala")
+        chapter2_idx = find_child_index(children, "Capítulo 2")
 
-        # Update the chapter title in the summary and elsewhere.
-        for p in body.findall(".//w:p", NS):
-            texts = p.findall(".//w:t", NS)
-            combined = "".join(t.text or "" for t in texts)
-            if "Quando a aula começa e a turma já está fora do eixo" in combined and texts:
-                texts[0].text = NEW_TOC
-                for extra in texts[1:]:
-                    extra.text = ""
+        existing_text = "\n".join(para_text(el) or "" for el in children[chapter1_idx:chapter2_idx])
+        if "6. Protocolo do sinal mestre para silêncio" not in existing_text:
+            insert_at = chapter2_idx
+            for node in chapter1_additions():
+                children.insert(insert_at, node)
+                insert_at += 1
 
-        # The body structure has been inspected already; these are the
-        # direct-child indices for the Chapter 1 block in this document.
-        start_idx = 69  # 0-based index for the Chapter 1 heading paragraph
-        end_idx = 97    # 0-based index for the Chapter 2 heading paragraph
-
-        new_children = list(children[:start_idx]) + chapter_nodes + list(children[end_idx:])
         sectPr = body.find("w:sectPr", NS)
         for child in list(body):
             body.remove(child)
-        for child in new_children:
+        for child in children:
             body.append(child)
         if sectPr is not None and sectPr not in body:
             body.append(sectPr)
         tree.write(docxml, xml_declaration=True, encoding="utf-8")
+
+        corexml = td_path / "docProps" / "core.xml"
+        if corexml.exists():
+            update_core_title(corexml)
 
         out = td_path / "updated.docx"
         with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zout:

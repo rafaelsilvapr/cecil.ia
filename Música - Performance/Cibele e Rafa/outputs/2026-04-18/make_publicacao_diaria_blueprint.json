@@ -1,0 +1,359 @@
+{
+  "name": "Cibele e Rafa - Publicacao Diaria",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-sheets:filterRows",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "from": "drive",
+        "limit": "1",
+        "filter": [
+          [
+            {
+              "a": "A",
+              "b": "cycle_state",
+              "o": "text:equal"
+            }
+          ]
+        ],
+        "orderBy": "A",
+        "sheetId": "estado_ciclo",
+        "fieldType": "string",
+        "sortOrder": "asc",
+        "spreadsheetId": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+        "tableFirstRow": "A1:F1",
+        "includesHeaders": true,
+        "valueRenderOption": "FORMATTED_VALUE",
+        "dateTimeRenderOption": "FORMATTED_STRING"
+      },
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "google-sheets:filterRows",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "from": "drive",
+        "limit": "500",
+        "filter": [
+          [
+            {
+              "a": "M",
+              "b": "raw",
+              "o": "text:equal"
+            }
+          ]
+        ],
+        "orderBy": "A",
+        "sheetId": "publicacao_diaria",
+        "fieldType": "string",
+        "sortOrder": "asc",
+        "spreadsheetId": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+        "tableFirstRow": "A1:U1",
+        "includesHeaders": true,
+        "valueRenderOption": "FORMATTED_VALUE",
+        "dateTimeRenderOption": "FORMATTED_STRING"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "code:runCode",
+      "version": 1,
+      "mapper": {
+        "language": "javascript",
+        "inputFormat": "codeEditor",
+        "code": "const rows = Array.isArray(input.eligible_rows) ? input.eligible_rows : []; const stateRows = Array.isArray(input.cycle_state) ? input.cycle_state : (input.cycle_state ? [input.cycle_state] : []); const state = stateRows[0] || {}; const keyOf = (row) => row.video_id || row.id || row['0'] || ''; const copy = (value) => JSON.parse(JSON.stringify(value || {})); const pool = rows.map((row) => copy(row)); if (!pool.length) throw new Error('No eligible rows found in publicacao_diaria.'); let order = []; if (state.cycle_order_json) { try { order = JSON.parse(state.cycle_order_json); } catch (e) { order = []; } } if (!Array.isArray(order) || !order.length) { order = pool.map(keyOf).sort(() => Math.random() - 0.5); } let position = Number(state.cycle_position || 0); if (position >= order.length) { order = pool.map(keyOf).sort(() => Math.random() - 0.5); position = 0; } let selectedId = order[position]; let selectedRow = pool.find((row) => keyOf(row) === selectedId); if (!selectedRow) { selectedRow = pool[0]; selectedId = keyOf(selectedRow); position = 0; } const cycleId = state.cycle_id || ('cycle_' + Date.now()); return { selected_row: selectedRow, cycle_state: { state_id: state.state_id || 'cycle_state', cycle_id: cycleId, cycle_order_json: JSON.stringify(order), cycle_position: position + 1, last_video_id: keyOf(selectedRow), last_run_at: new Date().toISOString() } };",
+        "input": {
+          "eligible_rows": "{{2}}",
+          "cycle_state": "{{1}}"
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "google-sheets:updateRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "from": "drive",
+        "mode": "map",
+        "values": {
+          "state_id": "{{3.cycle_state.state_id}}",
+          "cycle_id": "{{3.cycle_state.cycle_id}}",
+          "cycle_order_json": "{{3.cycle_state.cycle_order_json}}",
+          "cycle_position": "{{3.cycle_state.cycle_position}}",
+          "last_video_id": "{{3.cycle_state.last_video_id}}",
+          "last_run_at": "{{3.cycle_state.last_run_at}}"
+        },
+        "sheetId": "estado_ciclo",
+        "rowNumber": "{{1.__ROW_NUMBER__}}",
+        "spreadsheetId": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+        "includesHeaders": true,
+        "useColumnHeaders": true,
+        "valueInputOption": "USER_ENTERED"
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 5,
+      "module": "openai-gpt-3:simpleTextPrompt",
+      "version": 1,
+      "mapper": {
+        "model": "gpt-5.1",
+        "text": "Crie uma legenda curta para TikTok em portugues, humana e musical. Use apenas estas informacoes: musica={{3.selected_row.musica}}, autor_compositor={{3.selected_row.autor_compositor}}, interprete_associado={{3.selected_row.interprete_associado}}, energia={{3.selected_row.energia}}, agenda={{3.selected_row.agenda_proxima_data}} {{3.selected_row.agenda_proxima_local}}, spotify={{3.selected_row.spotify}}, observacoes={{3.selected_row.observacoes}}. Nao invente fatos. Se o autor estiver como a_confirmar, mencione isso com leveza. Se nao houver agenda, nao mencione. Retorne somente a legenda final."
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": -150
+        }
+      }
+    },
+    {
+      "id": 6,
+      "module": "openai-gpt-3:simpleTextPrompt",
+      "version": 1,
+      "mapper": {
+        "model": "gpt-5.1",
+        "text": "Crie uma legenda curta para Facebook em portugues, humana, musical e natural. Use apenas estas informacoes: musica={{3.selected_row.musica}}, autor_compositor={{3.selected_row.autor_compositor}}, interprete_associado={{3.selected_row.interprete_associado}}, energia={{3.selected_row.energia}}, agenda={{3.selected_row.agenda_proxima_data}} {{3.selected_row.agenda_proxima_local}}, spotify={{3.selected_row.spotify}}, observacoes={{3.selected_row.observacoes}}. Nao invente fatos. Se nao houver agenda, nao mencione. Se a musica for autoral, inclua um CTA suave para ouvir no Spotify. Retorne somente a legenda final."
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 7,
+      "module": "openai-gpt-3:simpleTextPrompt",
+      "version": 1,
+      "mapper": {
+        "model": "gpt-5.1",
+        "text": "Crie uma legenda curta para YouTube em portugues, boa para Shorts e descoberta. Use apenas estas informacoes: musica={{3.selected_row.musica}}, autor_compositor={{3.selected_row.autor_compositor}}, interprete_associado={{3.selected_row.interprete_associado}}, energia={{3.selected_row.energia}}, agenda={{3.selected_row.agenda_proxima_data}} {{3.selected_row.agenda_proxima_local}}, spotify={{3.selected_row.spotify}}, observacoes={{3.selected_row.observacoes}}. Nao invente fatos. Se nao houver agenda, nao mencione. Se a musica for autoral, inclua um CTA suave para ouvir no Spotify. Retorne somente a legenda final."
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 150
+        }
+      }
+    },
+    {
+      "id": 8,
+      "module": "google-drive:getAFile",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136148
+      },
+      "mapper": {
+        "file": "{{3.selected_row.video_id}}",
+        "select": "map",
+        "formatDrawings": "image/jpeg",
+        "formatDocuments": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "formatSpreadsheets": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "formatPresentations": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 9,
+      "module": "blotato:media",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7355631
+      },
+      "mapper": {
+        "url": "{{8.webContentLink}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1800,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 10,
+      "module": "blotato:Post",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7253891
+      },
+      "mapper": {
+        "platform": "tiktok",
+        "text": "{{5.text}}",
+        "mediaUrls": "{{9.url}}",
+        "useNextFreeSlot": false,
+        "tiktokAccountId": "29552",
+        "privacyLevel": "PUBLIC_TO_EVERYONE",
+        "isDraft": false,
+        "isAiGenerated": false,
+        "autoAddMusic": false,
+        "disabledComments": false,
+        "disabledDuet": false,
+        "disabledStitch": false,
+        "isBrandedContent": false,
+        "isYourBrand": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": -150
+        }
+      }
+    },
+    {
+      "id": 11,
+      "module": "facebook-pages:uploadAReel",
+      "version": 6,
+      "parameters": {
+        "__IMTCONN__": 7577193
+      },
+      "mapper": {
+        "page_id": "899535463253558",
+        "uploadMethod": "data",
+        "description": "{{6.text}}",
+        "title": "{{3.selected_row.nome_arquivo}}",
+        "fileName": "{{8.name}}",
+        "data": "{{8.data}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": 0
+        }
+      }
+    },
+    {
+      "id": 12,
+      "module": "youtube:uploadVideo",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7517684
+      },
+      "mapper": {
+        "data": "{{8.data}}",
+        "title": "{{3.selected_row.nome_arquivo}}",
+        "license": "youtube",
+        "fileName": "{{8.name}}",
+        "categoryId": "27",
+        "description": "{{7.text}}",
+        "privacyStatus": "public",
+        "notifySubscribers": true,
+        "containsSyntheticMedia": false,
+        "selfDeclaredMadeForKids": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": 150
+        }
+      }
+    },
+    {
+      "id": 13,
+      "module": "google-sheets:updateRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "from": "drive",
+        "mode": "map",
+        "values": {
+          "ordem_ciclo": "{{3.selected_row.ordem_ciclo}}",
+          "video_id": "{{3.selected_row.video_id}}",
+          "nome_arquivo": "{{3.selected_row.nome_arquivo}}",
+          "musica": "{{3.selected_row.musica}}",
+          "autor_compositor": "{{3.selected_row.autor_compositor}}",
+          "interprete_associado": "{{3.selected_row.interprete_associado}}",
+          "tipo_musica": "{{3.selected_row.tipo_musica}}",
+          "origem_pasta": "{{3.selected_row.origem_pasta}}",
+          "trecho": "{{3.selected_row.trecho}}",
+          "duracao": "{{3.selected_row.duracao}}",
+          "energia": "{{3.selected_row.energia}}",
+          "ciclo": "{{3.cycle_state.cycle_id}}",
+          "status": "published",
+          "legenda_tiktok": "{{5.text}}",
+          "legenda_facebook": "{{6.text}}",
+          "legenda_youtube": "{{7.text}}",
+          "cta": "{{3.selected_row.cta}}",
+          "agenda_proxima_data": "{{3.selected_row.agenda_proxima_data}}",
+          "agenda_proxima_local": "{{3.selected_row.agenda_proxima_local}}",
+          "spotify": "{{3.selected_row.spotify}}",
+          "observacoes": "publicado automaticamente em {{now}}"
+        },
+        "sheetId": "publicacao_diaria",
+        "rowNumber": "{{3.selected_row.__ROW_NUMBER__}}",
+        "spreadsheetId": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+        "includesHeaders": true,
+        "useColumnHeaders": true,
+        "valueInputOption": "USER_ENTERED"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2400,
+          "y": 0
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "us2.make.com",
+    "notes": []
+  }
+}

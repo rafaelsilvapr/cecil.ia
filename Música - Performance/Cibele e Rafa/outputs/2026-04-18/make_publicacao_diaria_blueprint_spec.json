@@ -1,0 +1,464 @@
+{
+  "name": "Cibele e Rafa - Publicacao Diaria",
+  "description": "Publication-only scenario for one video per day, with a persisted random cycle, platform-specific captions, and final status updates.",
+  "kind": "scenario_blueprint_spec",
+  "locale": "pt_BR",
+  "timezone": "America/Sao_Paulo",
+  "source_of_truth": {
+    "spreadsheet_id": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+    "sheet_name": "publicacao_diaria",
+    "data_store_cycle_state": "cibele_rafa_publication_cycle_state",
+    "data_store_publish_state": "cibele_rafa_publication_run_state"
+  },
+  "assumptions": {
+    "daily_publications": 1,
+    "cycle_policy": "shuffle_once_then_consume",
+    "instagram": "manual_or_future",
+    "publish_targets": [
+      "tiktok",
+      "facebook",
+      "youtube"
+    ],
+    "caption_policy": "generate_three_platform_specific_captions"
+  },
+  "module_notes": {
+    "blueprint_reference": "Make blueprints are JSON files that include modules, settings, and mapped values, and can be imported or pasted into a scenario.",
+    "scheduling_reference": "Make supports once every day scheduling and other schedule modes.",
+    "ai_reference": "Make AI Agents (New) can be used inside a scenario builder via the Run an agent (New) module."
+  },
+  "modules": [
+    {
+      "id": 1,
+      "name": "daily_scheduler",
+      "app": "Scheduler",
+      "operation": "once_every_day",
+      "type": "trigger",
+      "settings": {
+        "time": "09:00",
+        "timezone": "America/Sao_Paulo",
+        "days_of_week": [
+          "mon",
+          "tue",
+          "wed",
+          "thu",
+          "fri",
+          "sat",
+          "sun"
+        ]
+      },
+      "purpose": "Start the publication run once per day, regardless of whether a new file arrived."
+    },
+    {
+      "id": 2,
+      "name": "read_eligible_rows",
+      "app": "Google Sheets",
+      "operation": "searchRows",
+      "type": "data_source",
+      "settings": {
+        "spreadsheet_id": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+        "sheet_name": "publicacao_diaria",
+        "range": "A:U",
+        "include_header_row": true,
+        "max_rows": 500,
+        "filters": [
+          {
+            "column": "status",
+            "operator": "in",
+            "values": [
+              "raw",
+              "selected",
+              "captioned"
+            ]
+          }
+        ],
+        "sort": [
+          {
+            "column": "ordem_ciclo",
+            "direction": "asc"
+          }
+        ]
+      },
+      "purpose": "Read the pool of candidate videos that can still enter the day queue."
+    },
+    {
+      "id": 3,
+      "name": "load_cycle_state",
+      "app": "Data Store",
+      "operation": "getARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_cycle_state",
+        "key": "cycle_state",
+        "return_wrapped_output": true
+      },
+      "purpose": "Load the persisted cycle queue and the current pointer."
+    },
+    {
+      "id": 4,
+      "name": "build_or_continue_cycle",
+      "app": "Make Code",
+      "operation": "runCode",
+      "type": "logic",
+      "settings": {
+        "language": "javascript",
+        "input_mapping": {
+          "eligible_rows": "{{2}}",
+          "cycle_state": "{{3}}"
+        },
+        "code_intent": "If the cycle queue exists and still has items, take the next row. Otherwise shuffle the eligible rows once, create a new cycle_id, set cycle_position to 0, and return the selected row plus the updated cycle state and publish run state."
+      },
+      "outputs": [
+        "selected_row",
+        "cycle_state",
+        "publish_run_state"
+      ],
+      "purpose": "Keep the random order stable across days until the cycle is complete."
+    },
+    {
+      "id": 5,
+      "name": "save_cycle_state",
+      "app": "Data Store",
+      "operation": "addOrReplaceARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_cycle_state",
+        "key": "cycle_state",
+        "overwrite_existing_record": true,
+        "record": {
+          "cycle_id": "{{4.cycle_state.cycle_id}}",
+          "cycle_order": "{{4.cycle_state.cycle_order}}",
+          "cycle_position": "{{4.cycle_state.cycle_position}}",
+          "last_video_id": "{{4.selected_row.video_id}}",
+          "last_run_at": "{{now}}"
+        }
+      },
+      "purpose": "Persist the cycle order so it is not reshuffled every day."
+    },
+    {
+      "id": 6,
+      "name": "init_publish_state",
+      "app": "Data Store",
+      "operation": "addOrReplaceARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_run_state",
+        "key": "{{4.selected_row.video_id}}",
+        "overwrite_existing_record": true,
+        "record": {
+          "video_id": "{{4.selected_row.video_id}}",
+          "cycle_id": "{{4.cycle_state.cycle_id}}",
+          "tiktok_ok": false,
+          "facebook_ok": false,
+          "youtube_ok": false,
+          "tiktok_error": "",
+          "facebook_error": "",
+          "youtube_error": "",
+          "final_status": "publishing"
+        }
+      },
+      "purpose": "Initialize per-run state so platform results can be aggregated at the end."
+    },
+    {
+      "id": 7,
+      "name": "fetch_video_file",
+      "app": "Google Drive",
+      "operation": "getAFile",
+      "type": "file",
+      "settings": {
+        "select": "map",
+        "file": "{{4.selected_row.video_id}}",
+        "formatDrawings": "image/jpeg",
+        "formatDocuments": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "formatSpreadsheets": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "formatPresentations": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "purpose": "Retrieve the binary video file or a usable download link."
+    },
+    {
+      "id": 8,
+      "name": "generate_captions",
+      "app": "Make AI Agents (New)",
+      "operation": "runAnAgent",
+      "type": "ai",
+      "settings": {
+        "connection": "make_ai_provider_or_custom",
+        "model": "latest_available_reasoning_model",
+        "instructions": "Generate three short captions, one for TikTok, one for Facebook, and one for YouTube. Use the song title, author/composer when confirmed, associated interpreter, energy, and optional gig date. Keep the voice human, musical, direct, and warm. Do not invent facts. If the author is not confirmed, use a_confirmar. If there is no next show date, do not mention it. Use few hashtags. If the song is original, include a soft CTA to Spotify or another streaming platform.",
+        "input": {
+          "video_id": "{{4.selected_row.video_id}}",
+          "nome_arquivo": "{{4.selected_row.nome_arquivo}}",
+          "musica": "{{4.selected_row.musica}}",
+          "autor_compositor": "{{4.selected_row.autor_compositor}}",
+          "interprete_associado": "{{4.selected_row.interprete_associado}}",
+          "tipo_musica": "{{4.selected_row.tipo_musica}}",
+          "energia": "{{4.selected_row.energia}}",
+          "cta": "{{4.selected_row.cta}}",
+          "agenda_proxima_data": "{{4.selected_row.agenda_proxima_data}}",
+          "agenda_proxima_local": "{{4.selected_row.agenda_proxima_local}}",
+          "spotify": "{{4.selected_row.spotify}}",
+          "observacoes": "{{4.selected_row.observacoes}}"
+        },
+        "response_format": "data_structure"
+      },
+      "outputs": [
+        "legenda_tiktok",
+        "legenda_facebook",
+        "legenda_youtube",
+        "hook",
+        "cta"
+      ],
+      "purpose": "Produce platform-specific captions from the row metadata."
+    },
+    {
+      "id": 9,
+      "name": "host_media_for_tiktok",
+      "app": "Blotato",
+      "operation": "media",
+      "type": "media",
+      "settings": {
+        "url": "{{7.webContentLink}}"
+      },
+      "purpose": "Turn the drive-hosted file into a reusable media URL for TikTok publishing."
+    },
+    {
+      "id": 10,
+      "name": "publish_tiktok",
+      "app": "Blotato",
+      "operation": "Post",
+      "type": "publish",
+      "settings": {
+        "platform": "tiktok",
+        "text": "{{8.legenda_tiktok}}",
+        "mediaUrls": [
+          "{{9.url}}"
+        ],
+        "useNextFreeSlot": false,
+        "privacyLevel": "PUBLIC_TO_EVERYONE",
+        "isDraft": false,
+        "isAiGenerated": false,
+        "autoAddMusic": false,
+        "disabledComments": false,
+        "disabledDuet": false,
+        "disabledStitch": false,
+        "isBrandedContent": false,
+        "isYourBrand": false
+      },
+      "purpose": "Publish the video to TikTok."
+    },
+    {
+      "id": 11,
+      "name": "mark_tiktok_success",
+      "app": "Data Store",
+      "operation": "addOrReplaceARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_run_state",
+        "key": "{{4.selected_row.video_id}}",
+        "overwrite_existing_record": true,
+        "record": {
+          "video_id": "{{4.selected_row.video_id}}",
+          "cycle_id": "{{4.cycle_state.cycle_id}}",
+          "tiktok_ok": true,
+          "facebook_ok": "{{6.facebook_ok}}",
+          "youtube_ok": "{{6.youtube_ok}}",
+          "tiktok_error": "",
+          "facebook_error": "{{6.facebook_error}}",
+          "youtube_error": "{{6.youtube_error}}",
+          "final_status": "{{6.final_status}}"
+        }
+      },
+      "purpose": "Persist TikTok outcome for the final status calculation."
+    },
+    {
+      "id": 12,
+      "name": "publish_facebook",
+      "app": "Facebook Pages",
+      "operation": "uploadAReel",
+      "type": "publish",
+      "settings": {
+        "page_id": "YOUR_FACEBOOK_PAGE_ID",
+        "uploadMethod": "data",
+        "description": "{{8.legenda_facebook}}",
+        "title": "{{4.selected_row.nome_arquivo}}",
+        "fileName": "{{7.name}}",
+        "data": "{{7.data}}"
+      },
+      "purpose": "Publish the same video to Facebook as a reel."
+    },
+    {
+      "id": 13,
+      "name": "mark_facebook_success",
+      "app": "Data Store",
+      "operation": "addOrReplaceARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_run_state",
+        "key": "{{4.selected_row.video_id}}",
+        "overwrite_existing_record": true,
+        "record": {
+          "video_id": "{{4.selected_row.video_id}}",
+          "cycle_id": "{{4.cycle_state.cycle_id}}",
+          "tiktok_ok": "{{11.tiktok_ok}}",
+          "facebook_ok": true,
+          "youtube_ok": "{{6.youtube_ok}}",
+          "tiktok_error": "{{11.tiktok_error}}",
+          "facebook_error": "",
+          "youtube_error": "{{6.youtube_error}}",
+          "final_status": "{{6.final_status}}"
+        }
+      },
+      "purpose": "Persist Facebook outcome for the final status calculation."
+    },
+    {
+      "id": 14,
+      "name": "publish_youtube",
+      "app": "YouTube",
+      "operation": "uploadVideo",
+      "type": "publish",
+      "settings": {
+        "title": "{{4.selected_row.nome_arquivo}}",
+        "fileName": "{{7.name}}",
+        "data": "{{7.data}}",
+        "license": "youtube",
+        "categoryId": "27",
+        "privacyStatus": "public",
+        "description": "{{8.legenda_youtube}}",
+        "selfDeclaredMadeForKids": false,
+        "containsSyntheticMedia": false,
+        "notifySubscribers": true
+      },
+      "purpose": "Publish the same video to YouTube."
+    },
+    {
+      "id": 15,
+      "name": "mark_youtube_success",
+      "app": "Data Store",
+      "operation": "addOrReplaceARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_run_state",
+        "key": "{{4.selected_row.video_id}}",
+        "overwrite_existing_record": true,
+        "record": {
+          "video_id": "{{4.selected_row.video_id}}",
+          "cycle_id": "{{4.cycle_state.cycle_id}}",
+          "tiktok_ok": "{{11.tiktok_ok}}",
+          "facebook_ok": "{{13.facebook_ok}}",
+          "youtube_ok": true,
+          "tiktok_error": "{{11.tiktok_error}}",
+          "facebook_error": "{{13.facebook_error}}",
+          "youtube_error": "",
+          "final_status": "{{6.final_status}}"
+        }
+      },
+      "purpose": "Persist YouTube outcome for the final status calculation."
+    },
+    {
+      "id": 16,
+      "name": "finalize_status",
+      "app": "Make Code",
+      "operation": "runCode",
+      "type": "logic",
+      "settings": {
+        "language": "javascript",
+        "input_mapping": {
+          "run_state": "{{15}}",
+          "row": "{{4.selected_row}}"
+        },
+        "code_intent": "Combine the three platform results. If all three are true, return final_status published. If one or two failed, return partial_publish. If all failed, return error. Also return a compact observacoes summary."
+      },
+      "outputs": [
+        "final_status",
+        "observacoes_summary"
+      ],
+      "purpose": "Compute the final record status from platform results."
+    },
+    {
+      "id": 17,
+      "name": "update_row",
+      "app": "Google Sheets",
+      "operation": "updateRow",
+      "type": "write",
+      "settings": {
+        "spreadsheet_id": "14TEjwW1SjRtgp8dznivsQplJ8F2_9-ufiPhfyz_Ppck",
+        "sheet_name": "publicacao_diaria",
+        "row_number": "{{4.selected_row.__ROW_NUMBER__}}",
+        "includes_headers": true,
+        "use_column_headers": false,
+        "value_input_option": "USER_ENTERED",
+        "values": {
+          "video_id": "{{4.selected_row.video_id}}",
+          "nome_arquivo": "{{4.selected_row.nome_arquivo}}",
+          "musica": "{{4.selected_row.musica}}",
+          "autor_compositor": "{{4.selected_row.autor_compositor}}",
+          "interprete_associado": "{{4.selected_row.interprete_associado}}",
+          "tipo_musica": "{{4.selected_row.tipo_musica}}",
+          "origem_pasta": "{{4.selected_row.origem_pasta}}",
+          "trecho": "{{4.selected_row.trecho}}",
+          "duracao": "{{4.selected_row.duracao}}",
+          "energia": "{{4.selected_row.energia}}",
+          "ciclo": "{{4.cycle_state.cycle_id}}",
+          "status": "{{16.final_status}}",
+          "legenda_tiktok": "{{8.legenda_tiktok}}",
+          "legenda_facebook": "{{8.legenda_facebook}}",
+          "legenda_youtube": "{{8.legenda_youtube}}",
+          "cta": "{{8.cta}}",
+          "agenda_proxima_data": "{{4.selected_row.agenda_proxima_data}}",
+          "agenda_proxima_local": "{{4.selected_row.agenda_proxima_local}}",
+          "spotify": "{{4.selected_row.spotify}}",
+          "observacoes": "{{16.observacoes_summary}}"
+        }
+      },
+      "purpose": "Write back the final captions and final publication status."
+    },
+    {
+      "id": 18,
+      "name": "advance_cycle_state",
+      "app": "Data Store",
+      "operation": "addOrReplaceARecord",
+      "type": "state",
+      "settings": {
+        "data_store": "cibele_rafa_publication_cycle_state",
+        "key": "cycle_state",
+        "overwrite_existing_record": true,
+        "record": {
+          "cycle_id": "{{4.cycle_state.cycle_id}}",
+          "cycle_order": "{{4.cycle_state.cycle_order}}",
+          "cycle_position": "{{4.cycle_state.cycle_position + 1}}",
+          "last_video_id": "{{4.selected_row.video_id}}",
+          "last_run_at": "{{now}}"
+        }
+      },
+      "purpose": "Advance the cycle pointer so the next daily run consumes the next item."
+    }
+  ],
+  "error_handlers": [
+    {
+      "module_id": 10,
+      "action": "record_error_and_continue",
+      "writes_to": "cibele_rafa_publication_run_state"
+    },
+    {
+      "module_id": 12,
+      "action": "record_error_and_continue",
+      "writes_to": "cibele_rafa_publication_run_state"
+    },
+    {
+      "module_id": 14,
+      "action": "record_error_and_continue",
+      "writes_to": "cibele_rafa_publication_run_state"
+    },
+    {
+      "module_id": 17,
+      "action": "record_error_and_stop",
+      "writes_to": "cibele_rafa_publication_run_state"
+    }
+  ],
+  "validation_checklist": [
+    "Reconnect all app connections after import.",
+    "Confirm the Make AI provider or custom provider before enabling the caption module.",
+    "Confirm the Facebook page id and YouTube connection.",
+    "Keep Instagram out of this first automation version unless manual or separately validated.",
+    "Save the scenario once the blueprint is imported and tested."
+  ]
+}

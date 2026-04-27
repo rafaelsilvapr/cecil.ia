@@ -1,0 +1,19 @@
+assessment_id,question_number,correct_option,justification,status
+prova_1,1,A,,reviewed
+prova_1,2,D,,reviewed
+prova_1,3,B,,reviewed
+prova_1,4,D,,reviewed
+prova_1,5,D,,reviewed
+prova_1,6,A,,reviewed
+prova_1,7,D,Questao anulada por conteudo nao ensinado,annulled
+prova_1,8,D,Alternativas discutiveis marcada para retomada em aula,reviewed_with_note
+prova_1,9,C,,reviewed
+prova_1,10,C,,reviewed
+prova_1,11,B,,reviewed
+prova_1,12,C,,reviewed
+prova_1,13,D,,reviewed
+prova_1,14,A,,reviewed
+prova_1,15,E,,reviewed
+prova_1,16,B,,reviewed
+prova_1,17,B,,reviewed
+prova_1,18,A,,reviewed

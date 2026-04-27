@@ -26,7 +26,7 @@ Referência canónica: `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`
 | Capítulo do livro | Ficheiros `protocolo-NN` | Tema |
 |---:|---|---|
 | 1 | 01–08 | Organização do ambiente e rotina |
-| 2 | 09–14 | Prevenção e preparação |
+| 2 | 09–14 | Prevenção e preparação (6 protocolos finais; 8 temas-candidatos no mapa editorial) |
 | 3 | 15–21 | Gestão do fluxo da aula |
 | 4 | 22–33 | Correção e desescalada |
 | 5 | 34–37 | Relação e clima |
@@ -38,7 +38,7 @@ O YAML de cada ficheiro inclui `capitulo_livro` e `numero_protocolo` para filtro
 
 - **Slug ASCII** no nome do ficheiro após `protocolo-NN-`; título com acentos no front matter e no primeiro `#`.
 - Renomeie o ficheiro se mudar o slug, **mantendo** o prefixo `protocolo-NN-` coerente com a ordem global.
-- **Nota Cap. 2:** o `GUIA_OFICIAL` pode listar **8** subcapítulos nomeados para Prevenção; esta pasta usa **6** ficheiros (09–14) até haver fusão/expansão editorial — ver guia.
+- **Nota Cap. 2:** o `GUIA_OFICIAL` e o mapa editorial podem listar **8 temas-candidatos** para Prevenção; esta pasta usa **6 ficheiros** (09–14) como protocolos finais do manuscrito. Assim, `temas-candidatos` e `protocolos finais` deixam de competir entre si.
 
 ## Próximo passo técnico (opcional)
 

@@ -1,0 +1,391 @@
+{
+  "name": "Cibele e Rafa - Publicacao Diaria - Import Shell",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-sheets:filterRows",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "from": "drive",
+        "limit": "1",
+        "filter": [
+          [
+            {
+              "a": "I",
+              "b": "pronto",
+              "o": "text:equal"
+            }
+          ]
+        ],
+        "orderBy": "A",
+        "sheetId": "catalogo_videos",
+        "fieldType": "string",
+        "sortOrder": "asc",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "tableFirstRow": "A1:J1",
+        "includesHeaders": true,
+        "valueRenderOption": "FORMATTED_VALUE",
+        "dateTimeRenderOption": "FORMATTED_STRING"
+      },
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "google-sheets:updateRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 7136195
+      },
+      "mapper": {
+        "from": "drive",
+        "mode": "select",
+        "values": {
+          "0": "{{1.`0`}}",
+          "1": "{{1.`1`}}",
+          "2": "{{1.`2`}}",
+          "3": "{{1.`3`}}",
+          "4": "{{1.`4`}}",
+          "5": "{{1.`5`}}",
+          "6": "{{1.`6`}}",
+          "7": "{{1.`7`}}",
+          "8": "publishing",
+          "9": "{{1.`9`}}"
+        },
+        "sheetId": "catalogo_videos",
+        "rowNumber": "{{1.`__ROW_NUMBER__`}}",
+        "spreadsheetId": "1wzxSkFec9ASfZjQThExFBN2tdV1axkQVLHn7jQPXgK4",
+        "includesHeaders": true,
+        "useColumnHeaders": false,
+        "valueInputOption": "USER_ENTERED"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "google-drive:getAFile",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136148
+      },
+      "mapper": {
+        "file": "{{1.`0`}}",
+        "select": "map",
+        "formatDrawings": "image/jpeg",
+        "formatDocuments": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "formatSpreadsheets": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "formatPresentations": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "openai-gpt-3:CreateCompletion",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 107818
+      },
+      "mapper": {
+        "select": "chat",
+        "max_tokens": "1200",
+        "temperature": "0.7",
+        "top_p": "1",
+        "n_completions": "1",
+        "response_format": "json_object",
+        "parseJSONResponse": true,
+        "model": "gpt-4o-mini",
+        "messages": [
+          {
+            "role": "assistant",
+            "content": "Voce e um agente editorial do projeto Cibele e Rafael. Gere apenas um JSON valido, sem texto extra, com as chaves caption_tiktok, hashtags_tiktok, caption_instagram, hashtags_instagram, caption_facebook, hashtags_facebook, caption_youtube, hashtags_youtube, show_mentioned e cta_type. Escreva sempre Cibele, nunca Cybele. Nunca cite Spotify. Independente de a musica ser autoral ou nao, inclua um convite natural para as pessoas buscarem \"Samba da Gabriela\" e outras composicoes de Rafael da Silva nas plataformas de streaming de audio e no YouTube. Use uma formulacao comum e natural nas redes, como buscar, procurar ou encontrar, sem soar robotico. Se a obra tiver origem_autoral = autor_proprio, mencione com leveza que e composicao de Rafael da Silva. Se observacoes_editoriais contiver SERVICO:, inclua um bloco curto com o que, quando e onde. Adapte o tom para cada plataforma. TikTok: curto e direto. Instagram: caloroso e musical. Facebook: claro e humano. YouTube: inclua #shorts. As captions devem ficar prontas para publicar e podem conter hashtags no final. As hashtags tambem devem ser retornadas em lista, com as tags ja iniciando com #."
+          },
+          {
+            "role": "user",
+            "content": "Dados do video: musica={{1.`2`}}; compositor={{1.`3`}}; interprete={{1.`4`}}; origem_autoral={{1.`5`}}; genero_musical={{1.`6`}}; contexto_gravacao={{1.`7`}}; observacoes_editoriais={{1.`9`}}. Retorne um JSON com captions e hashtags por plataforma."
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 300
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:openai-gpt-3",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "restore": {
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "openai-gpt-3"
+              },
+              "label": "OpenAI"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "module": "blotato:media",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7355631
+      },
+      "mapper": {
+        "url": "{{3.webContentLink}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 300
+        }
+      },
+      "onerror": [
+        {
+          "id": 15,
+          "module": "builtin:Ignore",
+          "version": 1,
+          "metadata": {
+            "designer": {
+              "x": 1500,
+              "y": 450
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "filter": null,
+      "mapper": null,
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 300
+        }
+      },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 7,
+              "module": "blotato:Post",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": 7253891
+              },
+              "mapper": {
+                "platform": "tiktok",
+                "text": "{{4.result.caption_tiktok}}",
+                "mediaUrls": "{{5.url}}",
+                "useNextFreeSlot": false,
+                "tiktokAccountId": "38929",
+                "privacyLevel": "PUBLIC_TO_EVERYONE",
+                "isDraft": false,
+                "isAiGenerated": false,
+                "autoAddMusic": false,
+                "disabledComments": false,
+                "disabledDuet": false,
+                "disabledStitch": false,
+                "isBrandedContent": false,
+                "isYourBrand": false
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1500,
+                  "y": 0
+                }
+              },
+              "onerror": [
+                {
+                  "id": 8,
+                  "module": "builtin:Ignore",
+                  "version": 1,
+                  "metadata": {
+                    "designer": {
+                      "x": 1800,
+                      "y": 150
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 9,
+              "module": "blotato:Post",
+              "version": 1,
+              "parameters": {
+                "__IMTCONN__": 7355631
+              },
+              "mapper": {
+                "platform": "instagram",
+                "text": "{{4.result.caption_instagram}}",
+                "mediaUrls": "{{5.url}}",
+                "useNextFreeSlot": false,
+                "instagramAccountId": "31043",
+                "instagramMediaType": "reel"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1500,
+                  "y": 250
+                }
+              },
+              "onerror": [
+                {
+                  "id": 10,
+                  "module": "builtin:Ignore",
+                  "version": 1,
+                  "metadata": {
+                    "designer": {
+                      "x": 1800,
+                      "y": 400
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 11,
+              "module": "facebook-pages:uploadAReel",
+              "version": 6,
+              "parameters": {
+                "__IMTCONN__": 7577193
+              },
+              "mapper": {
+                "data": "{{3.data}}",
+                "title": "{{1.`1`}}",
+                "page_id": "899535463253558",
+                "fileName": "{{3.name}}",
+                "description": "{{4.result.caption_facebook}}",
+                "uploadMethod": "data"
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 500
+                }
+              },
+              "onerror": [
+                {
+                  "id": 12,
+                  "module": "builtin:Ignore",
+                  "version": 1,
+                  "metadata": {
+                    "designer": {
+                      "x": 1500,
+                      "y": 650
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 13,
+              "module": "youtube:uploadVideo",
+              "version": 4,
+              "parameters": {
+                "__IMTCONN__": 7355787
+              },
+              "mapper": {
+                "data": "{{3.data}}",
+                "title": "{{1.`1`}}",
+                "license": "youtube",
+                "fileName": "{{3.name}}",
+                "categoryId": "27",
+                "description": "{{4.result.caption_youtube}}",
+                "privacyStatus": "public",
+                "containsSyntheticMedia": false,
+                "selfDeclaredMadeForKids": false,
+                "notifySubscribers": true
+              },
+              "metadata": {
+                "designer": {
+                  "x": 1200,
+                  "y": 750
+                }
+              },
+              "onerror": [
+                {
+                  "id": 14,
+                  "module": "builtin:Ignore",
+                  "version": 1,
+                  "metadata": {
+                    "designer": {
+                      "x": 1500,
+                      "y": 900
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "us2.make.com",
+    "notes": [
+      "Compatibility shell based only on module families already present in the user's working scenario.",
+      "This file now includes one OpenAI CreateCompletion step that generates a structured JSON payload for all platform captions and hashtags.",
+      "Publishing branches stay independent again: TikTok, Instagram, Facebook, and YouTube each run in their own route with Ignore error handlers.",
+      "Shared media upload happens once before the router, and the downstream routes reuse that output."
+    ]
+  }
+}

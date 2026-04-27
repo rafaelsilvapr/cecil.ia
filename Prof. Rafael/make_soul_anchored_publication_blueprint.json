@@ -1,0 +1,235 @@
+{
+  "name": "Soul Anchored - Publicacao diaria de shorts e reels",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-sheets:searchRows",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1csPzmR7FdTbfTOARWses1H4kbnQR_wRvX5W4HEtT4fA",
+        "sheetName": "ativos",
+        "tableContainsHeaders": true,
+        "query": "select * where status = 'ready' order by data_criacao asc limit 1",
+        "limit": 1
+      },
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 2,
+      "module": "google-sheets:updateRow",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1csPzmR7FdTbfTOARWses1H4kbnQR_wRvX5W4HEtT4fA",
+        "sheetName": "ativos",
+        "tableContainsHeaders": true,
+        "rowNumber": "{{1.rowNumber}}",
+        "video_id": "{{1.video_id}}",
+        "nome_video": "{{1.nome_video}}",
+        "transcricao": "{{1.transcricao}}",
+        "legenda_tiktok": "{{1.legenda_tiktok}}",
+        "legenda_youtube": "{{1.legenda_youtube}}",
+        "legenda_facebook": "{{1.legenda_facebook}}",
+        "status": "publishing",
+        "data_criacao": "{{1.data_criacao}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 3,
+      "module": "google-drive:getAFile",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136148
+      },
+      "mapper": {
+        "select": "map",
+        "file": "{{1.video_id}}",
+        "formatDrawings": "image/jpeg",
+        "formatDocuments": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "formatSpreadsheets": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "formatPresentations": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 4,
+      "module": "youtube:uploadVideo",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7517684
+      },
+      "mapper": {
+        "data": "{{3.data}}",
+        "title": "{{1.nome_video}}",
+        "license": "youtube",
+        "fileName": "{{3.name}}",
+        "categoryId": "27",
+        "description": "{{1.legenda_youtube}}",
+        "privacyStatus": "public",
+        "containsSyntheticMedia": false,
+        "selfDeclaredMadeForKids": false,
+        "notifySubscribers": true
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 5,
+      "module": "facebook-pages:uploadAReel",
+      "version": 6,
+      "parameters": {
+        "__IMTCONN__": 7577193
+      },
+      "mapper": {
+        "data": "{{3.data}}",
+        "title": "{{1.nome_video}}",
+        "page_id": "903309729538817",
+        "fileName": "{{3.name}}",
+        "description": "{{1.legenda_facebook}}",
+        "uploadMethod": "data"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 6,
+      "module": "blotato:Post",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 7355631
+      },
+      "mapper": {
+        "text": "{{1.legenda_tiktok}}",
+        "isDraft": false,
+        "platform": "tiktok",
+        "mediaUrls": "https://drive.google.com/uc?export=download&id={{1.video_id}}&confirm=t",
+        "isYourBrand": false,
+        "autoAddMusic": false,
+        "disabledDuet": false,
+        "privacyLevel": "PUBLIC_TO_EVERYONE",
+        "isAiGenerated": false,
+        "disabledStitch": false,
+        "tiktokAccountId": "32346",
+        "useNextFreeSlot": false,
+        "disabledComments": false,
+        "isBrandedContent": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 7,
+      "module": "google-sheets:updateRow",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "searchMethod": "all",
+        "spreadsheetId": "1csPzmR7FdTbfTOARWses1H4kbnQR_wRvX5W4HEtT4fA",
+        "sheetName": "ativos",
+        "tableContainsHeaders": true,
+        "rowNumber": "{{1.rowNumber}}",
+        "video_id": "{{1.video_id}}",
+        "nome_video": "{{1.nome_video}}",
+        "transcricao": "{{1.transcricao}}",
+        "legenda_tiktok": "{{1.legenda_tiktok}}",
+        "legenda_youtube": "{{1.legenda_youtube}}",
+        "legenda_facebook": "{{1.legenda_facebook}}",
+        "status": "published",
+        "youtube_url": "{{4.id}}",
+        "facebook_url": "{{5.id}}",
+        "tiktok_post_id": "{{6.id}}",
+        "published_at": "{{now}}",
+        "data_criacao": "{{1.data_criacao}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1800,
+          "y": 300
+        }
+      }
+    },
+    {
+      "id": 8,
+      "module": "google-drive:moveAFileIntoAFolder",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 7136148
+      },
+      "mapper": {
+        "file": "{{1.video_id}}",
+        "move": "drive",
+        "select": "file",
+        "folderId": "/1e7vHBGWnsJOqE20nlxY8LSq5Lhtg68Yz/1t_KHvIdw5rzWd9P2vmRDYaeb7WKAFHdd/1_gMfZPV-5QGoMm16cFGW0-gHXXVi7lW4/1cAHz9EKZ5LObv96Snd-ow2_fn_avd3Xh",
+        "destination": "drive"
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": 300
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": true,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "us2.make.com",
+    "notes": [
+      "Google Sheets connection placeholder uses __IMTCONN__ = 0 and must be rebound after import.",
+      "The YouTube, Facebook Pages, Google Drive and Blotato connection IDs were kept from the existing scenario where applicable.",
+      "The TikTok media URL uses the Drive download link pattern already used in the current workflow."
+    ]
+  }
+}

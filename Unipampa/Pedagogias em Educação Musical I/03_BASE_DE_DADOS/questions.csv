@@ -1,0 +1,19 @@
+question_id,assessment_id,question_number,theme,prompt,expected_focus,question_type
+q01_prova1,prova_1,1,Dalcroze - classificacao auditiva,"Atividade com sinos intratonais e classificacao pela altura",Identificacao da metodologia ativa,objective
+q02_prova1,prova_1,2,Dalcroze - maxima pedagogica,"Maxima da proposta pedagogica de Dalcroze",Euritmia e corpo/musica,objective
+q03_prova1,prova_1,3,Kodaly - solfejo,"Escala principal no aprendizado de solfejo pelo metodo Kodaly",Pentatonica e alfabetizacao musical,objective
+q04_prova1,prova_1,4,Orff - afirmacao falsa,"Afirmacao falsa sobre a proposta de ensino musical de Carl Orff",Música elementar, improvisacao e pratica antes da teoria,objective
+q05_prova1,prova_1,5,Metodos ativos - principios gerais,"Caracteristicas gerais dos metodos ativos em educacao musical",Vivencia pratica e ludica,objective
+q06_prova1,prova_1,6,Willems - ritmo melodia harmonia,"Relacao entre ritmo, melodia, harmonia e funcoes humanas",Correspondencia vida fisiologica/afetiva/mental,objective
+q07_prova1,prova_1,7,Villa-Lobos - canto orfeonico,"Caracteristicas centrais do canto orfeonico","Nacionalismo, folclore brasileiro e repertorio civico",objective
+q08_prova1,prova_1,8,Kodaly - metodo gradativo,"Procedimentos do metodo gradativo de Kodaly","Manossolfa, recitacao, ritmos e melodias",objective
+q09_prova1,prova_1,9,Orff-Schulwerk - incorreta,"Alternativa incorreta sobre Orff-Schulwerk","Improvizacao, criatividade e ostinato",objective
+q10_prova1,prova_1,10,Associacao de colunas,"Associacao correta entre colunas sobre pedagogias",Relacionar autores e caracteristicas,objective
+q11_prova1,prova_1,11,Dalcroze - eurritmia,"Caracteristicas da eurritmia",Movimento corporal, audição e valores musicais,objective
+q12_prova1,prova_1,12,Dalcroze - representacao corporal,"Representacao do fenomeno musical por meio de...",Movimento corporal como principio,objective
+q13_prova1,prova_1,13,Suzuki - afirmacao incorreta,"Afirmativa incorreta sobre o metodo Suzuki",Ambiente, pais, memoria e execucao de ouvido,objective
+q14_prova1,prova_1,14,Willems - paralelo antropologico,"Relacao entre natureza, homem e musica",Vida fisiologica, afetiva e mental,objective
+q15_prova1,prova_1,15,Comparacao entre metodologias,"Associar educadores e caracteristicas de suas metodologias","Dalcroze, Orff, Willems e Kodaly",objective
+q16_prova1,prova_1,16,Pedagogos e caracteristicas,"Relacao entre pedagogos e uma lista de caracteristicas","Paisagens sonoras, dó movel, audiação, etc.",objective
+q17_prova1,prova_1,17,Suzuki - EXCETO,"Procedimentos tradicionais do metodo Suzuki, EXCETO",Repeticao, imitacao, audição e memoria,objective
+q18_prova1,prova_1,18,Primeira e segunda geracao,"Textos curtos sobre metodologias e seus pressupostos",Associar descricoes aos educadores,objective

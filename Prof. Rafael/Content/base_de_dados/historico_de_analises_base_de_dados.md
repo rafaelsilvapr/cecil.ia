@@ -26,14 +26,21 @@ Aqui ficam registradas leituras sobre consumo, comentarios, dores, temas, titulo
 - Proxima verificacao:
 
 ## Registro inicial
+### 2026-04-14 - Unificacao de linguagem editorial e compilacao do ebook
+- A linguagem canónica passou a separar de forma fixa **6 capítulos** macro do livro e **~40 protocolos** operacionais, com o Capítulo 2 usando **8 temas-candidatos** apenas na camada de planejamento e **6 protocolos finais** no manuscrito.
+- O DOCX deve ser tratado como saida compilada; o manuscrito Markdown continua sendo a fonte operacional principal.
+- Scripts e documentos foram ajustados para usar o mesmo vocabulario entre Codex e Claude Code, reduzindo o risco de conflitar entre guia, plano e manuscrito.
+- A proxima verificacao e garantir que o DOCX final reflita essa hierarquia sem resquicios da nomenclatura antiga.
+
 ### 2026-04-10 - Hierarquia: 6 capítulos do livro e ~40 protocolos
 - A base editorial passou a organizar o ebook em **6 capítulos** (macro blocos temáticos), contendo no total **~40 protocolos** (subcapítulos operacionais), condensados da literatura de gestão de sala.
 - Os seis capítulos são: organização do ambiente e rotina, prevenção e preparação, gestão do fluxo da aula, correção e desescalada, relação e clima, família/equipe/apoio externo.
 - A leitura de demanda do projeto indica que a maior dor de entrada continua sendo indisciplina e perda de controle, com forte procura por protocolos, scripts, manual e alívio rápido.
 - A distribuição de **protocolos** por capítulo deve privilegiar correção e desescalada como maior bloco, manter organização e rotina na abertura e deixar família/equipe no final.
+- No Capítulo 2, o mapa editorial pode listar 8 temas-candidatos, mas o manuscrito fecha 6 protocolos finais. Isso evita confundir a camada de exploração com a camada de escrita.
 
 ### 2026-04-13 - Nomenclatura canónica (ferramentas e redação)
-- Documentação e `manuscrito/` alinhados: **capítulo** = uma das 6 partes; **protocolo** = cada unidade ~2 páginas. Evitar dizer “40 capítulos” quando se referem aos protocolos. Referência: `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`.
+- Documentação e `manuscrito/` alinhados: **capítulo** = uma das 6 partes; **protocolo** = cada unidade ~2 páginas. Evitar dizer “40 capítulos” quando se referem aos protocolos. No Capítulo 2, diferenciar **8 temas-candidatos** de **6 protocolos finais**. Referência: `Content/00_direcao/GUIA_OFICIAL_40_PROTOCOLOS.md`.
 
 ### 2026-04-09 - Criacao da base de dicas e rubric de classificacao
 - Foi criada uma base nova para armazenar dicas individuais em slots de classificacao, com campos para novidade, impacto, evidencia, conforto publico e risco de clichê.

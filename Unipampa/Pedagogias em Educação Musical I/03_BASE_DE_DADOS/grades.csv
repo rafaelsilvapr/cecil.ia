@@ -1,0 +1,12 @@
+student_id,assessment_id,component_name,score,max_score,weight,weighted_score,notes
+st_013,prova_1,Prova 1,8.0,10,3,24.0,objetiva_7.0;dissertativa_1.0;q7_anulada
+st_001,prova_1,Prova 1,9.5,10,3,28.5,objetiva_8.5;dissertativa_1.0;q7_anulada
+st_003,prova_1,Prova 1,9.0,10,3,27.0,objetiva_8.0;dissertativa_1.0;q7_anulada
+st_011,prova_1,Prova 1,8.5,10,3,25.5,objetiva_7.5;dissertativa_1.0;q7_anulada
+st_009,prova_1,Prova 1,9.0,10,3,27.0,objetiva_8.0;dissertativa_1.0;q7_anulada
+st_014,prova_1,Prova 1,9.5,10,3,28.5,objetiva_8.5;dissertativa_1.0;q7_anulada
+st_008,prova_1,Prova 1,9.5,10,3,28.5,objetiva_8.5;dissertativa_1.0;q7_anulada
+st_010,prova_1,Prova 1,9.0,10,3,27.0,objetiva_8.0;dissertativa_1.0;q7_anulada
+st_006,prova_1,Prova 1,8.0,10,3,24.0,objetiva_7.0;dissertativa_1.0;q7_anulada
+st_005,prova_1,Prova 1,9.5,10,3,28.5,objetiva_8.5;dissertativa_1.0;q7_anulada
+st_002,prova_1,Prova 1,4.0,10,3,12.0,objetiva_4.0;dissertativa_0.0;q7_anulada

@@ -1,0 +1,3317 @@
+{
+  "songs": [
+    {
+      "category": "Sambas",
+      "title": "Maria do Socorro",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 1",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Alô Fevereiro",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 1",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Isso aqui o que é",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 1; Sambas 26",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Tiro ao Álvaro",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 1",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Pé do meu Samba",
+      "tone": "Bm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 2",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Cabide",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 2",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Delirio de amor",
+      "tone": "Dm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 3",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Saudosa Maloca",
+      "tone": "Dm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 3",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Retalhos de Cetim",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 4",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "O que é o amor",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 4",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Samba da minha terra",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 5",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Se acaso voce chegasse",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 5",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Por causa de voce",
+      "tone": "Em",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 6",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Que pena",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 6",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Mas que nada",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 6",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Gostoso veneno",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 7",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Trem das 11",
+      "tone": "Em",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 7",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Não deixe o samba morrer",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 7",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Se o caminho e meu",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 8",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Alguem me avisou",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 8",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Sonho meu",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 8",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Foram me chamar",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 8",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Meu ebano",
+      "tone": "Gm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 9; Sambas 11",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Quem dera",
+      "tone": "D",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 9",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Domingo",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 9",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "O bêbado e a equilibrista",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 10",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Flor de lis",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 10",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Falsa Baiana",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 11",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Maneiras",
+      "tone": "Gm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 12",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Você abusou",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 12",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Que maravilha",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Aquele um",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 15",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Fato consumado",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 15",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Aviao",
+      "tone": "E",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 15",
+      "notes": "; começa em F#m",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Enredo do meu samba",
+      "tone": "E",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 16",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Diz que fui por ai",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 16",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Beija-me",
+      "tone": "D",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 17",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Ta escrito",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 17",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Conselho",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 18",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Insensato destino",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 18",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Chega de saudade",
+      "tone": "Dm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 19",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Com que roupa",
+      "tone": "E",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 19",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Som do tambor",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 20",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Do jeito que a vida quer",
+      "tone": "Dm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 20; Sambas 27; Rebarba / reservas 115",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Ja e",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 20; Sambas 40",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Nossa vida parou",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 21",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Tristinha",
+      "tone": "D",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 21",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Deixa o sol sair",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 22",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Cara valente",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 22",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Madalena",
+      "tone": "D",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 22",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Quero chorar, chorar nao tenho lagrimas",
+      "tone": "E",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 23",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Essa melodia",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 23",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Chiclete com banana",
+      "tone": "Bb",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 24",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Sampa",
+      "tone": "E",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 25",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Dança da Solidão",
+      "tone": "Fm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 25",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Brasil pandeiro",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 26; Sambas 42",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Verdade chinesa",
+      "tone": "Dm",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "Sambas 27",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Mel na boca",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 7",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Você me vira a cabeça",
+      "tone": "Gm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Rebarba / reservas 106",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Vou deitar e rolar",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas",
+      "refs": "",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "O meu lugar",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 41; Rebarba / reservas 105",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Primeiro amor",
+      "tone": "Bm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 14; Rebarba / reservas 102",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "A Rita",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 30; Sambas 32; Rebarba / reservas 103",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Mutirao de amor",
+      "tone": "Dm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 43; Rebarba / reservas 104",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Pé na areia",
+      "tone": "D",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 13; Rebarba / reservas 100",
+      "notes": "; refrão Em G D B7",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Preciso me encontrar",
+      "tone": "Gm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 31; Rebarba / reservas 112",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "No na madeira",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 32; Rebarba / reservas 103",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Primavera",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos; Rebarba / reservas",
+      "refs": "Sambas 34; Sambas rápidos 51; Rebarba / reservas 108",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Gostava tanto de voce",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos; Rebarba / reservas",
+      "refs": "Sambas 34; Sambas rápidos 51; Rebarba / reservas 108",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Vivendo e aprendendo a jogar",
+      "tone": "Bm",
+      "energy": "Média",
+      "usage": "Sambas; Rebarba / reservas",
+      "refs": "Sambas 35; Rebarba / reservas 109",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Corisco",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas; Reggae; Rebarba / reservas",
+      "refs": "Sambas 36; Reggae 68; Rebarba / reservas 110",
+      "notes": "Djavan",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "I'm yours",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas; Reggae; Rebarba / reservas",
+      "refs": "Sambas 37; Reggae 69; Rebarba / reservas 111",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "O que é o que é",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos",
+      "refs": "Sambas 40",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Vou festejar",
+      "tone": "Em",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos",
+      "refs": "Sambas 38",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Ze do caroço",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos",
+      "refs": "Sambas 38",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Como será o amanhã",
+      "tone": "D",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos",
+      "refs": "Sambas 39",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "Tristeza",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Sambas; Sambas rápidos",
+      "refs": "Sambas 39",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas",
+      "title": "De volta pro aconchego",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Sambas; Rock e outras",
+      "refs": "Sambas 44; Rock e outras 99; Rebarba / reservas 113",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "São Gonça",
+      "tone": "",
+      "energy": "Alta",
+      "usage": "Sambas rápidos",
+      "refs": "Sambas rápidos 46",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Carolina",
+      "tone": "Am",
+      "energy": "Alta",
+      "usage": "Sambas rápidos",
+      "refs": "Sambas rápidos 46",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Noite",
+      "tone": "Gm",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Samba rock / Funk",
+      "refs": "Sambas rápidos 52; Samba rock / Funk 62",
+      "notes": "Fernanda Abreu",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Não vou ficar",
+      "tone": "E",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Samba rock / Funk",
+      "refs": "Sambas rápidos 54; Samba rock / Funk 61",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Grama verde",
+      "tone": "E",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Samba rock / Funk",
+      "refs": "Sambas rápidos 54; Samba rock / Funk 61",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Eles estao surdos",
+      "tone": "G",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Samba rock / Funk",
+      "refs": "Sambas rápidos 54; Samba rock / Funk 61",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Coqueiro verde",
+      "tone": "",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Samba rock / Funk",
+      "refs": "Sambas rápidos 54; Samba rock / Funk 61",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Paz e arroz",
+      "tone": "",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Samba rock / Funk",
+      "refs": "Sambas rápidos 56; Samba rock / Funk 63",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Sambas rápidos",
+      "title": "Sem saber",
+      "tone": "A7M",
+      "energy": "Alta",
+      "usage": "Sambas rápidos; Rebarba / reservas",
+      "refs": "Sambas 33; Sambas rápidos 55; Rebarba / reservas 107",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Valerie",
+      "tone": "Eb",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 47; Samba rock / Funk 57",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Meus olhos coloridos",
+      "tone": "Dm",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 47; Samba rock / Funk 57",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Tive razao",
+      "tone": "Em",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 45; Samba rock / Funk 57",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Você com essa mania sensual",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas 13; Sambas rápidos 48; Samba rock / Funk 58",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Let's stay together",
+      "tone": "F",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 49; Samba rock / Funk 59",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Linha do Equador",
+      "tone": "E",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 49; Samba rock / Funk 59",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Condicao",
+      "tone": "Am",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 49; Samba rock / Funk 59",
+      "notes": "Lulu",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Nunca mais voltou",
+      "tone": "Dm",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 50",
+      "notes": "/ Am",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "De noite na cama",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 45; Samba rock / Funk 60",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Na estrada",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 45; Samba rock / Funk 60",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Tirar logo os pes",
+      "tone": "",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Sambas rápidos 53",
+      "notes": "Gal Costa",
+      "status": "Base"
+    },
+    {
+      "category": "Samba rock / Funk",
+      "title": "Say a little prayer",
+      "tone": "E",
+      "energy": "Alta",
+      "usage": "Samba rock / Funk",
+      "refs": "Samba rock / Funk 64",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "Xote das meninas",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 65",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "Espumas ao vento",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 65",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "Morena tropicana",
+      "tone": "Cm",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 65",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "Nosso xote",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 66",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "A vida do viajante",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 66",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "Esperando na janela",
+      "tone": "E",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 66",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Xotes",
+      "title": "Deus me proteja de mim",
+      "tone": "F",
+      "energy": "Média",
+      "usage": "Xotes",
+      "refs": "Xotes 66",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Reggae",
+      "title": "Cigano",
+      "tone": "C#m",
+      "energy": "Média",
+      "usage": "Reggae",
+      "refs": "Reggae 67",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Reggae",
+      "title": "A novidade",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Reggae",
+      "refs": "Reggae 67",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Reggae",
+      "title": "Vamos fugir",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Reggae",
+      "refs": "Reggae 67",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Gostos demais",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 70",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Eu só quero um xodó",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 70",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Ai que saudade docê",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 70; Baião / Nordeste 73",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "La Belle Du jour",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 71",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Girassol",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 71",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Reconvexo",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 72",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Trevo de 4 folhas",
+      "tone": "Bb",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 73",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Baião / Nordeste",
+      "title": "Gostoso demais",
+      "tone": "A",
+      "energy": "Média",
+      "usage": "Baião / Nordeste",
+      "refs": "Baião / Nordeste 74",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Maxixe",
+      "title": "Jura",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Maxixe",
+      "refs": "Maxixe 75",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Axé",
+      "title": "Me abraça, me beija",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Axé",
+      "refs": "Axé 76",
+      "notes": "Ivete",
+      "status": "Base"
+    },
+    {
+      "category": "Axé",
+      "title": "Baianidade Nagô",
+      "tone": "E",
+      "energy": "Alta",
+      "usage": "Axé",
+      "refs": "Axé 76",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Axé",
+      "title": "Nobre vagabundo",
+      "tone": "G",
+      "energy": "Alta",
+      "usage": "Axé",
+      "refs": "Axé 77",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Axé",
+      "title": "A cor dessa cidade",
+      "tone": "C",
+      "energy": "Alta",
+      "usage": "Axé",
+      "refs": "Axé 78",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Axé",
+      "title": "Beleza rara",
+      "tone": "Bb",
+      "energy": "Alta",
+      "usage": "Axé",
+      "refs": "Axé 79",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Axé",
+      "title": "Várias queixas",
+      "tone": "Bm",
+      "energy": "Alta",
+      "usage": "Axé",
+      "refs": "Axé 80",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Bem que se quis",
+      "tone": "Eb",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 81",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Estradas de Santos",
+      "tone": "A",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 82",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Dois pra lá, dois pra cá",
+      "tone": "",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 83",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Historia de um amor",
+      "tone": "Am",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 84",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Quizás, quizás, quizás",
+      "tone": "",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "La barca",
+      "tone": "F",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 85",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Bésame mucho",
+      "tone": "Gm",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 85",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "Solamente una vez",
+      "tone": "G",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 86",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Blues / românticas",
+      "title": "El día que me quieras",
+      "tone": "G",
+      "energy": "Baixa",
+      "usage": "Blues / românticas",
+      "refs": "Blues / românticas 86",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Frevos",
+      "title": "Frevo mulher",
+      "tone": "Gm",
+      "energy": "Alta",
+      "usage": "Frevos",
+      "refs": "Frevos 87",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Frevos",
+      "title": "Festa do interior",
+      "tone": "F",
+      "energy": "Alta",
+      "usage": "Frevos",
+      "refs": "Frevos 87",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Frevos",
+      "title": "Gato comeu",
+      "tone": "C",
+      "energy": "Alta",
+      "usage": "Frevos",
+      "refs": "Frevos 87",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Balance",
+      "tone": "Bb",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 88; Marchinhas 92",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Pegando fogo",
+      "tone": "Bb",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 88; Marchinhas 92",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Alalao",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 89",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Linda morena",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 89",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Jardineira",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 89",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Cabeleira do Zezé",
+      "tone": "A",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 89",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Cidade maravilhosa",
+      "tone": "C",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 90",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Mulata bossa nova",
+      "tone": "C",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 90",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Chiquita bacana",
+      "tone": "C",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 90",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Taj Mahal",
+      "tone": "Am",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 91",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Ze pretinho",
+      "tone": "Am",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 91",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "País tropical",
+      "tone": "C",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 91",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "O teu cabelo não nega",
+      "tone": "Bb",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 92",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Mamãe eu quero",
+      "tone": "Bb",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 92",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Aurora",
+      "tone": "Eb",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 93",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Me dá um dinheiro aí",
+      "tone": "Eb",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 93",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Tai",
+      "tone": "Em",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 94",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Quem sabe, sabe",
+      "tone": "Fm",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 94",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Estrela Dalva",
+      "tone": "Cm",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 95",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Marchinhas",
+      "title": "Máscara negra",
+      "tone": "D",
+      "energy": "Alta",
+      "usage": "Marchinhas",
+      "refs": "Marchinhas 95",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Rock e outras",
+      "title": "Cowboy fora da lei",
+      "tone": "G",
+      "energy": "Média",
+      "usage": "Rock e outras",
+      "refs": "Rock e outras 96",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Rock e outras",
+      "title": "Mania de voce",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Rock e outras",
+      "refs": "Rock e outras 97",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Rock e outras",
+      "title": "Tanta saudade",
+      "tone": "Am",
+      "energy": "Média",
+      "usage": "Rock e outras",
+      "refs": "Rock e outras 98",
+      "notes": "",
+      "status": "Base"
+    },
+    {
+      "category": "Rebarba / reservas",
+      "title": "Balanca a pema",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Rebarba / reservas",
+      "refs": "Sambas 13; Rebarba / reservas 101",
+      "notes": "",
+      "status": "Reserva"
+    },
+    {
+      "category": "Rebarba / reservas",
+      "title": "A vizinha qdo passa",
+      "tone": "C",
+      "energy": "Média",
+      "usage": "Rebarba / reservas",
+      "refs": "Sambas 42; Rebarba / reservas 114",
+      "notes": "",
+      "status": "Reserva"
+    },
+    {
+      "category": "Rebarba / reservas",
+      "title": "Besta e tu",
+      "tone": "",
+      "energy": "Média",
+      "usage": "Rebarba / reservas",
+      "refs": "Sambas 2",
+      "notes": "",
+      "status": "Reserva"
+    },
+    {
+      "category": "Pendências de confirmação",
+      "title": "Deus e o diabo na terra (Moraes...)",
+      "tone": "A confirmar",
+      "energy": "A confirmar",
+      "usage": "Pendências de confirmação",
+      "refs": "",
+      "notes": "",
+      "status": "Pendente"
+    },
+    {
+      "category": "Pendências de confirmação",
+      "title": "Ive Brussel",
+      "tone": "A confirmar",
+      "energy": "A confirmar",
+      "usage": "Pendências de confirmação",
+      "refs": "Sambas 13",
+      "notes": "",
+      "status": "Pendente"
+    },
+    {
+      "category": "Pendências de confirmação",
+      "title": "Lenny Kravitz / so many tears we cried",
+      "tone": "C",
+      "energy": "A confirmar",
+      "usage": "Pendências de confirmação",
+      "refs": "Sambas rápidos 50",
+      "notes": "",
+      "status": "Pendente"
+    },
+    {
+      "category": "Pendências de confirmação",
+      "title": "Nossa vida parou (Ca)",
+      "tone": "A confirmar",
+      "energy": "A confirmar",
+      "usage": "Pendências de confirmação",
+      "refs": "",
+      "notes": "",
+      "status": "Pendente"
+    },
+    {
+      "category": "Pendências de confirmação",
+      "title": "Doming",
+      "tone": "A confirmar",
+      "energy": "A confirmar",
+      "usage": "Pendências de confirmação",
+      "refs": "",
+      "notes": "",
+      "status": "Pendente"
+    },
+    {
+      "category": "Pendências de confirmação",
+      "title": "Tirar- logo os pees",
+      "tone": "A confirmar",
+      "energy": "A confirmar",
+      "usage": "Pendências de confirmação",
+      "refs": "",
+      "notes": "",
+      "status": "Pendente"
+    }
+  ],
+  "blocks": [
+    {
+      "category": "Sambas",
+      "blockNumber": 1,
+      "sequence": "Maria do Socorro (F) -> Alo Fevereiro (A) -> Isso aqui o que e -> Tiro ao Alvaro (A)",
+      "tones": [
+        "A",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Maria do Socorro",
+        "Alô Fevereiro",
+        "Isso aqui o que é",
+        "Tiro ao Álvaro"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 2,
+      "sequence": "Pe do meu samba (Bm) -> Cabide (G) -> Deus e o diabo na terra (Moraes...) (F) -> Besta e tu",
+      "tones": [
+        "Bm",
+        "F",
+        "G"
+      ],
+      "notes": "Moraes...",
+      "status": "A revisar",
+      "titles": [
+        "Pé do meu Samba",
+        "Cabide",
+        "Deus e o diabo na terra",
+        "Besta e tu"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 3,
+      "sequence": "Delirio de amor (Dm) -> Saudosa Maloca (Dm)",
+      "tones": [
+        "Dm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Delirio de amor",
+        "Saudosa Maloca"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 4,
+      "sequence": "Retalhos de Cetim (Am) -> O que e o amor (Am)",
+      "tones": [
+        "Am"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Retalhos de Cetim",
+        "O que é o amor"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 5,
+      "sequence": "Samba da minha terra (A) -> Se acaso voce chegasse (C)",
+      "tones": [
+        "A",
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Samba da minha terra",
+        "Se acaso voce chegasse"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 6,
+      "sequence": "Por causa de voce (Em) -> Que pena (G) -> Mas que nada (Am)",
+      "tones": [
+        "Am",
+        "Em",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Por causa de voce",
+        "Que pena",
+        "Mas que nada"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 7,
+      "sequence": "Gostoso veneno (Am) -> Trem das 11 (Em) -> Nao deixe o samba morrer (Am) -> Mel na boca (Am)",
+      "tones": [
+        "Am",
+        "Em"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Gostoso veneno",
+        "Trem das 11",
+        "Não deixe o samba morrer",
+        "Mel na boca"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 8,
+      "sequence": "Se o caminho e meu -> Alguem me avisou -> acreditar -> sonho meu (G) -> foram me chamar",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Se o caminho e meu",
+        "Alguem me avisou",
+        "acreditar",
+        "sonho meu",
+        "foram me chamar"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 9,
+      "sequence": "Meu ebano (Gm) -> Quem dera (D) -> Domingo (F)",
+      "tones": [
+        "D",
+        "F",
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Meu ebano",
+        "Quem dera",
+        "Domingo"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 10,
+      "sequence": "O bebado e a equilibrista (C) -> Flor de lis (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "O bêbado e a equilibrista",
+        "Flor de lis"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 11,
+      "sequence": "Falsa Baiana (A) -> Meu ebano (Gm)",
+      "tones": [
+        "A",
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Falsa Baiana",
+        "Meu ebano"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 12,
+      "sequence": "Maneiras (Gm) -> Voce abusou (A) -> Que maravilha / la fora esta chovendo (A)",
+      "tones": [
+        "A",
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Maneiras",
+        "Você abusou",
+        "Que maravilha / la fora esta chovendo"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 13,
+      "sequence": "Pe na areia (D) -> Balança a pema (C) -> Ive Brussel -> Voce com essa mania sensual (A)",
+      "tones": [
+        "A",
+        "C",
+        "D"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Pé na areia",
+        "Balança a pema",
+        "Ive Brussel",
+        "Você com essa mania sensual"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 14,
+      "sequence": "Primeiro amor (Bm) -> Quem dera SPC (D)",
+      "tones": [
+        "Bm",
+        "D"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Primeiro amor",
+        "Quem dera SPC"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 15,
+      "sequence": "Avião (E; começa em F#m) -> Aquele um (G) -> Fato consumado (G)",
+      "tones": [
+        "E",
+        "G"
+      ],
+      "notes": "; começa em F#m",
+      "status": "A revisar",
+      "titles": [
+        "Avião",
+        "Aquele um",
+        "Fato consumado"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 16,
+      "sequence": "Enredo do meu samba (E) -> Diz que fui por ai (G)",
+      "tones": [
+        "E",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Enredo do meu samba",
+        "Diz que fui por ai"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 17,
+      "sequence": "Beija-me (D) -> Ta escrito (F)",
+      "tones": [
+        "D",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Beija-me",
+        "Ta escrito"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 18,
+      "sequence": "Conselho -> Insensato destino (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Conselho",
+        "Insensato destino"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 19,
+      "sequence": "Chega de saudade (Dm) -> Com que roupa (E)",
+      "tones": [
+        "Dm",
+        "E"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Chega de saudade",
+        "Com que roupa"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 20,
+      "sequence": "Som do tambor (F) -> E tanta (Bm) -> Do jeito que a vida quer (Dm) -> Ja e (F)",
+      "tones": [
+        "Bm",
+        "Dm",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Som do tambor",
+        "E tanta",
+        "Do jeito que a vida quer",
+        "Ja e"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 21,
+      "sequence": "Nossa vida parou (C) -> Tristinha (D)",
+      "tones": [
+        "C",
+        "D"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Nossa vida parou",
+        "Tristinha"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 22,
+      "sequence": "Deixa o sol sair -> Cara valente (A) -> Madalena (D)",
+      "tones": [
+        "A",
+        "D"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Deixa o sol sair",
+        "Cara valente",
+        "Madalena"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 23,
+      "sequence": "Quero chorar, chorar nao tenho lagrimas (E) -> Essa melodia (A)",
+      "tones": [
+        "A",
+        "E"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Quero chorar, chorar nao tenho lagrimas",
+        "Essa melodia"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 24,
+      "sequence": "Chiclete com banana (Bb)",
+      "tones": [
+        "Bb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Chiclete com banana"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 25,
+      "sequence": "Sampa (E) -> Danca da solidao (Fm)",
+      "tones": [
+        "E",
+        "Fm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Sampa",
+        "Dança da Solidão"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 26,
+      "sequence": "Brasil pandeiro (F) -> Isso aqui o que e (A)",
+      "tones": [
+        "A",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Brasil pandeiro",
+        "Isso aqui o que é"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 27,
+      "sequence": "Verdade chinesa (Dm) -> Do jeito que a vida quer (Dm)",
+      "tones": [
+        "Dm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Verdade chinesa",
+        "Do jeito que a vida quer"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 28,
+      "sequence": "Madalena do Juci (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Madalena do Juci"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 29,
+      "sequence": "Kid cavaquinho (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Kid cavaquinho"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 30,
+      "sequence": "A Rita (F)",
+      "tones": [
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "A Rita"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 31,
+      "sequence": "Preciso me encontrar (Gm)",
+      "tones": [
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Preciso me encontrar"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 32,
+      "sequence": "No na madeira (G) -> A Rita (F)",
+      "tones": [
+        "F",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "No na madeira",
+        "A Rita"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 33,
+      "sequence": "Sem saber (A7M)",
+      "tones": [
+        "A7M"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Sem saber"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 34,
+      "sequence": "Primavera (C) -> Gostava tanto de voce (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Primavera",
+        "Gostava tanto de voce"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 35,
+      "sequence": "Vivendo e aprendendo a jogar (Bm)",
+      "tones": [
+        "Bm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Vivendo e aprendendo a jogar"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 36,
+      "sequence": "Corisco (Djavan)",
+      "tones": [],
+      "notes": "Djavan",
+      "status": "A revisar",
+      "titles": [
+        "Corisco"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 37,
+      "sequence": "I'm yours (A) -> parecida com Vamos fugir",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "I'm yours",
+        "parecida com Vamos fugir"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 38,
+      "sequence": "Vou festejar (Em) -> Ze do caroço (Am)",
+      "tones": [
+        "Am",
+        "Em"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Vou festejar",
+        "Ze do caroço"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 39,
+      "sequence": "Como sera o amanha (D) -> Tristeza (A)",
+      "tones": [
+        "A",
+        "D"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Como será o amanhã",
+        "Tristeza"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 40,
+      "sequence": "O que e o que e (A) -> Ja e (F)",
+      "tones": [
+        "A",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "O que é o que é",
+        "Ja e"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 41,
+      "sequence": "O meu lugar (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "O meu lugar"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 42,
+      "sequence": "A vizinha qdo passa (C) -> Brasil pandeiro (F)",
+      "tones": [
+        "C",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "A vizinha qdo passa",
+        "Brasil pandeiro"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 43,
+      "sequence": "Mutirao de amor (Dm)",
+      "tones": [
+        "Dm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Mutirao de amor"
+      ]
+    },
+    {
+      "category": "Sambas",
+      "blockNumber": 44,
+      "sequence": "De volta pro aconchego",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "De volta pro aconchego"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 45,
+      "sequence": "De noite na cama (A) -> Na estrada (A) -> Tive razao (Em)",
+      "tones": [
+        "A",
+        "Em"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "De noite na cama",
+        "Na estrada",
+        "Tive razao"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 46,
+      "sequence": "Sao Gonça -> Carolina (Am)",
+      "tones": [
+        "Am"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "São Gonça",
+        "Carolina"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 47,
+      "sequence": "Valerie (Eb) -> Meus olhos coloridos (Dm)",
+      "tones": [
+        "Dm",
+        "Eb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Valerie",
+        "Meus olhos coloridos"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 48,
+      "sequence": "Voce com essa mania sensual (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Você com essa mania sensual"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 49,
+      "sequence": "Condicao (Lulu) (Am) -> Let's stay together (F) -> Linha do Equador (E)",
+      "tones": [
+        "Am",
+        "E",
+        "F"
+      ],
+      "notes": "Lulu",
+      "status": "A revisar",
+      "titles": [
+        "Condicao",
+        "Let's stay together",
+        "Linha do Equador"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 50,
+      "sequence": "Nunca mais voltou (Dm / Am) -> Lenny Kravitz / so many tears we cried (C)",
+      "tones": [
+        "C",
+        "Dm"
+      ],
+      "notes": "/ Am",
+      "status": "A revisar",
+      "titles": [
+        "Nunca mais voltou",
+        "Lenny Kravitz / so many tears we cried"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 51,
+      "sequence": "Primavera (C) -> Gostava tanto de voce (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Primavera",
+        "Gostava tanto de voce"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 52,
+      "sequence": "Noite (Fernanda Abreu) (Gm)",
+      "tones": [
+        "Gm"
+      ],
+      "notes": "Fernanda Abreu",
+      "status": "A revisar",
+      "titles": [
+        "Noite"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 53,
+      "sequence": "Tirar logo os pes (Gal Costa)",
+      "tones": [],
+      "notes": "Gal Costa",
+      "status": "A revisar",
+      "titles": [
+        "Tirar logo os pes"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 54,
+      "sequence": "Nao vou ficar (E) -> Grama verde (E) -> Eles estao surdos (G) -> Coqueiro verde",
+      "tones": [
+        "E",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Não vou ficar",
+        "Grama verde",
+        "Eles estao surdos",
+        "Coqueiro verde"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 55,
+      "sequence": "Sem saber (A7M)",
+      "tones": [
+        "A7M"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Sem saber"
+      ]
+    },
+    {
+      "category": "Sambas rápidos",
+      "blockNumber": 56,
+      "sequence": "Paz e arroz",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Paz e arroz"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 57,
+      "sequence": "Valerie (Eb) -> Meus olhos coloridos (Dm) -> Tive razao (Em)",
+      "tones": [
+        "Dm",
+        "Eb",
+        "Em"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Valerie",
+        "Meus olhos coloridos",
+        "Tive razao"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 58,
+      "sequence": "Voce com essa mania sensual (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Você com essa mania sensual"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 59,
+      "sequence": "Let's stay together (F) -> Linha do Equador (E) -> Condicao (Am)",
+      "tones": [
+        "Am",
+        "E",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Let's stay together",
+        "Linha do Equador",
+        "Condicao"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 60,
+      "sequence": "De noite na cama (A) -> Na estrada (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "De noite na cama",
+        "Na estrada"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 61,
+      "sequence": "Nao vou ficar (E) -> Eles estao surdos (G) -> Coqueiro verde -> Grama verde (E)",
+      "tones": [
+        "E",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Não vou ficar",
+        "Eles estao surdos",
+        "Coqueiro verde",
+        "Grama verde"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 62,
+      "sequence": "Noite (Fernanda Abreu) (Gm)",
+      "tones": [
+        "Gm"
+      ],
+      "notes": "Fernanda Abreu",
+      "status": "A revisar",
+      "titles": [
+        "Noite"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 63,
+      "sequence": "Paz e arroz",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Paz e arroz"
+      ]
+    },
+    {
+      "category": "Samba rock / Funk",
+      "blockNumber": 64,
+      "sequence": "Say a little prayer (E)",
+      "tones": [
+        "E"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Say a little prayer"
+      ]
+    },
+    {
+      "category": "Xotes",
+      "blockNumber": 65,
+      "sequence": "Xote das meninas (C) -> Espumas ao vento (C) -> Morena tropicana (Cm)",
+      "tones": [
+        "C",
+        "Cm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Xote das meninas",
+        "Espumas ao vento",
+        "Morena tropicana"
+      ]
+    },
+    {
+      "category": "Xotes",
+      "blockNumber": 66,
+      "sequence": "Nosso Xote (F) -> A vida do viajante (F) -> Esperando na janela (E) -> Deus me proteja de mim (F)",
+      "tones": [
+        "E",
+        "F"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Nosso Xote",
+        "A vida do viajante",
+        "Esperando na janela",
+        "Deus me proteja de mim"
+      ]
+    },
+    {
+      "category": "Reggae",
+      "blockNumber": 67,
+      "sequence": "Cigano (C#m) -> A novidade (A) -> Vamos fugir (A)",
+      "tones": [
+        "A",
+        "C#m"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Cigano",
+        "A novidade",
+        "Vamos fugir"
+      ]
+    },
+    {
+      "category": "Reggae",
+      "blockNumber": 68,
+      "sequence": "Corisco (Djavan)",
+      "tones": [],
+      "notes": "Djavan",
+      "status": "A revisar",
+      "titles": [
+        "Corisco"
+      ]
+    },
+    {
+      "category": "Reggae",
+      "blockNumber": 69,
+      "sequence": "I'm yours (A) -> parecida com Vamos fugir",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "I'm yours",
+        "parecida com Vamos fugir"
+      ]
+    },
+    {
+      "category": "Baião / Nordeste",
+      "blockNumber": 70,
+      "sequence": "Gostos demais (A) -> Eu so quero um xodo (G) -> Ai que saudade doce (A)",
+      "tones": [
+        "A",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Gostos demais",
+        "Eu só quero um xodó",
+        "Ai que saudade docê"
+      ]
+    },
+    {
+      "category": "Baião / Nordeste",
+      "blockNumber": 71,
+      "sequence": "La Belle Du jour / Girassol",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "La Belle Du jour",
+        "Girassol"
+      ]
+    },
+    {
+      "category": "Baião / Nordeste",
+      "blockNumber": 72,
+      "sequence": "Reconvexo (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Reconvexo"
+      ]
+    },
+    {
+      "category": "Baião / Nordeste",
+      "blockNumber": 73,
+      "sequence": "Trevo de 4 folhas (Bb) -> ai que saudade doce -> so quero um xodo",
+      "tones": [
+        "Bb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Trevo de 4 folhas",
+        "Ai que saudade docê",
+        "so quero um xodo"
+      ]
+    },
+    {
+      "category": "Baião / Nordeste",
+      "blockNumber": 74,
+      "sequence": "Gostoso demais (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Gostoso demais"
+      ]
+    },
+    {
+      "category": "Maxixe",
+      "blockNumber": 75,
+      "sequence": "Jura (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Jura"
+      ]
+    },
+    {
+      "category": "Axé",
+      "blockNumber": 76,
+      "sequence": "Me abraça, me beija (Ivete) (A) -> Baianidade Nago (E)",
+      "tones": [
+        "A",
+        "E"
+      ],
+      "notes": "Ivete",
+      "status": "A revisar",
+      "titles": [
+        "Me abraça, me beija",
+        "Baianidade Nagô"
+      ]
+    },
+    {
+      "category": "Axé",
+      "blockNumber": 77,
+      "sequence": "Nobre vagabundo (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Nobre vagabundo"
+      ]
+    },
+    {
+      "category": "Axé",
+      "blockNumber": 78,
+      "sequence": "A cor dessa cidade (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "A cor dessa cidade"
+      ]
+    },
+    {
+      "category": "Axé",
+      "blockNumber": 79,
+      "sequence": "Beleza rara (Bb)",
+      "tones": [
+        "Bb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Beleza rara"
+      ]
+    },
+    {
+      "category": "Axé",
+      "blockNumber": 80,
+      "sequence": "Varias queixas (Bm)",
+      "tones": [
+        "Bm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Várias queixas"
+      ]
+    },
+    {
+      "category": "Blues / românticas",
+      "blockNumber": 81,
+      "sequence": "Bem que se quis (Eb)",
+      "tones": [
+        "Eb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Bem que se quis"
+      ]
+    },
+    {
+      "category": "Blues / românticas",
+      "blockNumber": 82,
+      "sequence": "Estradas de Santos (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Estradas de Santos"
+      ]
+    },
+    {
+      "category": "Blues / românticas",
+      "blockNumber": 83,
+      "sequence": "Dois pra la, dois pra ca",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Dois pra lá, dois pra cá"
+      ]
+    },
+    {
+      "category": "Blues / românticas",
+      "blockNumber": 84,
+      "sequence": "Historia de um amor (Am) -> Quizas (Am)",
+      "tones": [
+        "Am"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Historia de um amor",
+        "Quizas"
+      ]
+    },
+    {
+      "category": "Blues / românticas",
+      "blockNumber": 85,
+      "sequence": "La barca (F) -> Besame mucho (Gm)",
+      "tones": [
+        "F",
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "La barca",
+        "Bésame mucho"
+      ]
+    },
+    {
+      "category": "Blues / românticas",
+      "blockNumber": 86,
+      "sequence": "Solamente una vez (G) -> El dia que me quieras (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Solamente una vez",
+        "El día que me quieras"
+      ]
+    },
+    {
+      "category": "Frevos",
+      "blockNumber": 87,
+      "sequence": "Frevo mulher (Gm) -> Festa do interior (F) -> Gato comeu (C)",
+      "tones": [
+        "C",
+        "F",
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Frevo mulher",
+        "Festa do interior",
+        "Gato comeu"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 88,
+      "sequence": "Balance (Bb) -> Pegando fogo (Bb)",
+      "tones": [
+        "Bb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Balance",
+        "Pegando fogo"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 89,
+      "sequence": "Alalao (A) -> Linda morena (A) -> Jardineira (A) -> Cabeleira do Zeze (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Alalao",
+        "Linda morena",
+        "Jardineira",
+        "Cabeleira do Zezé"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 90,
+      "sequence": "Cidade maravilhosa (C) -> Mulata bossa nova (C) -> Chiquita bacana (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Cidade maravilhosa",
+        "Mulata bossa nova",
+        "Chiquita bacana"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 91,
+      "sequence": "Taj Mahal (Am) -> Ze pretinho (Am) -> Pais tropical (C)",
+      "tones": [
+        "Am",
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Taj Mahal",
+        "Ze pretinho",
+        "País tropical"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 92,
+      "sequence": "O teu cabelo nao nega (Bb) -> Mamae eu quero (Bb) -> Balance (Bb) -> Pegando fogo (Bb)",
+      "tones": [
+        "Bb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "O teu cabelo não nega",
+        "Mamãe eu quero",
+        "Balance",
+        "Pegando fogo"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 93,
+      "sequence": "Aurora (Eb) -> Me da um dinheiro ai (Eb)",
+      "tones": [
+        "Eb"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Aurora",
+        "Me dá um dinheiro aí"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 94,
+      "sequence": "Tai (Em) -> Quem sabe, sabe (Fm)",
+      "tones": [
+        "Em",
+        "Fm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Tai",
+        "Quem sabe, sabe"
+      ]
+    },
+    {
+      "category": "Marchinhas",
+      "blockNumber": 95,
+      "sequence": "Estrela Dalva (Cm) -> Mascara negra (D)",
+      "tones": [
+        "Cm",
+        "D"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Estrela Dalva",
+        "Máscara negra"
+      ]
+    },
+    {
+      "category": "Rock e outras",
+      "blockNumber": 96,
+      "sequence": "Cowboy fora da lei (G)",
+      "tones": [
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Cowboy fora da lei"
+      ]
+    },
+    {
+      "category": "Rock e outras",
+      "blockNumber": 97,
+      "sequence": "Mania de voce (Am)",
+      "tones": [
+        "Am"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Mania de voce"
+      ]
+    },
+    {
+      "category": "Rock e outras",
+      "blockNumber": 98,
+      "sequence": "Tanta saudade (Am)",
+      "tones": [
+        "Am"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Tanta saudade"
+      ]
+    },
+    {
+      "category": "Rock e outras",
+      "blockNumber": 99,
+      "sequence": "De volta pro aconchego",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "De volta pro aconchego"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 100,
+      "sequence": "Pe na areia (D; refrão Em G D B7)",
+      "tones": [
+        "D"
+      ],
+      "notes": "; refrão Em G D B7",
+      "status": "A revisar",
+      "titles": [
+        "Pé na areia"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 101,
+      "sequence": "Balanca a pema (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Balanca a pema"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 102,
+      "sequence": "Primeiro amor (Bm)",
+      "tones": [
+        "Bm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Primeiro amor"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 103,
+      "sequence": "No na madeira (G) -> A Rita (F)",
+      "tones": [
+        "F",
+        "G"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "No na madeira",
+        "A Rita"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 104,
+      "sequence": "Mutirao de amor (Dm)",
+      "tones": [
+        "Dm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Mutirao de amor"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 105,
+      "sequence": "O meu lugar (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "O meu lugar"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 106,
+      "sequence": "Voce me vira a cabeca (Gm)",
+      "tones": [
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Você me vira a cabeça"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 107,
+      "sequence": "Sem saber (A7M)",
+      "tones": [
+        "A7M"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Sem saber"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 108,
+      "sequence": "Primavera (C) -> Gostava tanto de voce (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Primavera",
+        "Gostava tanto de voce"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 109,
+      "sequence": "Vivendo e aprendendo a jogar (Bm)",
+      "tones": [
+        "Bm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Vivendo e aprendendo a jogar"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 110,
+      "sequence": "Corisco (Djavan)",
+      "tones": [],
+      "notes": "Djavan",
+      "status": "A revisar",
+      "titles": [
+        "Corisco"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 111,
+      "sequence": "I'm yours (A)",
+      "tones": [
+        "A"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "I'm yours"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 112,
+      "sequence": "Preciso me encontrar (Gm)",
+      "tones": [
+        "Gm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Preciso me encontrar"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 113,
+      "sequence": "De volta pro aconchego",
+      "tones": [],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "De volta pro aconchego"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 114,
+      "sequence": "A vizinha qdo passa (C)",
+      "tones": [
+        "C"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "A vizinha qdo passa"
+      ]
+    },
+    {
+      "category": "Rebarba / reservas",
+      "blockNumber": 115,
+      "sequence": "Do jeito que a vida quer (Dm)",
+      "tones": [
+        "Dm"
+      ],
+      "notes": "",
+      "status": "Base",
+      "titles": [
+        "Do jeito que a vida quer"
+      ]
+    }
+  ]
+}

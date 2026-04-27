@@ -1,0 +1,10 @@
+{
+  "name": "assistente-financeiro-na-nuvem",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  }
+}

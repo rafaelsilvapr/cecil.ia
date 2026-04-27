@@ -40,7 +40,7 @@ O total de subcapítulos é aproximadamente **40**.
 ```
 LIVRO
 ├── Capítulo 1: Organização do ambiente e rotina (~8 subcapítulos)
-├── Capítulo 2: Prevenção e preparação (~6-8 subcapítulos)
+├── Capítulo 2: Prevenção e preparação (~8 temas-candidatos / 6 protocolos finais no manuscrito)
 ├── Capítulo 3: Gestão do fluxo da aula (~7 subcapítulos)
 ├── Capítulo 4: Correção e desescalada (~12 subcapítulos)
 ├── Capítulo 5: Relação e clima (~4 subcapítulos)
@@ -94,10 +94,10 @@ Elementos que entram como boxes ou apoio (não são subcapítulos):
 
 ---
 
-### Capítulo 2: Prevenção e Preparação (~8 subcapítulos)
+### Capítulo 2: Prevenção e Preparação
 Função: Evitar que a indisciplina apareça e preparar a sala para funcionar.
 
-Subcapítulos refinados (versão final do Rafael):
+Temas-candidatos de planejamento:
 1. **Deixe claro o que "sucesso" significa** — Regras positivas + contrato social. Importância de dar opção para o aluno escolher o comportamento. Reforçar o acerto em vez de tentar bloquear o errado. Elogio público / crítica privada como regra geral.
 2. **Mais um pouco sobre rotinas** — Rotinas metodológicas durante o processo de ensino (não apenas de comportamento). Estrutura de aula por partes (objetivo no quadro, atividades visíveis, chamada musical, hora da novidade). Raramente abordado nas licenciaturas; vem da tradição da pedagogia e da escola normal.
 3. **Defina o que é "ordem" para cada tipo de atividade** — Ordem é variável: muda conforme o tipo de atividade (explicação, exercício, grupo, apresentação). Cada atividade demanda um estado mental diferente (Vygotsky, nível ótimo de desafio). A aula precisa de diversidade de momentos.
@@ -108,6 +108,20 @@ Subcapítulos refinados (versão final do Rafael):
 8. **Construa uma comunidade onde as pessoas se sentem seguras o suficiente para reconhecer erros e se expressar** — Segurança psicológica para aprender. Sem erro reconhecido → sem aprendizagem. Estado mental do líder estável e previsível. Não pessoalizar relações. Tratar todos sob as mesmas regras. Defender o direito de expressão. Diversidade de perspectivas.
 
 ---
+
+### Fusão final do Capítulo 2 no manuscrito
+O manuscrito usa **6 protocolos finais** para o Capítulo 2. Os 8 temas acima funcionam como base de análise e podem ser fundidos assim:
+
+- Regras positivas + contrato social
+- Primeiras duas semanas / boot camp preventivo
+- Vigilancia multifocal + proximidade ativa
+- Overlapping + transicoes suaves
+- Wait-time + momentum
+- Demanda academica + pertencimento/clima
+
+### Nota de continuidade
+Os **protocolos** de numeracao **03 a 40** no manuscrito (isto e, todo o conteudo apos os dois primeiros protocolos) serao escritos a partir deste mapa e do `GUIA_OFICIAL`. Evite confundir com "Capítulo 3 a 6 do livro". No Capítulo 2, os 8 temas-candidatos do guia e do mapa editorial se condensam em 6 protocolos finais no manuscrito.
+Nesta versao de trabalho, o material antigo foi removido para evitar conflito com a arquitetura nova.
 
 ### Capítulo 3: Gestão do Fluxo da Aula (~7 subcapítulos)
 Função: Fazer a aula andar com ritmo, resposta e menos tempo morto.

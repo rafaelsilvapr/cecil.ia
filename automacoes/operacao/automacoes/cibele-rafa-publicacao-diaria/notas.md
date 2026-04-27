@@ -1,0 +1,23 @@
+# Notas Operacionais
+
+- Data do draft: `2026-04-19`
+- A planilha canonica e `catalogo_videos`; a aba `Sheet1` ficou como espelho de visibilidade.
+- A coluna `foco_credito` foi substituida por `origem_autoral` para ficar claro para qualquer agente que `Rafael da Silva` indica autoria propria.
+- O `cycle_state` foi inicializado com uma linha de controle.
+- O blueprint abaixo preserva a branch de publicacao ja validada e muda apenas a camada de selecao, agenda e legenda.
+- Se o Make importar este desenho, as conexoes precisarao ser remapeadas:
+  - Google Sheets
+  - Google Drive
+  - Google Calendar
+  - AI provider
+  - Blotato
+  - Facebook Pages
+  - YouTube
+- O calendario ainda esta `a confirmar`.
+- O fluxo assume um calendario dedicado para shows, para a leitura semanal ficar limpa.
+- A legenda deve sair de um unico agente editorial `openai-gpt-3:CreateCompletion` com saida estruturada por plataforma, e os modulos de destino consomem `result.caption_*` diretamente.
+- O texto do agente nunca deve usar `Cybele` nem citar `Spotify`.
+- Licao desta iteracao: o shell de importacao nao pode improvisar familias de modulo nem duplicar upload de midia; `blotato:media` deve aparecer uma vez so e servir todas as rotas de publicacao.
+- Licao desta iteracao: o agente editorial entra no shell importavel como `CreateCompletion` com JSON Object, evitando quatro prompts soltos e deixando o mapeamento para os modulos de destino explicito.
+- Licao desta iteracao: branch de publicacao independente precisa ser preservada, mas a topologia do upload compartilhado deve ficar identica ao fluxo validado para evitar `Module Not Found` e duplicacao de arquivo.
+- Licao desta iteracao: quando for pedido um prompt de agente, devolver o prompt inteiro, ja reformulado e pronto para copiar e colar, sem exigir que o usuario pesquise trechos para ajustar.

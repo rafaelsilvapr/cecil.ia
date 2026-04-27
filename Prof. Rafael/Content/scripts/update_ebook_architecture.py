@@ -8,11 +8,24 @@ from pathlib import Path
 
 
 SRC = Path(
-    "/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/Produtos/BKP_ESTRUTURA_SALA_CONTROLE_ABRIL_10.docx"
+    "/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/Produtos/ebook - Gestao de sala de aula sem caos.docx"
 )
 
-NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+NS = {
+    "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "cp": "http://schemas.openxmlformats.org/package/2006/metadata/core-properties",
+    "dc": "http://purl.org/dc/elements/1.1/",
+}
 W = "{%s}" % NS["w"]
+
+CANONICAL_TITLE = "Gestão de sala de aula sem caos: 40 protocolos práticos para reduzir a indisciplina no dia a dia"
+TITLE_REPLACEMENTS = {
+    "Sala de aula sob controle": "Gestão de sala de aula sem caos",
+    "Título: Sala de aula sob controle: manual para aulas de 45 minutos com alta aprendizagem e menos estresse.": "Título: Gestão de sala de aula sem caos: 40 protocolos práticos para reduzir a indisciplina no dia a dia.",
+    "Título: Gestão de sala de aula sem caos: manual para aulas de 45 minutos com alta aprendizagem e menos estresse.": "Título: Gestão de sala de aula sem caos: 40 protocolos práticos para reduzir a indisciplina no dia a dia.",
+    "Distribuição oficial dos 40 capítulos": "Distribuição oficial dos ~40 protocolos",
+    "Nota editorial: o sumário acima já reflete a arquitetura oficial de 40 capítulos. O corpo abaixo ainda preserva um rascunho de trabalho anterior e será reestruturado ao longo da consolidação do livro.": "Nota editorial: o sumário acima já reflete a arquitetura oficial de 6 capítulos e ~40 protocolos. O corpo abaixo ainda preserva um rascunho de trabalho anterior e será reestruturado ao longo da consolidação do livro.",
+}
 
 
 def make_p(text: str = "", style: str | None = None, bold: bool = False) -> ET.Element:
@@ -35,124 +48,114 @@ def make_p(text: str = "", style: str | None = None, bold: bool = False) -> ET.E
     return p
 
 
-def main() -> None:
-    # --- New Chapter 2 content ---
-    chapter2_nodes = [
+def para_text(el: ET.Element) -> str | None:
+    if el.tag != W + "p":
+        return None
+    return "".join(t.text or "" for t in el.findall(".//w:t", NS)).strip()
+
+
+def set_paragraph_text(p: ET.Element, text: str) -> None:
+    for child in list(p):
+        if child.tag != W + "pPr":
+            p.remove(child)
+    r = ET.SubElement(p, W + "r")
+    t = ET.SubElement(r, W + "t")
+    if text.startswith(" ") or text.endswith(" "):
+        t.set("{http://www.w3.org/XML/1998/namespace}space", "preserve")
+    t.text = text
+
+
+def replace_text_in_paragraphs(root: ET.Element, replacements: dict[str, str]) -> None:
+    for p in root.findall(".//w:p", NS):
+        current = para_text(p)
+        if not current:
+            continue
+        new_text = current
+        for old, new in replacements.items():
+            if old in new_text:
+                new_text = new_text.replace(old, new)
+        if new_text != current:
+            set_paragraph_text(p, new_text)
+
+
+def find_child_index(children: list[ET.Element], needle: str) -> int:
+    for idx, el in enumerate(children):
+        txt = para_text(el)
+        if txt and needle in txt:
+            return idx
+    raise RuntimeError(f"Não encontrei o trecho '{needle}' no documento")
+
+
+def find_next_child_index(children: list[ET.Element], needle: str, start: int) -> int | None:
+    for idx in range(start, len(children)):
+        txt = para_text(children[idx])
+        if txt and needle in txt:
+            return idx
+    return None
+
+
+def update_core_title(corexml: Path) -> None:
+    tree = ET.parse(corexml)
+    root = tree.getroot()
+    title = root.find("dc:title", NS)
+    if title is None:
+        title = ET.SubElement(root, "{%s}title" % NS["dc"])
+    title.text = CANONICAL_TITLE
+    tree.write(corexml, xml_declaration=True, encoding="utf-8")
+
+
+def chapter2_nodes() -> list[ET.Element]:
+    return [
         make_p("Capítulo 2 — Prevenção e preparação", style="Heading1", bold=True),
         make_p(),
         make_p("Texto de abertura do capítulo:", style="Heading2", bold=True),
         make_p(
-            "Este capítulo cria a base preventiva para que a indisciplina apareça menos e com menos intensidade. "
-            "A função dele é preparar a sala para funcionar antes que o conflito apareça, "
-            "com menos improviso e mais previsibilidade."
+            "Este capítulo prepara a sala para funcionar antes que o conflito apareça. A lógica aqui é preventiva: instalar previsibilidade, reduzir improviso e diminuir a chance de a indisciplina ganhar espaço."
         ),
         make_p(
-            "Os 8 subcapítulos a seguir cobrem desde a definição do que é sucesso até a construção "
-            "de uma comunidade onde o erro é aceito como parte do aprendizado."
+            "Os 8 temas-candidatos do mapa editorial se condensam aqui em 6 protocolos finais. A ideia não é explicar tudo de novo, e sim oferecer os blocos mais fortes para que a prevenção seja prática, clara e fácil de aplicar."
         ),
         make_p(),
-
-        # --- Subcapítulo 2.1 ---
-        make_p('2.1 — Deixe claro o que "sucesso" significa', style="Heading2", bold=True),
+        make_p("2.1 — Regras positivas e contrato social", style="Heading2", bold=True),
         make_p(
-            "Tese central: regras positivas + contrato social. A importância de dar opção para o aluno "
-            "escolher o comportamento. É mais fácil e efetivo conduzir para o acerto do que tentar bloquear "
-            "o errado. Reforçar os bons modelos. Elogio público, crítica privada como regra geral."
+            "Regras positivas dão direção concreta para o comportamento e o contrato social transforma expectativa em pacto de convivio. O professor conduz para o acerto, reforça bons modelos e usa elogio publico com critica privada como regra geral."
         ),
         make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
         make_p(),
-
-        # --- Subcapítulo 2.2 ---
-        make_p("2.2 — Mais um pouco sobre rotinas", style="Heading2", bold=True),
+        make_p("2.2 — Primeiras duas semanas / boot camp preventivo", style="Heading2", bold=True),
         make_p(
-            "Tese central: rotinas metodológicas durante o processo de ensino, não apenas rotinas de comportamento. "
-            "Estrutura de aula por partes (objetivo no quadro, atividades visíveis, chamada musical, hora da novidade). "
-            "Comum na pedagogia e na escola normal, mas raramente abordado nas licenciaturas."
+            "As duas primeiras semanas são a janela de maior alavanca: enquanto os alunos ainda estão se reconhecendo, o professor treina rotinas, transicoes e comandos para mostrar pela experiencia como a aula funciona."
         ),
         make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
         make_p(),
-
-        # --- Subcapítulo 2.3 ---
-        make_p('2.3 — Defina o que é "ordem" para cada tipo de atividade', style="Heading2", bold=True),
+        make_p("2.3 — Vigilancia multifocal + proximidade ativa", style="Heading2", bold=True),
         make_p(
-            "Tese central: ordem variável por tipo de atividade. Cada atividade demanda um estado mental diferente "
-            "(Vygotsky, nível ótimo de desafio). A aula precisa de diversidade de momentos. Definir o que é 'ordem' "
-            "para explicação, exercício, grupo, apresentação. Não é razoável esperar que alunos fiquem sentados e "
-            "imóveis durante 45 minutos."
+            "O professor percebe o que acontece em toda a sala enquanto ensina e circula com intencao para reduzir zonas de risco. A liderança aparece na circulacao, na ocupacao do espaco e na vigilancia calma."
         ),
         make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
         make_p(),
-
-        # --- Subcapítulo 2.4 ---
-        make_p("2.4 — Use a sua vantagem", style="Heading2", bold=True),
+        make_p("2.4 — Overlapping + transições suaves", style="Heading2", bold=True),
         make_p(
-            "Tese central: treinamento de rotinas iniciais — as primeiras duas semanas como janela estratégica. "
-            "Enquanto os alunos estão se reconhecendo, o professor mostra pela experiência o que é uma aula ideal. "
-            "Treinar rotinas, transições e comandos. Isso não elimina a necessidade de reforçar regras o ano todo."
+            "O professor administra uma demanda sem quebrar a outra e passa de uma atividade a outra sem vácuo. O foco e a continuidade precisam andar juntos para a aula não virar tempo morto."
         ),
         make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
         make_p(),
-
-        # --- Subcapítulo 2.5 ---
-        make_p("2.5 — O lado territorial da liderança em sala de aula", style="Heading2", bold=True),
+        make_p('2.5 — Wait-time + momentum', style="Heading2", bold=True),
         make_p(
-            "Tese central: vigilância multifocal + proximidade ativa. Presença calma e assertiva, não agressiva. "
-            "Ocupação intencional do espaço. Territórios se formam naturalmente; o líder precisa administrá-los. "
-            "A liderança não acontece dizendo 'eu sou o líder'; acontece através da presença."
+            "O professor da tempo real para pensar e sustenta o fluxo da aula sem pausas improdutivas. Espera produtiva e continuidade são as duas metades do mesmo controle de ritmo."
         ),
         make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
         make_p(),
-
-        # --- Subcapítulo 2.6 ---
-        make_p('2.6 — Não demande atenção desnecessariamente, mas quando demandar garanta uma aula com "bom ritmo"', style="Heading2", bold=True),
+        make_p("2.6 — Demanda acadêmica + pertencimento/clima", style="Heading2", bold=True),
         make_p(
-            "Tese central: economia da atenção. Não chamar a turma toda para questão de 3 alunos. "
-            "Pacing (Basil Bernstein): quanto tempo em cada atividade, ritmo de avanço, transições fluidas. "
-            "Overlapping: administrar múltiplas demandas ao mesmo tempo. "
-            "Comparação com stand-up comedy: manter ritmo e fluência."
+            "A tarefa precisa estar no ponto certo e a turma precisa sentir que pertence a uma comunidade de aprendizagem. A prevenção aqui une desafio cognitivo, segurança psicológica e baixo medo de errar."
         ),
         make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
-        make_p(),
-
-        # --- Subcapítulo 2.7 ---
-        make_p("2.7 — Use perguntas de modo estratégico", style="Heading2", bold=True),
-        make_p(
-            "Tese central: perguntas como ferramenta de engajamento e criação de imagens mentais. "
-            "Perguntas abertas vs. fechadas. Resposta coral e dinâmicas rítmicas. "
-            "Avaliação formativa em tempo real. BrainNet (Miguel Nicolelis): cérebros conectados no mesmo tema."
-        ),
-        make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
-        make_p(),
-
-        # --- Subcapítulo 2.8 ---
-        make_p("2.8 — Construa uma comunidade onde as pessoas se sentem seguras o suficiente para reconhecer erros e se expressar", style="Heading2", bold=True),
-        make_p(
-            "Tese central: segurança psicológica para aprender. Sem erro reconhecido → sem aprendizagem. "
-            "Estado mental estável e previsível do líder. Não pessoalizar relações. "
-            "Tratar todos sob as mesmas regras. Defender o direito de expressão. "
-            "Diversidade de perspectivas como valor educacional."
-        ),
-        make_p("[Aguardando redação final — gatilho: 'registrar no livro']"),
-        make_p(),
-
-        # --- Placeholder Capítulos 3 a 6 ---
-        make_p("Capítulo 3 — Gestão do fluxo da aula", style="Heading1", bold=True),
-        make_p("[Estrutura de subcapítulos a definir — ver GUIA_OFICIAL_40_PROTOCOLOS.md]"),
-        make_p(),
-
-        make_p("Capítulo 4 — Correção e desescalada", style="Heading1", bold=True),
-        make_p("[Estrutura de subcapítulos a definir — ver GUIA_OFICIAL_40_PROTOCOLOS.md]"),
-        make_p(),
-
-        make_p("Capítulo 5 — Relação e clima", style="Heading1", bold=True),
-        make_p("[Estrutura de subcapítulos a definir — ver GUIA_OFICIAL_40_PROTOCOLOS.md]"),
-        make_p(),
-
-        make_p("Capítulo 6 — Família, equipe e apoio externo", style="Heading1", bold=True),
-        make_p("[Estrutura de subcapítulos a definir — ver GUIA_OFICIAL_40_PROTOCOLOS.md]"),
         make_p(),
     ]
 
+
+def main() -> None:
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         with zipfile.ZipFile(SRC, "r") as zin:
@@ -165,16 +168,16 @@ def main() -> None:
         if body is None:
             raise RuntimeError("document.xml sem body")
 
+        replace_text_in_paragraphs(root, TITLE_REPLACEMENTS)
+
         children = list(body)
+        chapter2_idx = find_child_index(children, "Capítulo 2")
+        chapter3_idx = find_child_index(children, "Capítulo 3")
+        chapter3_dup_idx = find_next_child_index(children, "Capítulo 3", chapter3_idx + 1)
 
-        # Find the paragraph index for the old Chapter 2 heading (index 85)
-        # and the "Nota de continuidade" / References section that follows (index 108+)
-        # We replace from index 85 (old Chapter 2 heading) to index 108 (exclusive, the "Nota de continuidade")
-        start_idx = 85   # "Capítulo 2 - Prevenção e preparação"
-        # Find the end: the "Nota de continuidade" paragraph and everything after up to References
-        end_idx = 108     # "Nota de continuidade: os capítulos 3 a 40..."
-
-        new_children = list(children[:start_idx]) + chapter2_nodes + list(children[end_idx:])
+        new_nodes = chapter2_nodes()
+        tail_end = chapter3_dup_idx if chapter3_dup_idx is not None else len(children)
+        new_children = list(children[:chapter2_idx]) + new_nodes + list(children[chapter3_idx:tail_end])
 
         sectPr = body.find("w:sectPr", NS)
         for child in list(body):
@@ -185,6 +188,10 @@ def main() -> None:
             body.append(sectPr)
         tree.write(docxml, xml_declaration=True, encoding="utf-8")
 
+        corexml = td_path / "docProps" / "core.xml"
+        if corexml.exists():
+            update_core_title(corexml)
+
         out = td_path / "updated.docx"
         with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zout:
             for path in td_path.rglob("*"):
@@ -193,10 +200,7 @@ def main() -> None:
                 if path.is_file():
                     zout.write(path, path.relative_to(td_path).as_posix())
 
-        # Save as the new working file
-        dest = Path("/Users/rafaelrodriguesdasilva/Documents/Agentes - Antigravity/Prof. Rafael/Produtos/ebook - Gestao de sala de aula sem caos.docx")
-        shutil.copy2(out, dest)
-        print(f"Novo arquivo salvo em: {dest}")
+        shutil.copy2(out, SRC)
 
 
 if __name__ == "__main__":

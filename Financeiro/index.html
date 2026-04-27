@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadê | Assistente Financeiro na Nuvem</title>
+    <meta
+      name="description"
+      content="Cadê, o assistente financeiro na nuvem, com inbox de documentos, lançamentos, visão da base histórica e arquitetura do sistema."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <main class="shell">
+      <section class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Cadê</p>
+          <h1>Organize gastos, documentos, IR e projeções sem depender do chat.</h1>
+          <p class="lede">
+            Este protótipo transforma a ideia em um centro de comando com
+            inbox de documentos, lançamentos normalizados, trilha de auditoria
+            e uma visão clara da sua base histórica.
+          </p>
+          <div class="hero-actions">
+            <button id="export-btn" class="button primary">Exportar JSON</button>
+            <label class="button secondary">
+              Importar JSON
+              <input id="import-input" type="file" accept="application/json" hidden />
+            </label>
+          </div>
+        </div>
+        <div class="hero-metrics" id="hero-metrics"></div>
+      </section>
+
+      <section class="panel architecture">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Arquitetura</p>
+            <h2>Fluxo de dados pensado para o uso diário e para a memória longa.</h2>
+          </div>
+          <p class="section-note">
+            Telegram entra, painel resolve, nuvem guarda, IA classifica e você
+            confere só o que precisa.
+          </p>
+        </div>
+        <div class="pipeline" id="pipeline"></div>
+      </section>
+
+      <section class="grid-two">
+        <section class="panel review-panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Inbox documental</p>
+              <h2>Fontes que já entram no sistema.</h2>
+            </div>
+            <p class="section-note">
+              Contratos, PIX, extratos, notas e a planilha central ficam na
+              mesma visão.
+            </p>
+          </div>
+          <form id="document-form" class="form-stack">
+            <div class="form-row">
+              <label>
+                Título
+                <input name="title" placeholder="Ex.: fatura Nubank abril" required />
+              </label>
+              <label>
+                Tipo
+                <select name="kind">
+                  <option>Contrato</option>
+                  <option>Extrato</option>
+                  <option>PIX</option>
+                  <option>Fatura</option>
+                  <option>Nota fiscal</option>
+                  <option>Planilha</option>
+                  <option>Outro</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Origem
+                <input name="source" placeholder="Ex.: Downloads / Google Drive" required />
+              </label>
+              <label>
+                Status
+                <select name="status">
+                  <option>Pendente</option>
+                  <option>Revisado</option>
+                  <option>Importado</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Observação
+              <input name="note" placeholder="Contexto curto para a revisão" />
+            </label>
+            <label>
+              Anexo local
+              <input name="file" type="file" accept="application/pdf,image/*" />
+            </label>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Adicionar documento</button>
+            </div>
+          </form>
+          <div class="list" id="documents-list"></div>
+        </section>
+
+        <section class="panel review-panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Lançamentos</p>
+              <h2>Movimentação já normalizada para análise.</h2>
+            </div>
+            <p class="section-note">
+              Você cadastra manualmente ou importa depois. O motor sugere a
+              categoria com base em regras simples.
+            </p>
+          </div>
+          <form id="entry-form" class="form-stack">
+            <div class="form-row">
+              <label>
+                Data
+                <input name="date" type="date" required />
+              </label>
+              <label>
+                Valor
+                <input name="amount" type="number" step="0.01" min="0" placeholder="0,00" required />
+              </label>
+            </div>
+            <label>
+              Descrição
+              <input name="description" placeholder="Ex.: aluguel, Unimed, PIX recebido..." required />
+            </label>
+            <div class="form-row">
+              <label>
+                Direção
+                <select name="direction">
+                  <option value="expense">Despesa</option>
+                  <option value="income">Receita</option>
+                </select>
+              </label>
+              <label>
+                Pagamento
+                <select name="paymentMethod">
+                  <option>Cartão de crédito</option>
+                  <option>PIX</option>
+                  <option>Débito</option>
+                  <option>Dinheiro</option>
+                  <option>Boleto</option>
+                  <option>Transferência</option>
+                  <option>Outro</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Categoria
+                <input name="category" placeholder="Será sugerida automaticamente" />
+              </label>
+              <label>
+                Subcategoria
+                <input name="subcategory" placeholder="Ex.: aluguel, assinatura, saúde" />
+              </label>
+            </div>
+            <div class="form-actions">
+              <button class="button primary" type="submit">Adicionar lançamento</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table class="ledger">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Categoria</th>
+                  <th>Valor</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="entries-tbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section class="grid-two lower-grid">
+        <section class="panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Needs Review</p>
+              <h2>Fila operacional para classificação e registro.</h2>
+            </div>
+            <p class="section-note" id="review-queue-summary">
+              Itens importados, pendentes ou ambíguos aparecem aqui para revisão.
+            </p>
+          </div>
+          <div class="review-list" id="review-queue-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Base histórica</p>
+              <h2>Planilha atual convertida em visão executiva.</h2>
+            </div>
+            <p class="section-note">
+              Os números abaixo resumem o comportamento da sua base atual para
+              dar direção ao desenho do sistema.
+            </p>
+          </div>
+          <div class="mini-grid" id="snapshot-grid"></div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <span>Despesa total por período</span>
+              <span>escala relativa</span>
+            </div>
+            <div id="sparkline" class="bars"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Riscos e mitigação</p>
+              <h2>Onde o projeto mais complica e como o sistema responde.</h2>
+            </div>
+          </div>
+          <div class="risk-list" id="risk-list"></div>
+          <div class="roadmap-card">
+            <p class="eyebrow">Próximas etapas</p>
+            <ol id="roadmap-list"></ol>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+name: Professor Rafael Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Prof. Rafael/docs/**"
+      - "Prof. Rafael/Content/scripts/automation_dashboard.py"
+      - "Prof. Rafael/Content/Publicacoes/Instagram/Carrosseis/**"
+      - "Prof. Rafael/Content/base_de_dados/artigos_pesquisa/**"
+      - "Prof. Rafael/Content/00_direcao/automation_hub/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: professor-rafael-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build dashboard data
+        run: python3 "Prof. Rafael/Content/scripts/automation_dashboard.py" build-dashboard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "Prof. Rafael/docs"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

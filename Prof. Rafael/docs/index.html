@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Professor Rafael - Automations Hub</title>
+    <meta name="description" content="Painel mobile para revisar a pesquisa diária e o carrossel do Professor Rafael.">
+    <link rel="stylesheet" href="./assets/styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Professor Rafael</p>
+        <h1>Automations Hub</h1>
+        <p class="hero-copy">Um painel feito para celular, com leitura rápida, histórico e atalhos de aprovação sem depender de abrir arquivos locais.</p>
+        <div class="hero-meta" id="hero-meta">Carregando estado do painel...</div>
+      </header>
+
+      <main class="dashboard" id="dashboard">
+        <section class="panel loading-panel">
+          <h2>Preparando o painel</h2>
+          <p>Buscando o carrossel mais recente, o radar de pesquisa e o histórico de decisões.</p>
+        </section>
+      </main>
+    </div>
+
+    <template id="empty-state-template">
+      <section class="panel empty-state">
+        <h2>Nada pendente ainda</h2>
+        <p>Assim que a automação gerar novos dados, este painel passa a mostrar as aprovações pendentes aqui.</p>
+      </section>
+    </template>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>

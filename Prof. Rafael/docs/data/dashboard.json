@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-05-15T03:29:12Z",
+  "repo": {
+    "slug": "rafaelsilvapr/cecil.ia",
+    "issues_new_url": "https://github.com/rafaelsilvapr/cecil.ia/issues/new"
+  },
+  "carousel": {
+    "kind": "carousel",
+    "id": "2026-05-14",
+    "status": "pending_approval",
+    "decision": null,
+    "updated_at": "2026-05-14T12:00:00Z",
+    "updated_via": null,
+    "notes": "",
+    "question": "Como ensinar com menos desgaste sem perder autoridade?",
+    "thesis": "O maior ladrão de energia do professor não é o aluno difícil — é a aula que perde o ritmo.",
+    "source_article": {
+      "title": "Discipline and Group Management in Classrooms",
+      "authors": "Kounin, J.S.",
+      "year": 1970,
+      "country": "Estados Unidos",
+      "method": "Estudo observacional",
+      "results": "O conceito de 'momentum' mostra que professores eficazes mantêm o fluxo da aula sem interrupções desnecessárias. Slowdowns, 'dangles' e 'flip-flops' são os principais sabotadores do ritmo e do desgaste docente."
+    },
+    "slides": [
+      {
+        "number": 1,
+        "type": "pergunta_de_impacto",
+        "headline": "Por que algumas aulas te destroem e outras fluem sozinhas?",
+        "body": ""
+      },
+      {
+        "number": 2,
+        "type": "pressao",
+        "headline": "A exaustão que ninguém explica direito",
+        "body": "Você preparou a aula, chegou disposto, mas no meio do caminho algo travou. Você repetiu a mesma instrução três vezes, voltou num assunto que já tinha encerrado, perdeu o fio — e gastou o triplo de energia para metade do resultado. No final, a culpa cai em você."
+      },
+      {
+        "number": 3,
+        "type": "charlot",
+        "headline": "Kounin chamou isso de \"momentum\"",
+        "body": "Em 1970, Jacob Kounin filmou centenas de aulas e descobriu que a diferença entre professores que se desgastam e os que fluem não está na personalidade. Está no ritmo. Quem mantém a aula em movimento contínuo gasta menos energia e tem menos problemas de comportamento."
+      },
+      {
+        "number": 4,
+        "type": "citacao",
+        "headline": "\"Slowdowns, não alunos difíceis, são os maiores sabotadores da aula.\"",
+        "body": "Kounin, 1970 — adaptado"
+      },
+      {
+        "number": 5,
+        "type": "realidade_brasileira",
+        "headline": "6 turmas por dia, 40 alunos por sala — e o ritmo se perde fácil",
+        "body": "No Brasil, o professor troca de turma o dia inteiro e ainda carrega diário, chamada, ocorrência. Cada interrupção burocrática quebra o momentum. E toda vez que a aula morre, custa caro retomar. O cansaço não vem só da carga — vem do ritmo que se perde e precisa ser reconstruído do zero."
+      },
+      {
+        "number": 6,
+        "type": "tese_pratica",
+        "headline": "A regra dos 3 segundos",
+        "body": "Quando terminar uma atividade, já tenha a próxima pronta. Não deixe passar mais de 3 segundos entre uma etapa e outra. Se precisar improvisar, improvise dentro do fluxo — nunca pare a aula para pensar no que vem depois. Transição rápida é o que separa a aula que flui da que afunda."
+      },
+      {
+        "number": 7,
+        "type": "fechamento_autoral",
+        "headline": "Professor cansado nem sempre trabalha demais. Às vezes, trabalha sem ritmo.",
+        "body": "E reconhecer isso não é fraqueza — é o primeiro passo para parar de se culpar e começar a se organizar melhor."
+      },
+      {
+        "number": 8,
+        "type": "cta",
+        "headline": "Salva esse carrossel e relê antes da próxima aula.",
+        "body": "Me conta: em que momento da aula você sente que o ritmo se perde?"
+      }
+    ],
+    "folder": "Content/Publicacoes/Instagram/Carrosseis/2026-05-14",
+    "source_file": "Content/Publicacoes/Instagram/Carrosseis/latest_carousel.json"
+  },
+  "research": null,
+  "activity": []
+}

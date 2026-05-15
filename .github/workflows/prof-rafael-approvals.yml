@@ -1,0 +1,71 @@
+name: Professor Rafael Approvals
+
+on:
+  issues:
+    types:
+      - opened
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply-approval:
+    if: contains(github.event.issue.body, 'automation_approval: true')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Write issue body to file
+        run: |
+          cat <<'EOF_BODY' > /tmp/automation-approval.txt
+          ${{ github.event.issue.body }}
+          EOF_BODY
+
+      - name: Apply review decision
+        run: |
+          python3 "Prof. Rafael/Content/scripts/automation_dashboard.py" apply-from-issue \
+            --body-file /tmp/automation-approval.txt \
+            --issue-number "${{ github.event.issue.number }}" \
+            --issue-url "${{ github.event.issue.html_url }}"
+
+      - name: Commit repository updates
+        run: |
+          if git diff --quiet -- "Prof. Rafael"; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Prof. Rafael/docs/data" "Prof. Rafael/Content/00_direcao/automation_hub" "Prof. Rafael/Content/Publicacoes/Instagram/Carrosseis" "Prof. Rafael/Content/base_de_dados/artigos_pesquisa"
+          git commit -m "Apply Professor Rafael approval from issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Comment and close issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              "Aprovacao processada automaticamente.",
+              "",
+              `Issue: #${context.issue.number}`,
+              `Origem: ${context.payload.issue.html_url}`
+            ].join("\n");
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });

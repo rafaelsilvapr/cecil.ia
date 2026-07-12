@@ -20,6 +20,19 @@ const PRIORITY: Record<QueueItem['target'], number> = {
 
 let syncPromise: Promise<void> | null = null;
 let syncStarted = false;
+let retryTimer: number | null = null;
+let retryDeadline = Number.POSITIVE_INFINITY;
+
+const scheduleRetry = (nextRetryAt: number) => {
+  if (nextRetryAt >= retryDeadline) return;
+  if (retryTimer !== null) window.clearTimeout(retryTimer);
+  retryDeadline = nextRetryAt;
+  retryTimer = window.setTimeout(() => {
+    retryTimer = null;
+    retryDeadline = Number.POSITIVE_INFINITY;
+    void syncTelemetryQueue();
+  }, Math.max(0, nextRetryAt - Date.now()));
+};
 
 const retryAt = (attempts: number) => {
   const baseDelay = RETRY_DELAYS[Math.min(attempts - 1, RETRY_DELAYS.length - 1)] ?? 21_600_000;
@@ -37,51 +50,73 @@ const errorDetails = (error: unknown) => {
   };
 };
 
-const handleFailure = async (item: QueueItem, error: unknown) => {
+const handleFailure = async (item: QueueItem, error: unknown, responseStatus = 0) => {
   const details = errorDetails(error);
+  const status = responseStatus || details.status;
   const attempts = item.attempts + 1;
   const logicalConflict = details.code === '23505';
-  const validationFailure = details.status >= 400 && details.status < 500;
+  const validationFailure = status >= 400 && status < 500;
 
   if (logicalConflict || (validationFailure && attempts >= 3)) {
     await moveToDeadLetter({ ...item, attempts, state: 'pending' }, details.code);
     return;
   }
 
+  const nextRetryAt = retryAt(attempts);
   await updateQueueItem({
     ...item,
     attempts,
     state: 'pending',
-    next_retry_at: retryAt(attempts),
+    next_retry_at: nextRetryAt,
   });
+  scheduleRetry(nextRetryAt);
 };
 
 const sendTableItems = async (table: TelemetryTable, items: QueueItem[]) => {
   if (!supabase) return;
   const payloads = items.map(item => item.payload);
-  const { error } = await supabase.from(table).upsert(payloads, {
-    onConflict: 'id',
-    ignoreDuplicates: true,
-  });
+  let batchResult;
+  try {
+    batchResult = await supabase.from(table).upsert(payloads, {
+      onConflict: 'id',
+      ignoreDuplicates: true,
+    });
+  } catch (error) {
+    await Promise.all(items.map(item => handleFailure(item, error)));
+    return;
+  }
+  const { error } = batchResult;
   if (!error) {
     await deleteQueueItems(items.map(item => item.id));
     return;
   }
 
   for (const item of items) {
-    const result = await supabase.from(table).upsert(item.payload, {
-      onConflict: 'id',
-      ignoreDuplicates: true,
-    });
-    if (result.error) await handleFailure(item, result.error);
+    let result;
+    try {
+      result = await supabase.from(table).upsert(item.payload, {
+        onConflict: 'id',
+        ignoreDuplicates: true,
+      });
+    } catch (individualError) {
+      await handleFailure(item, individualError);
+      continue;
+    }
+    if (result.error) await handleFailure(item, result.error, result.status);
     else await deleteQueueItems([item.id]);
   }
 };
 
 const sendRpcItem = async (item: QueueItem) => {
   if (!supabase || (item.target !== 'close_session' && item.target !== 'complete_mission')) return;
-  const { error } = await supabase.rpc(item.target, item.payload);
-  if (error) await handleFailure(item, error);
+  let result;
+  try {
+    result = await supabase.rpc(item.target, item.payload);
+  } catch (rpcError) {
+    await handleFailure(item, rpcError);
+    return;
+  }
+  if (result.error) await handleFailure(item, result.error, result.status);
   else await deleteQueueItems([item.id]);
 };
 

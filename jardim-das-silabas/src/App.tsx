@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CURRICULUM } from './data/curriculum';
 import type { WordData } from './data/curriculum';
 import { playSound } from './game/audio';
@@ -7,6 +7,7 @@ import { CelebrationScreen } from './screens/CelebrationScreen';
 import { GameScreen } from './screens/GameScreen';
 import { MapScreen } from './screens/MapScreen';
 import { StoryScreen } from './screens/StoryScreen';
+import { telemetry } from './telemetry/telemetry';
 
 const STORAGE_KEY = 'jardim-silabas-v1';
 
@@ -66,16 +67,25 @@ const isComplexWord = (word: WordData) => {
   return word.syllables.some(syllable => complexSyllables.some(complex => syllable.includes(complex)));
 };
 
-const speak = (text: string, rate = 0.8) => {
+const speak = (text: string, rate = 0.8) => new Promise<void>(resolve => {
   const utterance = new SpeechSynthesisUtterance(text.toLowerCase());
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    resolve();
+  };
   utterance.lang = 'pt-BR';
   utterance.rate = rate;
+  utterance.onend = finish;
+  utterance.onerror = finish;
   window.speechSynthesis.speak(utterance);
-};
+  window.setTimeout(finish, 8_000);
+});
 
 const speakSlowly = (text: string) => {
   window.speechSynthesis.cancel();
-  speak(text, 0.4);
+  return speak(text, 0.4);
 };
 
 function App() {
@@ -93,6 +103,14 @@ function App() {
   const [storySection, setStorySection] = useState(0);
   const [pendingLevelIndex, setPendingLevelIndex] = useState(0);
   const [playedLevelIndex, setPlayedLevelIndex] = useState<number | null>(null);
+  const exerciseLockedRef = useRef(false);
+
+  useEffect(() => {
+    void telemetry.initialize(initialProgress.currentMapLevel);
+    const handlePageHide = () => telemetry.close('background');
+    window.addEventListener('pagehide', handlePageHide);
+    return () => window.removeEventListener('pagehide', handlePageHide);
+  }, [initialProgress.currentMapLevel]);
 
   useEffect(() => {
     try {
@@ -107,6 +125,7 @@ function App() {
   }, [currentMapLevel, streak, recentlyPlayedWords]);
 
   const setupExercise = (word: WordData, index: number, exercisePool = currentExercises) => {
+    exerciseLockedRef.current = false;
     setSelectedSyllables([]);
     setProgress(0);
     const options = [...word.syllables];
@@ -122,7 +141,11 @@ function App() {
 
     options.sort(() => Math.random() - 0.5);
     setShuffledOptions(options);
-    window.setTimeout(() => speak(word.word), 800);
+    const presentationId = telemetry.beginPresentation(word.word);
+    window.setTimeout(() => {
+      telemetry.recordAudio('word', word.word, 'automatic');
+      void speak(word.word).finally(() => telemetry.markAutomaticAudioComplete(presentationId));
+    }, 800);
   };
 
   const launchLevel = (levelIndex: number) => {
@@ -153,6 +176,7 @@ function App() {
     if (remaining > 0) pick(curriculumLevel.words, () => true, remaining);
 
     picked = [...picked.slice(0, 2), ...picked.slice(2).sort(() => Math.random() - 0.5)];
+    telemetry.startPhase(levelIndex, picked.length, levelIndex < currentMapLevel);
     setCurrentExercises(picked);
     setPlayedLevelIndex(levelIndex);
     setCurrentExerciseIndex(0);
@@ -185,6 +209,8 @@ function App() {
         setupExercise(currentExercises[nextIndex], nextIndex);
       } else {
         window.setTimeout(() => {
+          telemetry.completePhase();
+          telemetry.recordAudio('celebration', 'celebração da fase', 'automatic');
           setGameState('celebration');
           void playSound('celebration');
         }, 1000);
@@ -193,9 +219,15 @@ function App() {
   };
 
   const handleSyllableClick = (syllable: string) => {
-    speak(syllable);
-    void playSound('pop');
+    if (exerciseLockedRef.current) return;
     const currentWord = currentExercises[currentExerciseIndex];
+    const syllablePosition = selectedSyllables.length;
+    const expectedSyllable = currentWord.syllables[syllablePosition];
+    if (!expectedSyllable) return;
+    telemetry.recordAttempt(syllable, expectedSyllable, syllablePosition);
+    telemetry.recordAudio('syllable', syllable, 'user');
+    void speak(syllable);
+    void playSound('pop');
     const nextSelection = [...selectedSyllables, syllable];
     setSelectedSyllables(nextSelection);
 
@@ -207,17 +239,27 @@ function App() {
 
     setProgress((nextSelection.length / currentWord.syllables.length) * 100);
     if (nextSelection.length === currentWord.syllables.length) {
+      exerciseLockedRef.current = true;
       void playSound('success');
-      window.setTimeout(() => speak(currentWord.word), 500);
+      window.setTimeout(() => void speak(currentWord.word), 500);
       window.setTimeout(finishWord, 1500);
     }
   };
 
   const closeCelebration = () => {
+    const nextLevel = playedLevelIndex === currentMapLevel
+      ? Math.min(currentMapLevel + 1, MAP_NODES.length - 1)
+      : currentMapLevel;
     setRecentlyPlayedWords(previous => [...currentExercises.map(exercise => exercise.word), ...previous].slice(0, 40));
     setStreak(previous => previous + 1);
-    setCurrentMapLevel(previous => playedLevelIndex === previous ? Math.min(previous + 1, MAP_NODES.length - 1) : previous);
+    setCurrentMapLevel(nextLevel);
+    telemetry.setCurrentLevel(nextLevel);
     setGameState('map');
+  };
+
+  const handleListen = (word: string) => {
+    telemetry.recordAudio('word', word, 'user');
+    void speakSlowly(word);
   };
 
   const currentSection = getSectionForLevel(currentMapLevel);
@@ -253,7 +295,7 @@ function App() {
             wateringCanFill={wateringCanFill}
             section={currentSection}
             onSyllableClick={handleSyllableClick}
-            onListen={speakSlowly}
+            onListen={handleListen}
           />
         )}
         {gameState === 'celebration' && (

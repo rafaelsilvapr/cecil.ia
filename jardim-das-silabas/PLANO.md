@@ -881,7 +881,10 @@ Implementar exatamente a Spec Fase 9/10:
 **Aceite:** jogar 2 fases offline → religar rede → eventos aparecem no banco íntegros e sem
 duplicatas; jogo funciona 100% sem internet.
 
-**Status:** ⬜ pronta para execução — Fases 1 e 8 concluídas
+**Status:** ✅ concluída em 2026-07-12 — migration aplicada no Supabase, RLS validado com
+teste negativo, pareamento anônimo e fila IndexedDB funcionando. O teste integrado simulou duas
+fases, reenvio idempotente e reconexão; o teste no navegador confirmou sessão, fase, tentativas e
+áudio no banco. A corrida entre criações simultâneas de usuário anônimo foi corrigida.
 
 ---
 
@@ -900,7 +903,7 @@ para papai e mamãe. Não usar senha compartilhada ou segredo embutido no fronte
 **Aceite:** com dados reais de teste, os dois conseguem abrir no celular e entender em
 2 minutos o que a Cecília treinou na semana e onde está a dificuldade.
 
-**Status:** ⬜ pendente — bloqueada pela Fase 9
+**Status:** ⬜ pronta para execução — Fase 9 concluída
 
 ---
 

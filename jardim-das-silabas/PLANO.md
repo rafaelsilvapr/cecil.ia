@@ -115,9 +115,9 @@ com nó ativo no topo.
 **Aceite:** Lighthouse mobile ≥ 90 em Performance; transições visivelmente animadas;
 sons continuam funcionando após 100+ cliques; build publicado abre sem 404 de assets.
 
-**Status:** 🟡 implementação local concluída em 2026-07-12 — lint e build passam, Lighthouse
-mobile 99, WebP e áudio validados. Falta publicar: o projeto está dentro de um repositório maior
-com alterações alheias e não há vínculo local com a Vercel; não fazer commit/push indiscriminado.
+**Status:** ✅ concluída em 2026-07-12 — lint e build passam, Lighthouse mobile 99, WebP e
+áudio validados. Produção em `https://jardim-das-silabas.vercel.app`, com o projeto Vercel
+ligado ao GitHub, raiz `jardim-das-silabas` e branch de produção `main`.
 
 ---
 

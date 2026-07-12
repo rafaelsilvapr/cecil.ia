@@ -1,0 +1,6 @@
+node_modules
+dist
+Referencias visuais
+PLANO.md
+*.log
+.DS_Store

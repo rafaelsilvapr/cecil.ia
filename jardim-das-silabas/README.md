@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# Jardim das Sílabas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Jogo de alfabetização por sílabas criado para a Cecília. A criança percorre um mapa com 60 fases, monta palavras a partir de sílabas e recebe incentivos visuais e sonoros sem mecânicas punitivas.
 
-Currently, two official plugins are available:
+## Funcionalidades atuais
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- mapa dividido em seis seções temáticas;
+- exercícios de montagem de palavras com apoio de imagem e áudio em português brasileiro;
+- celebrações e momentos de história com personagens da família;
+- progresso, sequência de atividades e palavras recentes salvos no navegador;
+- interface responsiva para computador, celular e tablet.
 
-## React Compiler
+## Desenvolvimento
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requisitos: Node.js e npm.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O servidor local usa HTTP e fica disponível na rede para testes no iPad. Para gerar novamente
+as imagens WebP otimizadas após alterar um PNG de trabalho em `public/characters/`:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run optimize:images
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Verificação
+
+```bash
+npm run lint
+npm run build
+```
+
+O projeto usa React, TypeScript, Vite e Tailwind CSS. O currículo está em `src/data/curriculum.ts`, e o fluxo principal do jogo está em `src/App.tsx`.
+
+## Deploy
+
+O destino único é a Vercel. O arquivo `vercel.json` mantém o fallback de SPA e o Vite usa
+`base: '/'`, portanto os assets funcionam a partir da raiz do domínio.
+
+Produção é publicada automaticamente quando há push na branch principal do repositório conectado.
+Para validar localmente exatamente o artefato enviado:
+
+```bash
+npm run build
+npm run preview
 ```

@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/cecil.ia/',
-  plugins: [react(), basicSsl()],
+  base: '/',
+  plugins: [react()],
   server: {
     host: true // Expose to network
   }

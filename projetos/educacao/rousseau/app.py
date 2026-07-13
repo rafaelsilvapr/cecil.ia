@@ -17,6 +17,7 @@ import streamlit as st
 from syllable_processor import SyllableProcessor
 from chord_database import get_all_chord_symbols, format_chord_vertical
 from notation_renderer import NotationRenderer
+from staff_notation import render_staff_svg
 
 
 # ---------------------------------------------------------------------------
@@ -165,30 +166,44 @@ def main():
     grid = build_grid(normalized, beats_per_measure)
     renderer = NotationRenderer(time_signature=time_signature)
 
-    svg = renderer.create_svg(grid, None)
-    st.markdown(
-        f'<div style="overflow-x:auto; background:#fff; border:1px solid #eee; '
-        f'border-radius:6px; padding:8px;">{svg}</div>',
-        unsafe_allow_html=True,
-    )
-    st.caption("Prévia (SVG)")
+    aba_grade, aba_pauta = st.tabs(["Grade cifrada (1–7)", "Pentagrama (sem clave)"])
 
-    col1, col2 = st.columns(2)
-    with col1:
-        st.download_button(
-            "⬇️ Baixar SVG",
-            data=svg,
-            file_name="partitura_rousseau.svg",
-            mime="image/svg+xml",
-        )
-    with col2:
-        pdf_bytes = _render_pdf_bytes(renderer, grid)
-        st.download_button(
-            "⬇️ Baixar PDF",
-            data=pdf_bytes,
-            file_name="partitura_rousseau.pdf",
-            mime="application/pdf",
-        )
+    # --- Grade cifrada ---
+    with aba_grade:
+        svg = renderer.create_svg(grid, None)
+        _svg_box(svg)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.download_button(
+                "⬇️ Baixar SVG", data=svg,
+                file_name="partitura_rousseau.svg", mime="image/svg+xml",
+            )
+        with col2:
+            pdf_bytes = _render_pdf_bytes(renderer, grid)
+            st.download_button(
+                "⬇️ Baixar PDF", data=pdf_bytes,
+                file_name="partitura_rousseau.pdf", mime="application/pdf",
+            )
+
+    # --- Pentagrama sem clave ---
+    with aba_pauta:
+        melody_notes = [
+            {"degree": b["melody"], "octave": b["octave"], "label": b["syllable"]}
+            for b in normalized if b["melody"]
+        ]
+        if melody_notes:
+            staff_svg = render_staff_svg(melody_notes)
+            _svg_box(staff_svg)
+            st.caption(
+                "Sem clave: a altura é relativa (só o intervalo importa) e o "
+                "desenho é centralizado pela extensão da melodia."
+            )
+            st.download_button(
+                "⬇️ Baixar pentagrama (SVG)", data=staff_svg,
+                file_name="pentagrama_rousseau.svg", mime="image/svg+xml",
+            )
+        else:
+            st.info("Preencha a **melodia** de pelo menos uma sílaba para ver o pentagrama.")
 
     # ---- Referência de acordes ----
     with st.expander("📖 Acordes disponíveis (referência)"):
@@ -200,6 +215,15 @@ def main():
 # ---------------------------------------------------------------------------
 # Auxiliares de UI
 # ---------------------------------------------------------------------------
+
+def _svg_box(svg):
+    """Exibe um SVG num quadro branco com rolagem horizontal."""
+    st.markdown(
+        f'<div style="overflow-x:auto; background:#fff; border:1px solid #eee; '
+        f'border-radius:6px; padding:8px;">{svg}</div>',
+        unsafe_allow_html=True,
+    )
+
 
 def _collect_beats(processed):
     """

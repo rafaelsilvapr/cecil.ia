@@ -18,6 +18,7 @@ from syllable_processor import SyllableProcessor
 from chord_database import get_all_chord_symbols, format_chord_vertical
 from notation_renderer import NotationRenderer
 from staff_notation import render_staff_svg
+from rhythm import FIGURES, DEFAULT_FIGURE, figure_beats, measure_capacity, build_measures
 
 
 # ---------------------------------------------------------------------------
@@ -82,12 +83,15 @@ def build_grid(beats, beats_per_measure):
 
 def normalize_beat(beat):
     """Limpa campos vazios para o formato que o renderer entende."""
+    figure = beat.get("figure") or DEFAULT_FIGURE
     return {
         "syllable": beat.get("syllable") or "",
         "sinalefa": bool(beat.get("sinalefa")),
         "melody": str(beat.get("melody") or "").strip(),
         "octave": beat.get("octave") or "normal",
         "harmony": (beat.get("harmony") or "").strip() or None,
+        "figure": figure,
+        "duration": figure_beats(figure),
     }
 
 
@@ -142,10 +146,9 @@ def main():
 
     n_syl = len(processed)
     n_sinalefas = sum(1 for s in processed if s.get("sinalefa"))
-    col_a, col_b, col_c = st.columns(3)
-    col_a.metric("Sílabas / pulsos", n_syl)
+    col_a, col_b = st.columns(2)
+    col_a.metric("Sílabas / notas", n_syl)
     col_b.metric("Sinalefas", n_sinalefas)
-    col_c.metric("Compassos", (n_syl + beats_per_measure - 1) // beats_per_measure)
 
     st.caption("Prévia da separação: " + processor.format_for_display(processed))
 
@@ -163,8 +166,14 @@ def main():
     st.header("3 · Partitura")
 
     normalized = [normalize_beat(b) for b in beats]
-    grid = build_grid(normalized, beats_per_measure)
+    capacity = measure_capacity(time_signature)
+    grid = build_measures(normalized, capacity)
     renderer = NotationRenderer(time_signature=time_signature)
+
+    st.caption(
+        f"Compasso {time_signature} · {len(grid['measures'])} compasso(s) — "
+        "as barras fecham pela soma das durações."
+    )
 
     aba_grade, aba_pauta = st.tabs(["Grade cifrada (1–7)", "Pentagrama (sem clave)"])
 
@@ -187,12 +196,17 @@ def main():
 
     # --- Pentagrama sem clave ---
     with aba_pauta:
-        melody_notes = [
-            {"degree": b["melody"], "octave": b["octave"], "label": b["syllable"]}
-            for b in normalized if b["melody"]
-        ]
-        if melody_notes:
-            staff_svg = render_staff_svg(melody_notes)
+        staff_measures = []
+        for m in grid["measures"]:
+            notes = [
+                {"degree": b["melody"], "octave": b["octave"],
+                 "figure": b["figure"], "label": b["syllable"]}
+                for b in m["beats"] if b["melody"]
+            ]
+            if notes:
+                staff_measures.append({"beats": notes})
+        if staff_measures:
+            staff_svg = render_staff_svg(staff_measures)
             _svg_box(staff_svg)
             st.caption(
                 "Sem clave: a altura é relativa (só o intervalo importa) e o "
@@ -235,30 +249,37 @@ def _collect_beats(processed):
     pode ser corrigida à mão.
     """
     chord_options = [""] + get_all_chord_symbols()
+    figure_options = list(FIGURES.keys())
+    default_figure_idx = figure_options.index(DEFAULT_FIGURE)
+    widths = [1.2, 1.3, 2.1, 1.7, 0.9, 1.5]
 
     # Cabeçalho
-    head = st.columns([1.4, 1.6, 1.8, 1.0, 1.6])
-    for col, label in zip(head, ["Sílaba", "Melodia (1–7)", "Oitava", "Sinalefa", "Harmonia"]):
+    head = st.columns(widths)
+    for col, label in zip(head, ["Sílaba", "Melodia", "Figura", "Oitava", "Sinalefa", "Harmonia"]):
         col.caption(label)
 
     beats = []
     for i, syl in enumerate(processed):
-        cols = st.columns([1.4, 1.6, 1.8, 1.0, 1.6])
+        cols = st.columns(widths)
         cols[0].markdown(f"**{syl['text']}**")
         melody = cols[1].text_input(
             "melodia", key=f"mel_{i}", label_visibility="collapsed",
             placeholder="—",
         )
-        octave = cols[2].selectbox(
+        figure = cols[2].selectbox(
+            "figura", options=figure_options, index=default_figure_idx,
+            key=f"fig_{i}", label_visibility="collapsed",
+        )
+        octave = cols[3].selectbox(
             "oitava", options=list(OCTAVE_LABELS.keys()),
             format_func=lambda o: OCTAVE_LABELS[o],
             key=f"oct_{i}", label_visibility="collapsed",
         )
-        sinalefa = cols[3].checkbox(
+        sinalefa = cols[4].checkbox(
             "sinalefa", value=syl.get("sinalefa", False),
             key=f"sin_{i}", label_visibility="collapsed",
         )
-        harmony = cols[4].selectbox(
+        harmony = cols[5].selectbox(
             "harmonia", options=chord_options,
             key=f"har_{i}", label_visibility="collapsed",
         )
@@ -268,6 +289,7 @@ def _collect_beats(processed):
             "melody": melody,
             "octave": octave,
             "harmony": harmony,
+            "figure": figure,
         })
     return beats
 

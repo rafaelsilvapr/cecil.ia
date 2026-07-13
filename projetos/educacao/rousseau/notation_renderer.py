@@ -128,16 +128,23 @@ class NotationRenderer:
             ))
 
             beats = measure.get('beats', [])
-            beat_width = measure_width / self.beats_per_measure
+            _durs = [float(b.get('duration', 1) or 1) for b in beats]
+            _total = sum(_durs) or 1
+            _offsets, _acc = [], 0.0
+            for _d in _durs:
+                _offsets.append(_acc)
+                _acc += _d
 
             for b_idx, beat in enumerate(beats):
-                center_x = x_start + b_idx * beat_width + beat_width / 2
+                w = measure_width * (_durs[b_idx] / _total)
+                x_beat = x_start + measure_width * (_offsets[b_idx] / _total)
+                center_x = x_beat + w / 2
 
                 # Linha divisória de pulso (tracejada)
                 if b_idx > 0:
                     system_group.add(svgwrite.shapes.Line(
-                        start=((x_start + b_idx * beat_width) * mm, y_staff_top * mm),
-                        end=((x_start + b_idx * beat_width) * mm, y_staff_bottom * mm),
+                        start=(x_beat * mm, y_staff_top * mm),
+                        end=(x_beat * mm, y_staff_bottom * mm),
                         stroke='#ccc', stroke_width=0.5, stroke_dasharray='2,2'
                     ))
 
@@ -317,18 +324,25 @@ class NotationRenderer:
 
             # === CONTEÚDO DOS PULSOS ===
             beats = measure.get('beats', [])
-            beat_width = measure_width / self.beats_per_measure
+            _durs = [float(b.get('duration', 1) or 1) for b in beats]
+            _total = sum(_durs) or 1
+            _offsets, _acc = [], 0.0
+            for _d in _durs:
+                _offsets.append(_acc)
+                _acc += _d
 
             for b_idx, beat in enumerate(beats):
-                center_x = x_start + b_idx * beat_width + beat_width / 2
+                w = measure_width * (_durs[b_idx] / _total)
+                x_beat = x_start + measure_width * (_offsets[b_idx] / _total)
+                center_x = x_beat + w / 2
 
                 # Linha divisória de pulso (tracejada)
                 if b_idx > 0:
                     c.setLineWidth(0.5)
                     c.setDash([2, 2])
                     c.setStrokeColorRGB(0.7, 0.7, 0.7)
-                    c.line(x_start + b_idx * beat_width, current_y + y_staff_bottom,
-                           x_start + b_idx * beat_width, current_y + y_staff_top)
+                    c.line(x_beat, current_y + y_staff_bottom,
+                           x_beat, current_y + y_staff_top)
                     c.setDash([])
                     c.setStrokeColorRGB(0, 0, 0)
 

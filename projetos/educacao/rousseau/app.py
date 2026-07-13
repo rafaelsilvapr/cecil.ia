@@ -156,34 +156,12 @@ def main():
         "informe só onde o acorde muda."
     )
 
-    beats = _current_beats(processed)
-
-    edited = st.data_editor(
-        beats,
-        use_container_width=True,
-        hide_index=True,
-        num_rows="fixed",
-        column_config={
-            "syllable": st.column_config.TextColumn("Sílaba", disabled=True),
-            "sinalefa": st.column_config.CheckboxColumn("Sinalefa", disabled=True),
-            "melody": st.column_config.TextColumn(
-                "Melodia (1–7)", help="Grau da escala. Ex.: 1, 5, 4#, 7b"
-            ),
-            "octave": st.column_config.SelectboxColumn(
-                "Oitava", options=list(OCTAVE_LABELS.keys()), required=True
-            ),
-            "harmony": st.column_config.SelectboxColumn(
-                "Harmonia", options=[""] + get_all_chord_symbols()
-            ),
-        },
-        key="beat_editor",
-    )
-    st.session_state["beats"] = edited
+    beats = _collect_beats(processed)
 
     # ---- Passo 3: gerar partitura ----
     st.header("3 · Partitura")
 
-    normalized = [normalize_beat(b) for b in edited]
+    normalized = [normalize_beat(b) for b in beats]
     grid = build_grid(normalized, beats_per_measure)
     renderer = NotationRenderer(time_signature=time_signature)
 
@@ -223,19 +201,51 @@ def main():
 # Auxiliares de UI
 # ---------------------------------------------------------------------------
 
-def _current_beats(processed):
+def _collect_beats(processed):
     """
-    Reaproveita as atribuições já feitas (session_state) quando a letra não
-    mudou de tamanho; caso contrário, recria a partir das sílabas.
+    Renderiza uma linha de campos nativos por sílaba e coleta os pulsos.
+
+    Usa widgets com `key` estável (por índice), então o Streamlit guarda o
+    estado automaticamente entre recarregamentos — sem sobrescrever o que o
+    usuário digitou. A sinalefa vem pré-marcada pela detecção automática, mas
+    pode ser corrigida à mão.
     """
-    prev = st.session_state.get("beats")
-    if prev and len(prev) == len(processed):
-        # atualiza só o texto/sinalefa das sílabas, preserva melodia/harmonia
-        for beat, syl in zip(prev, processed):
-            beat["syllable"] = syl["text"]
-            beat["sinalefa"] = syl.get("sinalefa", False)
-        return prev
-    return build_beats_from_syllables(processed)
+    chord_options = [""] + get_all_chord_symbols()
+
+    # Cabeçalho
+    head = st.columns([1.4, 1.6, 1.8, 1.0, 1.6])
+    for col, label in zip(head, ["Sílaba", "Melodia (1–7)", "Oitava", "Sinalefa", "Harmonia"]):
+        col.caption(label)
+
+    beats = []
+    for i, syl in enumerate(processed):
+        cols = st.columns([1.4, 1.6, 1.8, 1.0, 1.6])
+        cols[0].markdown(f"**{syl['text']}**")
+        melody = cols[1].text_input(
+            "melodia", key=f"mel_{i}", label_visibility="collapsed",
+            placeholder="—",
+        )
+        octave = cols[2].selectbox(
+            "oitava", options=list(OCTAVE_LABELS.keys()),
+            format_func=lambda o: OCTAVE_LABELS[o],
+            key=f"oct_{i}", label_visibility="collapsed",
+        )
+        sinalefa = cols[3].checkbox(
+            "sinalefa", value=syl.get("sinalefa", False),
+            key=f"sin_{i}", label_visibility="collapsed",
+        )
+        harmony = cols[4].selectbox(
+            "harmonia", options=chord_options,
+            key=f"har_{i}", label_visibility="collapsed",
+        )
+        beats.append({
+            "syllable": syl["text"],
+            "sinalefa": sinalefa,
+            "melody": melody,
+            "octave": octave,
+            "harmony": harmony,
+        })
+    return beats
 
 
 def _render_pdf_bytes(renderer, grid):

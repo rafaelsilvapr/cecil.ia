@@ -14,6 +14,7 @@ A saída é uma **partitura em grade**, alinhando pulso a pulso:
 
 | Arquivo | Responsabilidade |
 |---|---|
+| [`app.py`](app.py) | **Aplicativo principal (Streamlit)** — amarra todos os módulos no fluxo letra → sílabas → melodia/harmonia → partitura SVG/PDF. |
 | [`chord_database.py`](chord_database.py) | Banco de 13 acordes (7 diatônicos + 6 dominantes secundários) convertidos para números Rousseau, com marcas de oitava. |
 | [`syllable_processor.py`](syllable_processor.py) | Separa letras em PT-BR em sílabas (via `pyphen`, com fallback manual por regras fonéticas) e detecta sinalefas. |
 | [`notation_renderer.py`](notation_renderer.py) | Gera a partitura final em **SVG** e **PDF** (layout de sistemas, formato A4). |
@@ -30,7 +31,17 @@ pip install -r requirements.txt
 
 ## Uso rápido
 
-Cada módulo tem uma demonstração no bloco `__main__`:
+Rode o aplicativo completo:
+
+```bash
+streamlit run app.py
+```
+
+O fluxo na interface: **(1)** digite a letra → o app separa as sílabas e detecta sinalefas;
+**(2)** preencha a melodia (números 1–7) e, opcionalmente, a harmonia de cada pulso;
+**(3)** veja a partitura em SVG e baixe em SVG/PDF.
+
+Cada módulo também tem uma demonstração isolada no bloco `__main__`:
 
 ```bash
 python chord_database.py        # lista os acordes disponíveis
@@ -83,6 +94,9 @@ partir do bytecode** e verificados como **idênticos** ao original:
 O bytecode original está preservado em [`bytecode_original/`](bytecode_original/) como backup
 (ground-truth), caso seja preciso reauditar a reconstrução no futuro.
 
+O `app.py` original (que amarrava os módulos) rodava direto e **não deixou bytecode** — foi,
+portanto, **reescrito do zero** sobre os módulos resgatados, replicando o fluxo que eles suportam.
+
 ## Próximos passos sugeridos
 
 1. **Migrar `youtube_downloader` de `pytube` para `yt-dlp`** — `pytube` está abandonado e quebra
@@ -91,4 +105,4 @@ O bytecode original está preservado em [`bytecode_original/`](bytecode_original
    um extrator de pitch (ex.: `basic-pitch`) fecharia o fluxo "link do YouTube → partitura Rousseau".
 3. **Ampliar o banco de acordes** — incluir inversões, sétimas além dos dominantes e modo menor.
 4. **Testes automatizados** — formalizar as verificações de reconstrução como suíte de regressão.
-5. **Reconstruir o app principal** (provável Streamlit) que amarrava esses módulos.
+5. **Persistência de projetos** — salvar/carregar uma letra + melodia + harmonia já preenchidas.

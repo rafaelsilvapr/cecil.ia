@@ -1,0 +1,17 @@
+# Sistema Rousseau - dependências
+# Python 3.11+ recomendado
+
+# Separação silábica em português
+pyphen>=0.14
+
+# Renderização da notação
+svgwrite>=1.4
+reportlab>=4.0
+
+# Interface web (opcional, para os componentes visuais)
+streamlit>=1.30
+
+# Download de áudio do YouTube
+# ATENÇÃO: pytube está desatualizado e quebra com frequência.
+# Recomenda-se migrar para yt-dlp (ver README, seção "Próximos passos").
+pytube>=15.0

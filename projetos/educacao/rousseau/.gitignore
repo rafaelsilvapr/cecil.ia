@@ -1,0 +1,21 @@
+# Cache de bytecode gerado automaticamente (NÃO é a fonte)
+__pycache__/
+*.pyc
+
+# Ambientes virtuais
+venv/
+.venv/
+env/
+
+# Saídas de teste
+/tmp/teste_rousseau.*
+*.svg
+*.pdf
+
+# Áudio de teste (grande)
+audio_teste.mp3
+
+# IMPORTANTE: bytecode_original/ é backup deliberado e DEVE ser versionado.
+# Por isso ele é forçado no git com `git add -f` e não casa com as regras acima
+# (os .pyc lá dentro são exceção intencional).
+!bytecode_original/

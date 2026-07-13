@@ -903,7 +903,10 @@ para papai e mamãe. Não usar senha compartilhada ou segredo embutido no fronte
 **Aceite:** com dados reais de teste, os dois conseguem abrir no celular e entender em
 2 minutos o que a Cecília treinou na semana e onde está a dificuldade.
 
-**Status:** ⬜ pronta para execução — Fase 9 concluída
+**Status:** ✅ concluída em 2026-07-12 — painel responsivo implementado, magic link e URLs de
+retorno configurados, indicadores validados com dados controlados e RLS confirmado com paridade
+entre os dois responsáveis e isolamento de uma terceira conta. As contas reais ainda precisam ser
+criadas e vinculadas aos e-mails de papai e mamãe antes do primeiro uso.
 
 ---
 
@@ -930,7 +933,7 @@ travar o uso. Nenhuma tela, mensagem ou recurso pode ser só de um dos dois.**
 **Aceite:** Cecília ouve as vozes dos dois em proporção equilibrada; mamãe e papai têm
 exatamente as mesmas capacidades no painel; missões aparecem como presente.
 
-**Status:** ⬜ pendente — bloqueada pela Fase 10 (item 2 pode ser antecipado)
+**Status:** ⬜ pronta para spec do Claude — Fase 10 concluída (item 2 pode ser antecipado)
 
 ---
 

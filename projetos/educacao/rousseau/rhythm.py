@@ -45,18 +45,20 @@ def measure_capacity(time_signature):
         return 4.0
 
 
-def build_measures(events, capacity):
+def build_measures(events, capacity, first_capacity=None):
     """
     Agrupa eventos em compassos pela soma das durações.
 
     Args:
         events: lista de dicts contendo pelo menos 'duration' (float).
         capacity: capacidade do compasso em semínimas.
+        first_capacity: se informado (> 0), o PRIMEIRO compasso usa essa
+            capacidade reduzida — para anacruse (compasso inicial incompleto).
 
     Returns:
         dict {"measures": [{"beats": [...], "filled": float}, ...],
               "capacity": capacity}
-        O último compasso pode ficar incompleto (anacruse/fim de frase).
+        O último compasso pode ficar incompleto (fim de frase).
     """
     if capacity <= 0:
         capacity = 4.0
@@ -64,11 +66,17 @@ def build_measures(events, capacity):
     measures = []
     cur, acc = [], 0.0
 
+    def cap_now():
+        # compasso 0 pode ter capacidade menor (anacruse)
+        if not measures and first_capacity and first_capacity > 0:
+            return first_capacity
+        return capacity
+
     for ev in events:
         dur = float(ev.get("duration", 1.0)) or 1.0
 
         # Se o evento não cabe no compasso atual, fecha e começa outro.
-        if cur and acc + dur > capacity + _EPS:
+        if cur and acc + dur > cap_now() + _EPS:
             measures.append({"beats": cur, "filled": acc})
             cur, acc = [], 0.0
 
@@ -76,7 +84,7 @@ def build_measures(events, capacity):
         acc += dur
 
         # Compasso completou exatamente.
-        if acc >= capacity - _EPS:
+        if acc >= cap_now() - _EPS:
             measures.append({"beats": cur, "filled": acc})
             cur, acc = [], 0.0
 

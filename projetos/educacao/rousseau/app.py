@@ -31,6 +31,8 @@ OCTAVE_LABELS = {
     "down": "grave (₋)",
 }
 
+NO_REST = "—"   # opção "sem pausa" no seletor de pausa
+
 
 def build_beats_from_syllables(processed_syllables):
     """
@@ -85,6 +87,7 @@ def normalize_beat(beat):
     """Limpa campos vazios para o formato que o renderer entende."""
     figure = beat.get("figure") or DEFAULT_FIGURE
     return {
+        "kind": "note",
         "syllable": beat.get("syllable") or "",
         "sinalefa": bool(beat.get("sinalefa")),
         "melody": str(beat.get("melody") or "").strip(),
@@ -93,6 +96,31 @@ def normalize_beat(beat):
         "figure": figure,
         "duration": figure_beats(figure),
     }
+
+
+def make_rest(figure):
+    """Cria um evento de pausa com a duração da figura escolhida."""
+    return {
+        "kind": "rest",
+        "syllable": "",
+        "sinalefa": False,
+        "melody": "",
+        "octave": "normal",
+        "harmony": None,
+        "figure": figure,
+        "duration": figure_beats(figure),
+    }
+
+
+def build_events(beats):
+    """Intercala pausas (rest_before) com as notas, na ordem."""
+    events = []
+    for b in beats:
+        rf = b.get("rest_before")
+        if rf and rf != NO_REST:
+            events.append(make_rest(rf))
+        events.append(normalize_beat(b))
+    return events
 
 
 # ---------------------------------------------------------------------------
@@ -118,6 +146,13 @@ def main():
             help="Determina quantos pulsos (sílabas) cabem em cada compasso.",
         )
         beats_per_measure = int(time_signature.split("/")[0])
+
+        anacruse = st.number_input(
+            "Anacruse (tempos do 1º compasso)",
+            min_value=0.0, max_value=float(beats_per_measure), value=0.0, step=0.5,
+            help="Deixe 0 para começar num compasso completo. Use, por exemplo, "
+                 "1 para uma melodia que entra no último tempo antes do compasso.",
+        )
 
         st.divider()
         st.subheader("Áudio de referência (opcional)")
@@ -165,13 +200,15 @@ def main():
     # ---- Passo 3: gerar partitura ----
     st.header("3 · Partitura")
 
-    normalized = [normalize_beat(b) for b in beats]
+    events = build_events(beats)
     capacity = measure_capacity(time_signature)
-    grid = build_measures(normalized, capacity)
+    first_cap = anacruse if anacruse and anacruse > 0 else None
+    grid = build_measures(events, capacity, first_capacity=first_cap)
     renderer = NotationRenderer(time_signature=time_signature)
 
+    anac_txt = f" · anacruse de {anacruse:g} tempo(s)" if first_cap else ""
     st.caption(
-        f"Compasso {time_signature} · {len(grid['measures'])} compasso(s) — "
+        f"Compasso {time_signature} · {len(grid['measures'])} compasso(s){anac_txt} — "
         "as barras fecham pela soma das durações."
     )
 
@@ -198,11 +235,14 @@ def main():
     with aba_pauta:
         staff_measures = []
         for m in grid["measures"]:
-            notes = [
-                {"degree": b["melody"], "octave": b["octave"],
-                 "figure": b["figure"], "label": b["syllable"]}
-                for b in m["beats"] if b["melody"]
-            ]
+            notes = []
+            for b in m["beats"]:
+                if b.get("kind") == "rest":
+                    notes.append({"kind": "rest", "figure": b["figure"],
+                                  "duration": b["duration"]})
+                elif b["melody"]:
+                    notes.append({"degree": b["melody"], "octave": b["octave"],
+                                  "figure": b["figure"], "label": b["syllable"]})
             if notes:
                 staff_measures.append({"beats": notes})
         if staff_measures:
@@ -251,11 +291,13 @@ def _collect_beats(processed):
     chord_options = [""] + get_all_chord_symbols()
     figure_options = list(FIGURES.keys())
     default_figure_idx = figure_options.index(DEFAULT_FIGURE)
-    widths = [1.2, 1.3, 2.1, 1.7, 0.9, 1.5]
+    rest_options = [NO_REST] + figure_options
+    widths = [1.0, 1.1, 1.7, 1.4, 0.8, 1.2, 1.5]
 
     # Cabeçalho
     head = st.columns(widths)
-    for col, label in zip(head, ["Sílaba", "Melodia", "Figura", "Oitava", "Sinalefa", "Harmonia"]):
+    for col, label in zip(head, ["Sílaba", "Melodia", "Figura", "Oitava",
+                                  "Sinalefa", "Harmonia", "Pausa antes"]):
         col.caption(label)
 
     beats = []
@@ -283,6 +325,10 @@ def _collect_beats(processed):
             "harmonia", options=chord_options,
             key=f"har_{i}", label_visibility="collapsed",
         )
+        rest_before = cols[6].selectbox(
+            "pausa antes", options=rest_options,
+            key=f"rest_{i}", label_visibility="collapsed",
+        )
         beats.append({
             "syllable": syl["text"],
             "sinalefa": sinalefa,
@@ -290,6 +336,7 @@ def _collect_beats(processed):
             "octave": octave,
             "harmony": harmony,
             "figure": figure,
+            "rest_before": rest_before,
         })
     return beats
 

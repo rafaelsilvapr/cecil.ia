@@ -148,6 +148,14 @@ class NotationRenderer:
                         stroke='#ccc', stroke_width=0.5, stroke_dasharray='2,2'
                     ))
 
+                # Pausa: bloco escuro na linha da melodia (sem sílaba/acorde)
+                if beat.get('kind') == 'rest':
+                    system_group.add(svgwrite.shapes.Rect(
+                        insert=((center_x - 1.6) * mm, (y_melody - 2.2) * mm),
+                        size=(3.2 * mm, 2.4 * mm), fill='#333'
+                    ))
+                    continue
+
                 # Harmonia (acorde)
                 if beat.get('harmony'):
                     system_group.add(svgwrite.text.Text(
@@ -345,6 +353,13 @@ class NotationRenderer:
                            x_beat, current_y + y_staff_top)
                     c.setDash([])
                     c.setStrokeColorRGB(0, 0, 0)
+
+                # Pausa: bloco escuro na linha da melodia
+                if beat.get('kind') == 'rest':
+                    c.setFillColorRGB(0.2, 0.2, 0.2)
+                    c.rect(center_x - 4, current_y + y_melody - 1, 8, 6, fill=1, stroke=0)
+                    c.setFillColorRGB(0, 0, 0)
+                    continue
 
                 # Harmonia (acorde)
                 if beat.get('harmony'):

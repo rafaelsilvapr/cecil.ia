@@ -94,6 +94,17 @@ def _notehead(cx, cy, step, style):
     return "".join(parts)
 
 
+def _rest_glyph(cx, y_mid, style):
+    """Pausa: bloco escuro pendurado na linha do meio; ponto se pontuada."""
+    w = 12 if style["beats"] >= 2 else 8
+    h = 6
+    # semibreve/mínima: bloco preso à linha; demais: bloco menor centrado
+    parts = [f'<rect x="{cx-w/2}" y="{y_mid-h/2}" width="{w}" height="{h}" rx="1.5" fill="#111"/>']
+    if style["dot"]:
+        parts.append(f'<circle cx="{cx+w/2+4}" cy="{y_mid}" r="1.8" fill="#111"/>')
+    return "".join(parts)
+
+
 def render_staff_svg(data, unit=40, min_slot=34, pad_x=30):
     """
     data: lista de compassos [{'beats':[nota,...]}] OU lista plana de notas.
@@ -105,9 +116,17 @@ def render_staff_svg(data, unit=40, min_slot=34, pad_x=30):
     if not notes:
         return _empty_svg()
 
-    positions = [degree_position(n["degree"], n.get("octave", "normal")) for n in notes]
-    lo, hi = min(positions), max(positions)
-    shift = round(4 - (lo + hi) / 2)      # centraliza a extensão
+    def _is_rest(n):
+        return n.get("kind") == "rest"
+
+    positions = [None if _is_rest(n) else degree_position(n["degree"], n.get("octave", "normal"))
+                 for n in notes]
+    pitched = [p for p in positions if p is not None]
+    if pitched:
+        lo, hi = min(pitched), max(pitched)
+        shift = round(4 - (lo + hi) / 2)      # centraliza a extensão
+    else:
+        shift = 0                              # só pausas
 
     # larguras (slots) proporcionais à duração, com mínimo legível
     slots = []
@@ -143,9 +162,19 @@ def render_staff_svg(data, unit=40, min_slot=34, pad_x=30):
         for n in measure:
             slot = slots[i]
             cx = x + slot / 2
+            style = figure_style(n.get("figure", DEFAULT_FIGURE))
+
+            # ---- Pausa ----
+            if _is_rest(n):
+                out.append(_rest_glyph(cx, _step_to_y(4), style))
+                out.append(f'<text x="{cx}" y="{_Y_SYL}" font-size="11" text-anchor="middle" '
+                           f'fill="#999" font-family="Helvetica">(pausa)</text>')
+                x += slot
+                i += 1
+                continue
+
             step = positions[i] + shift
             cy = _step_to_y(step)
-            style = figure_style(n.get("figure", DEFAULT_FIGURE))
 
             # linhas suplementares
             s = step

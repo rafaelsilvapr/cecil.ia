@@ -66,32 +66,49 @@ def _empty_svg():
     )
 
 
-def _notehead(cx, cy, step, style):
-    """Desenha cabeça de nota + haste + colchete(s) + ponto conforme a figura."""
+def _stem_and_extras(cx, cy, step, style, half_w):
+    """Haste + colchete(s) + ponto, comuns aos dois estilos de cabeça."""
     parts = []
-    fill = "#111" if style["filled"] else "white"
-    stroke = 'stroke="#111" stroke-width="1.4"' if not style["filled"] else ""
-    parts.append(f'<ellipse cx="{cx}" cy="{cy}" rx="7.5" ry="5.5" fill="{fill}" {stroke} '
-                 f'transform="rotate(-20 {cx} {cy})"/>')
-
     stem_up = step <= 4
     if style["stem"]:
         if stem_up:
-            sx, y2 = cx + 7, cy - _STEM
+            sx, y2 = cx + half_w, cy - _STEM
             parts.append(f'<line x1="{sx}" y1="{cy}" x2="{sx}" y2="{y2}" stroke="#111" stroke-width="1.6"/>')
             for k in range(style["flags"]):
                 fy = y2 + k * 8
                 parts.append(f'<path d="M{sx},{fy} q9,4 8,15" fill="none" stroke="#111" stroke-width="1.6"/>')
         else:
-            sx, y2 = cx - 7, cy + _STEM
+            sx, y2 = cx - half_w, cy + _STEM
             parts.append(f'<line x1="{sx}" y1="{cy}" x2="{sx}" y2="{y2}" stroke="#111" stroke-width="1.6"/>')
             for k in range(style["flags"]):
                 fy = y2 - k * 8
                 parts.append(f'<path d="M{sx},{fy} q9,-4 8,-15" fill="none" stroke="#111" stroke-width="1.6"/>')
-
     if style["dot"]:
         parts.append(f'<circle cx="{cx+12}" cy="{cy}" r="1.8" fill="#111"/>')
     return "".join(parts)
+
+
+def _notehead_oval(cx, cy, step, style):
+    """Cabeça oval tradicional (aberta/fechada) + haste/colchete/ponto."""
+    fill = "#111" if style["filled"] else "white"
+    stroke = 'stroke="#111" stroke-width="1.4"' if not style["filled"] else ""
+    head = (f'<ellipse cx="{cx}" cy="{cy}" rx="7.5" ry="5.5" fill="{fill}" {stroke} '
+            f'transform="rotate(-20 {cx} {cy})"/>')
+    return head + _stem_and_extras(cx, cy, step, style, 7)
+
+
+def _notehead_number(cx, cy, step, style, digit):
+    """Cabeça de nota = o próprio número Rousseau (aberta = contorno)."""
+    if style["filled"]:
+        head = (f'<text x="{cx}" y="{cy}" font-size="19" font-weight="bold" '
+                f'text-anchor="middle" dominant-baseline="central" fill="#111" '
+                f'font-family="Georgia, serif">{digit}</text>')
+    else:  # figuras longas (mínima/semibreve): número em contorno = "aberto"
+        head = (f'<text x="{cx}" y="{cy}" font-size="19" font-weight="bold" '
+                f'text-anchor="middle" dominant-baseline="central" fill="white" '
+                f'stroke="#111" stroke-width="0.9" paint-order="stroke" '
+                f'font-family="Georgia, serif">{digit}</text>')
+    return head + _stem_and_extras(cx, cy, step, style, 8)
 
 
 def _rest_glyph(cx, y_mid, style):
@@ -105,10 +122,11 @@ def _rest_glyph(cx, y_mid, style):
     return "".join(parts)
 
 
-def render_staff_svg(data, unit=40, min_slot=34, pad_x=30):
+def render_staff_svg(data, unit=40, min_slot=34, pad_x=30, notehead="number"):
     """
     data: lista de compassos [{'beats':[nota,...]}] OU lista plana de notas.
           nota = {'degree','octave','duration'(op.),'figure'(op.),'label'(op.)}
+    notehead: "number" (cabeça = o próprio algarismo 1–7) ou "oval" (tradicional).
     Retorna string SVG do pentagrama sem clave.
     """
     measures = _as_measures(data)
@@ -190,16 +208,23 @@ def render_staff_svg(data, unit=40, min_slot=34, pad_x=30):
                     out.append(f'<line x1="{cx-11}" y1="{ly}" x2="{cx+11}" y2="{ly}" stroke="#333"/>')
                 s += 1
 
-            out.append(_notehead(cx, cy, step, style))
+            mm = re.match(r"\d", str(n["degree"]))
+            num = mm.group() if mm else str(n["degree"])
+
+            if notehead == "number":
+                out.append(_notehead_number(cx, cy, step, style, num))
+            else:
+                out.append(_notehead_oval(cx, cy, step, style))
 
             acc = accidental(n["degree"])
             if acc:
                 out.append(f'<text x="{cx-16}" y="{cy+4}" font-size="15" fill="#111">{acc}</text>')
 
-            mm = re.match(r"\d", str(n["degree"]))
-            num = mm.group() if mm else str(n["degree"])
-            out.append(f'<text x="{cx}" y="{_Y_NUM}" font-size="15" font-weight="bold" '
-                       f'text-anchor="middle" fill="#0b3d59">{num}</text>')
+            # Com cabeça-número o algarismo já está na pauta; a linha de números
+            # abaixo (azul) só é útil no modo oval.
+            if notehead == "oval":
+                out.append(f'<text x="{cx}" y="{_Y_NUM}" font-size="15" font-weight="bold" '
+                           f'text-anchor="middle" fill="#0b3d59">{num}</text>')
             if n.get("label"):
                 out.append(f'<text x="{cx}" y="{_Y_SYL}" font-size="12" text-anchor="middle" '
                            f'fill="#444" font-family="Helvetica">{n["label"]}</text>')

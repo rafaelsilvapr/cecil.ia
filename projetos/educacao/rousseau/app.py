@@ -154,6 +154,14 @@ def main():
                  "1 para uma melodia que entra no último tempo antes do compasso.",
         )
 
+        notehead_label = st.radio(
+            "Cabeça de nota (pentagrama)",
+            ["Número (1–7)", "Oval tradicional"],
+            index=0,
+            help="No modo número, a própria cifra 1–7 fica sobre a pauta, na altura certa.",
+        )
+        notehead_mode = "number" if notehead_label.startswith("Número") else "oval"
+
         st.divider()
         st.subheader("Áudio de referência (opcional)")
         st.caption(
@@ -246,7 +254,7 @@ def main():
             if notes:
                 staff_measures.append({"beats": notes})
         if staff_measures:
-            staff_svg = render_staff_svg(staff_measures)
+            staff_svg = render_staff_svg(staff_measures, notehead=notehead_mode)
             _svg_box(staff_svg)
             st.caption(
                 "Sem clave: a altura é relativa (só o intervalo importa) e o "

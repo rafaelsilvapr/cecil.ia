@@ -20,11 +20,13 @@ from rhythm import figure_style, DEFAULT_FIGURE
 OCT = {"down": -1, "normal": 0, "up": 1}
 
 _HALF = 9              # meio espaço = 1 degrau
-_STAFF_TOP = 46        # y da linha superior (degrau 8)
-_Y_NUM = 150           # linha dos números (grau)
-_Y_SYL = 168           # linha das sílabas
-_HEIGHT = 182
+_Y_HARM = 22           # linha da harmonia (grau romano), acima da pauta
+_STAFF_TOP = 52        # y da linha superior (degrau 8)
+_Y_NUM = 156           # linha dos números (grau)
+_Y_SYL = 174           # linha das sílabas
+_HEIGHT = 188
 _STEM = 34
+_HARMONY_COLOR = "#0b3d59"
 
 
 def degree_position(degree, octave="normal"):
@@ -219,6 +221,12 @@ def render_staff_svg(data, unit=40, min_slot=34, pad_x=30, notehead="number"):
             acc = accidental(n["degree"])
             if acc:
                 out.append(f'<text x="{cx-16}" y="{cy+4}" font-size="15" fill="#111">{acc}</text>')
+
+            # Harmonia (grau romano) acima da pauta, onde o acorde muda
+            if n.get("harmony"):
+                out.append(f'<text x="{cx}" y="{_Y_HARM}" font-size="15" font-weight="bold" '
+                           f'text-anchor="middle" font-family="Times New Roman" '
+                           f'fill="{_HARMONY_COLOR}">{n["harmony"]}</text>')
 
             # Com cabeça-número o algarismo já está na pauta; a linha de números
             # abaixo (azul) só é útil no modo oval.

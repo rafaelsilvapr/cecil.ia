@@ -250,7 +250,8 @@ def main():
                                   "duration": b["duration"]})
                 elif b["melody"]:
                     notes.append({"degree": b["melody"], "octave": b["octave"],
-                                  "figure": b["figure"], "label": b["syllable"]})
+                                  "figure": b["figure"], "label": b["syllable"],
+                                  "harmony": b.get("harmony")})
             if notes:
                 staff_measures.append({"beats": notes})
         if staff_measures:

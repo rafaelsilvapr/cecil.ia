@@ -15,3 +15,7 @@ streamlit>=1.30
 # (conversão para MP3 requer ffmpeg instalado no sistema; sem ele o áudio
 # é salvo no formato nativo m4a/webm)
 yt-dlp>=2025.1.1
+
+# Transcrição automática de melodia (pYIN)
+librosa>=0.11
+soundfile>=0.12

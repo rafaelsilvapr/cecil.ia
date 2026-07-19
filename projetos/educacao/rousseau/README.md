@@ -27,6 +27,7 @@ compasso fecham automaticamente** pela soma das durações. Há suporte a **paus
 | [`notation_renderer.py`](notation_renderer.py) | Gera a grade cifrada em **SVG** e **PDF** (layout de sistemas, A4), com espaçamento proporcional à duração. |
 | [`chord_visual.py`](chord_visual.py) | Componente Streamlit para exibir acordes (grau romano + números empilhados). |
 | [`youtube_downloader.py`](youtube_downloader.py) | Baixa áudio de vídeos do YouTube (via `yt-dlp`; converte para MP3 se houver `ffmpeg`). |
+| [`melody_transcription.py`](melody_transcription.py) | **Transcrição automática de melodia**: áudio → pitch (pYIN/librosa) → notas → tônica estimada → graus 1–7 + oitava + figuras. |
 
 ## Instalação
 
@@ -48,6 +49,13 @@ O fluxo na interface: **(1)** digite a letra → o app separa as sílabas e dete
 **(2)** preencha a melodia (números 1–7), a **figura** (duração), a oitava, a harmonia e,
 se precisar, uma **pausa antes** da nota; **(3)** veja a **grade cifrada** e o **pentagrama
 sem clave** (abas), e baixe em SVG/PDF. Anacruse configurável na barra lateral.
+
+**Transcrição automática:** na barra lateral, baixe o áudio de um link do YouTube (ou envie
+um arquivo) e clique em **🎶 Transcrever melodia** — os graus 1–7, oitavas e figuras são
+detectados do áudio (pYIN) e preenchem o editor, uma nota por sílaba, com a tônica estimada
+automaticamente. Funciona melhor com voz/instrumento solo; em gravações com acompanhamento
+o resultado é um rascunho a revisar. A análise é limitada aos primeiros N segundos
+(controle deslizante) porque o rastreamento de pitch é lento.
 
 Cada módulo também tem uma demonstração isolada no bloco `__main__`:
 
@@ -112,12 +120,15 @@ portanto, **reescrito do zero** sobre os módulos resgatados, replicando o fluxo
 
 ## Próximos passos sugeridos
 
-1. **Transcrição automática de melodia** — hoje a melodia (os números) é entrada manual. Integrar
-   um extrator de pitch (ex.: `basic-pitch`) fecharia o fluxo "link do YouTube → partitura Rousseau".
-2. **Ampliar o banco de acordes** — incluir inversões, sétimas além dos dominantes e modo menor.
-3. **Testes automatizados** — formalizar as verificações (reconstrução + ritmo) como suíte de regressão.
-4. **Persistência de projetos** — salvar/carregar uma música já preenchida.
-5. **Refinos de gravação** — compasso de anacruse mais estreito na grade; ligaduras de valor
+1. **Ampliar o banco de acordes** — incluir inversões, sétimas além dos dominantes e modo menor.
+2. **Testes automatizados** — formalizar as verificações (reconstrução + ritmo + transcrição)
+   como suíte de regressão.
+3. **Persistência de projetos** — salvar/carregar uma música já preenchida.
+4. **Refinos de gravação** — compasso de anacruse mais estreito na grade; ligaduras de valor
    (notas que cruzam a barra de compasso); glifos de pausa por figura no lugar do bloco genérico.
+5. **Refinos de transcrição** — separação de voz (ex.: Demucs) antes do pYIN para gravações
+   com acompanhamento; detecção de pausas; escolha manual da tônica na interface.
 
-> Concluído: a migração de `pytube` para `yt-dlp` no `youtube_downloader.py` (jul/2026).
+> Concluído: migração de `pytube` para `yt-dlp` (jul/2026); **transcrição automática de
+> melodia** via pYIN/librosa (jul/2026 — `basic-pitch` foi descartado por exigir
+> TensorFlow ≤2.15, incompatível com Python 3.13; para melodia monofônica o pYIN atende).

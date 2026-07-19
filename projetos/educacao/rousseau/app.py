@@ -163,14 +163,36 @@ def main():
         notehead_mode = "number" if notehead_label.startswith("Número") else "oval"
 
         st.divider()
-        st.subheader("Áudio de referência (opcional)")
-        st.caption(
-            "Baixar o áudio ajuda a tirar a melodia de ouvido. "
-            "A transcrição automática ainda não está implementada."
-        )
+        st.subheader("Melodia a partir de áudio (opcional)")
         yt_url = st.text_input("URL do YouTube", placeholder="https://youtube.com/watch?v=...")
         if st.button("Baixar áudio", disabled=not yt_url):
             _download_audio(yt_url)
+
+        uploaded = st.file_uploader(
+            "…ou envie um arquivo de áudio",
+            type=["mp3", "m4a", "wav", "ogg", "flac"],
+        )
+        if uploaded is not None:
+            _store_uploaded_audio(uploaded)
+
+        audio_path = st.session_state.get("audio_path")
+        if audio_path and os.path.exists(audio_path):
+            st.audio(audio_path)
+            max_dur = st.slider(
+                "Transcrever os primeiros (s)",
+                min_value=10, max_value=180, value=30, step=10,
+                help="A análise de pitch é lenta; comece com um trecho curto.",
+            )
+            if st.button("🎶 Transcrever melodia"):
+                _transcribe_audio(audio_path, max_dur)
+
+        trans = st.session_state.get("transcription")
+        if trans:
+            st.caption(
+                f"Transcrito: **{len(trans['events'])} notas** · "
+                f"tônica estimada **{trans['tonic_name']}**. "
+                "Os graus preenchem o editor (1 nota por sílaba) — revise à vontade."
+            )
 
     # ---- Passo 1: letra ----
     st.header("1 · Letra")
@@ -203,6 +225,7 @@ def main():
         "informe só onde o acorde muda."
     )
 
+    _apply_pending_transcription(len(processed))
     beats = _collect_beats(processed)
 
     # ---- Passo 3: gerar partitura ----
@@ -380,13 +403,80 @@ def _download_audio(url):
         path, info = downloader.download_with_progress(url)
 
     if path:
+        st.session_state["audio_path"] = path
         st.success(f"Baixado: {info.get('title', 'áudio')}")
-        st.audio(path)
     else:
         st.error(
             "Falha no download. Verifique a URL e a conexão; se persistir, "
             "atualize o yt-dlp (`pip install -U yt-dlp`)."
         )
+
+
+def _store_uploaded_audio(uploaded):
+    """Persiste o arquivo enviado num temporário e guarda o caminho."""
+    if st.session_state.get("uploaded_name") == uploaded.name:
+        return  # já salvo nesta sessão
+    suffix = os.path.splitext(uploaded.name)[1] or ".mp3"
+    with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+        tmp.write(uploaded.getbuffer())
+        st.session_state["audio_path"] = tmp.name
+    st.session_state["uploaded_name"] = uploaded.name
+
+
+def _transcribe_audio(audio_path, max_duration):
+    """Roda a transcrição e agenda o preenchimento do editor."""
+    try:
+        from melody_transcription import transcribe_melody
+    except Exception as e:  # pragma: no cover
+        st.error(f"Módulo de transcrição indisponível: {e} "
+                 "(instale com `pip install librosa soundfile`)")
+        return
+
+    with st.spinner(f"Analisando os primeiros {max_duration}s de áudio…"):
+        try:
+            result = transcribe_melody(audio_path, max_duration=max_duration)
+        except Exception as e:
+            st.error(f"Falha na transcrição: {e}")
+            return
+
+    if not result["events"]:
+        st.warning(
+            "Nenhuma nota detectada. A gravação tem melodia audível? "
+            "Funciona melhor com voz/instrumento solo."
+        )
+        return
+
+    st.session_state["transcription"] = result
+    st.session_state["transcription_pending"] = True
+
+
+def _apply_pending_transcription(n_syllables):
+    """
+    Preenche melodia/oitava/figura do editor com a transcrição agendada.
+    Deve rodar ANTES dos widgets serem instanciados no ciclo atual.
+    """
+    if not st.session_state.pop("transcription_pending", False):
+        return
+    trans = st.session_state.get("transcription")
+    if not trans:
+        return
+
+    events = trans["events"]
+    n = min(len(events), n_syllables)
+    for i in range(n):
+        ev = events[i]
+        st.session_state[f"mel_{i}"] = ev["melody"]
+        st.session_state[f"oct_{i}"] = ev["octave"]
+        st.session_state[f"fig_{i}"] = ev["figure"]
+
+    if len(events) != n_syllables:
+        st.toast(
+            f"Transcrição aplicada a {n} sílaba(s) — "
+            f"áudio tem {len(events)} nota(s), letra tem {n_syllables} sílaba(s).",
+            icon="🎶",
+        )
+    else:
+        st.toast(f"Transcrição aplicada: {n} notas.", icon="🎶")
 
 
 if __name__ == "__main__":

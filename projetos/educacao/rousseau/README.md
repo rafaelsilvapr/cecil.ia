@@ -53,9 +53,14 @@ sem clave** (abas), e baixe em SVG/PDF. Anacruse configurável na barra lateral.
 **Transcrição automática:** na barra lateral, baixe o áudio de um link do YouTube (ou envie
 um arquivo) e clique em **🎶 Transcrever melodia** — os graus 1–7, oitavas e figuras são
 detectados do áudio (pYIN) e preenchem o editor, uma nota por sílaba, com a tônica estimada
-automaticamente. Funciona melhor com voz/instrumento solo; em gravações com acompanhamento
-o resultado é um rascunho a revisar. A análise é limitada aos primeiros N segundos
-(controle deslizante) porque o rastreamento de pitch é lento.
+automaticamente. A janela analisada é controlada por **"Começar em"/"Duração"** (passo de 1s).
+
+Com a opção **🎤 Isolar a voz antes** (requer `pip install demucs`), o acompanhamento é
+removido antes da análise — em músicas gravadas isso muda tudo: a introdução instrumental
+fica em silêncio na faixa vocal e é pulada automaticamente (não é preciso adivinhar em que
+segundo o canto começa), e um portão de energia elimina notas fantasma no ruído residual.
+A separação fica em cache; a primeira execução baixa o modelo (~80MB). Sem o Demucs o app
+transcreve o mix direto (melhor para áudio já à capela).
 
 Cada módulo também tem uma demonstração isolada no bloco `__main__`:
 
@@ -126,9 +131,10 @@ portanto, **reescrito do zero** sobre os módulos resgatados, replicando o fluxo
 3. **Persistência de projetos** — salvar/carregar uma música já preenchida.
 4. **Refinos de gravação** — compasso de anacruse mais estreito na grade; ligaduras de valor
    (notas que cruzam a barra de compasso); glifos de pausa por figura no lugar do bloco genérico.
-5. **Refinos de transcrição** — separação de voz (ex.: Demucs) antes do pYIN para gravações
-   com acompanhamento; detecção de pausas; escolha manual da tônica na interface.
+5. **Refinos de transcrição** — detecção de pausas; escolha manual da tônica na interface;
+   usar o dispositivo `mps` (GPU Apple) no Demucs para acelerar a separação.
 
 > Concluído: migração de `pytube` para `yt-dlp` (jul/2026); **transcrição automática de
 > melodia** via pYIN/librosa (jul/2026 — `basic-pitch` foi descartado por exigir
-> TensorFlow ≤2.15, incompatível com Python 3.13; para melodia monofônica o pYIN atende).
+> TensorFlow ≤2.15, incompatível com Python 3.13; para melodia monofônica o pYIN atende);
+> **isolamento de voz** com Demucs + portão de energia + janela início/duração (jul/2026).

@@ -19,3 +19,8 @@ yt-dlp>=2025.1.1
 # Transcrição automática de melodia (pYIN)
 librosa>=0.11
 soundfile>=0.12
+
+# Isolamento de voz antes da transcrição (OPCIONAL — ~400MB com torch).
+# Sem ele o app funciona normalmente, só transcreve o mix direto.
+# Para habilitar:  pip install demucs
+# demucs>=4.0

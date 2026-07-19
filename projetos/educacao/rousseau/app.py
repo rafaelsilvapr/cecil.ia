@@ -178,13 +178,25 @@ def main():
         audio_path = st.session_state.get("audio_path")
         if audio_path and os.path.exists(audio_path):
             st.audio(audio_path)
-            max_dur = st.slider(
-                "Transcrever os primeiros (s)",
-                min_value=10, max_value=180, value=30, step=10,
+            col_ini, col_dur = st.columns(2)
+            start_s = col_ini.number_input(
+                "Começar em (s)", min_value=0, value=0, step=1,
+                help="Pule vinhetas ou comece direto num verso. Com a voz "
+                     "isolada, a introdução instrumental já é ignorada sozinha.",
+            )
+            dur_s = col_dur.number_input(
+                "Duração (s)", min_value=5, max_value=300, value=30, step=1,
                 help="A análise de pitch é lenta; comece com um trecho curto.",
             )
+            isolate = st.checkbox(
+                "🎤 Isolar a voz antes (recomendado com acompanhamento)",
+                value=True,
+                help="Separa a voz dos instrumentos (Demucs) antes de "
+                     "transcrever. Mais lento, muito mais preciso em músicas "
+                     "gravadas. Desligue para áudio já à capela.",
+            )
             if st.button("🎶 Transcrever melodia"):
-                _transcribe_audio(audio_path, max_dur)
+                _transcribe_audio(audio_path, start_s, dur_s, isolate)
 
         trans = st.session_state.get("transcription")
         if trans:
@@ -423,18 +435,32 @@ def _store_uploaded_audio(uploaded):
     st.session_state["uploaded_name"] = uploaded.name
 
 
-def _transcribe_audio(audio_path, max_duration):
-    """Roda a transcrição e agenda o preenchimento do editor."""
+def _transcribe_audio(audio_path, start_s, max_duration, isolate):
+    """Roda a transcrição (opcionalmente isolando a voz) e agenda o preenchimento."""
     try:
-        from melody_transcription import transcribe_melody
+        from melody_transcription import transcribe_melody, has_demucs
     except Exception as e:  # pragma: no cover
         st.error(f"Módulo de transcrição indisponível: {e} "
                  "(instale com `pip install librosa soundfile`)")
         return
 
-    with st.spinner(f"Analisando os primeiros {max_duration}s de áudio…"):
+    if isolate and not has_demucs():
+        st.info(
+            "Demucs não instalado — transcrevendo sem isolar a voz. "
+            "Para habilitar o isolamento: `pip install demucs`."
+        )
+        isolate = False
+
+    janela = f"{start_s}s–{start_s + max_duration}s"
+    msg = (f"Isolando a voz e transcrevendo ({janela})… a primeira vez baixa "
+           "o modelo (~80MB) e pode demorar alguns minutos."
+           if isolate else f"Analisando o trecho {janela}…")
+    with st.spinner(msg):
         try:
-            result = transcribe_melody(audio_path, max_duration=max_duration)
+            result = transcribe_melody(
+                audio_path, max_duration=max_duration,
+                offset=float(start_s), isolate=isolate,
+            )
         except Exception as e:
             st.error(f"Falha na transcrição: {e}")
             return

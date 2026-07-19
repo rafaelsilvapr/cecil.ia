@@ -256,23 +256,31 @@ def notes_to_rousseau(notes, tonic_pc=None, tempo_bpm=None):
 # Extração de pitch (requer librosa)
 # ---------------------------------------------------------------------------
 
-def extract_notes(audio_path, fmin_note="C2", fmax_note="C6", max_duration=None):
+def extract_notes(audio_path, fmin_note="C2", fmax_note="C6",
+                  max_duration=None, offset=0.0):
     """
     Extrai notas (MIDI + tempos) de um arquivo de áudio via pYIN.
+
+    Aplica um portão de energia: quadros quase mudos são descartados mesmo
+    que o pYIN "ache" um pitch neles — evita notas fantasma no ruído residual
+    (importante em faixas vocais separadas, cujo silêncio não é zero).
 
     Args:
         audio_path: caminho do arquivo (mp3/m4a/wav...)
         fmin_note/fmax_note: faixa de busca de pitch (notação científica)
-        max_duration: analisa só os primeiros N segundos (None = tudo);
+        max_duration: analisa só N segundos (None = tudo);
                       o pYIN é lento em gravações longas
+        offset: começa a análise neste segundo do arquivo
 
     Returns:
         (list de notas — ver segment_notes, float tempo_bpm ou None)
+        Os tempos das notas são relativos ao início da janela analisada.
     """
     import numpy as np
     import librosa
 
-    y, sr = librosa.load(audio_path, sr=22050, mono=True, duration=max_duration)
+    y, sr = librosa.load(audio_path, sr=22050, mono=True,
+                         offset=offset, duration=max_duration)
 
     f0, voiced_flag, _prob = librosa.pyin(
         y, sr=sr,
@@ -281,9 +289,15 @@ def extract_notes(audio_path, fmin_note="C2", fmax_note="C6", max_duration=None)
     )
     times = librosa.times_like(f0, sr=sr)
 
+    # Portão de energia (RMS alinhado aos quadros do pYIN: hop 512).
+    # Limiar relativo ao material: 5% do pico típico (p95), com piso absoluto.
+    rms = librosa.feature.rms(y=y, frame_length=2048, hop_length=512)[0]
+    threshold = max(0.005, 0.05 * float(np.percentile(rms, 95)))
+
     midi_frames = []
-    for hz, voiced in zip(f0, voiced_flag):
-        if voiced and hz and not np.isnan(hz):
+    for i, (hz, voiced) in enumerate(zip(f0, voiced_flag)):
+        loud_enough = i < len(rms) and rms[i] > threshold
+        if voiced and hz and not np.isnan(hz) and loud_enough:
             midi_frames.append(int(round(librosa.hz_to_midi(hz))))
         else:
             midi_frames.append(None)
@@ -302,19 +316,102 @@ def extract_notes(audio_path, fmin_note="C2", fmax_note="C6", max_duration=None)
     return notes, tempo_bpm
 
 
-def transcribe_melody(audio_path, tonic_pc=None, max_duration=None):
+def has_demucs():
+    """True se o Demucs (separação de voz) estiver instalado."""
+    import importlib.util
+    return importlib.util.find_spec("demucs") is not None
+
+
+def isolate_vocals(audio_path, offset=0.0, duration=None):
+    """
+    Separa a voz do acompanhamento com o Demucs (htdemucs).
+
+    Recorta a janela pedida, roda a separação e devolve o caminho do WAV
+    só com a voz. O resultado fica em cache (chave = arquivo + janela);
+    chamadas repetidas são instantâneas.
+
+    Args:
+        audio_path: caminho do áudio original
+        offset: início da janela (s)
+        duration: duração da janela (s); None = até o fim
+
+    Returns:
+        str: caminho do vocals.wav separado
+
+    Raises:
+        RuntimeError se o Demucs falhar; ImportError se não estiver instalado.
+    """
+    import glob
+    import hashlib
+    import os
+    import subprocess
+    import sys
+    import tempfile
+
+    if not has_demucs():
+        raise ImportError(
+            "Demucs não instalado — rode `pip install demucs` para isolar a voz."
+        )
+
+    st = os.stat(audio_path)
+    key = hashlib.sha1(
+        f"{os.path.abspath(audio_path)}|{st.st_mtime}|{offset}|{duration}".encode()
+    ).hexdigest()[:16]
+    cache_dir = os.path.join(tempfile.gettempdir(), "rousseau_vocals", key)
+    cached = glob.glob(os.path.join(cache_dir, "**", "vocals.wav"), recursive=True)
+    if cached:
+        logger.info(f"Voz isolada (cache): {cached[0]}")
+        return cached[0]
+
+    import librosa
+    import soundfile as sf
+
+    os.makedirs(cache_dir, exist_ok=True)
+
+    # Recorta a janela num WAV temporário (o Demucs processa o arquivo todo).
+    y, sr = librosa.load(audio_path, sr=None, mono=False,
+                         offset=offset, duration=duration)
+    clip = os.path.join(cache_dir, "trecho.wav")
+    sf.write(clip, y.T if y.ndim > 1 else y, sr)
+
+    logger.info("Separando a voz (Demucs)... primeira execução baixa o modelo")
+    proc = subprocess.run(
+        [sys.executable, "-m", "demucs", "--two-stems=vocals",
+         "-o", cache_dir, clip],
+        capture_output=True, text=True,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError(f"Demucs falhou: {proc.stderr.strip()[-400:]}")
+
+    found = glob.glob(os.path.join(cache_dir, "**", "vocals.wav"), recursive=True)
+    if not found:
+        raise RuntimeError("Demucs terminou mas o vocals.wav não foi encontrado.")
+    logger.info(f"Voz isolada: {found[0]}")
+    return found[0]
+
+
+def transcribe_melody(audio_path, tonic_pc=None, max_duration=None,
+                      offset=0.0, isolate=False):
     """
     Pipeline completo: áudio → eventos Rousseau.
 
     Args:
         audio_path: caminho do arquivo de áudio
         tonic_pc: força a tônica 0-11 (None = estimar automaticamente)
-        max_duration: analisa só os primeiros N segundos (None = tudo)
+        max_duration: analisa só N segundos da janela (None = tudo)
+        offset: começa a análise neste segundo do arquivo
+        isolate: separa a voz do acompanhamento antes (requer demucs);
+                 a janela offset/max_duration é aplicada antes da separação
 
     Returns:
         dict de notes_to_rousseau() (chave 'events' pode vir vazia)
     """
-    notes, tempo_bpm = extract_notes(audio_path, max_duration=max_duration)
+    if isolate:
+        vocals = isolate_vocals(audio_path, offset=offset, duration=max_duration)
+        notes, tempo_bpm = extract_notes(vocals)
+    else:
+        notes, tempo_bpm = extract_notes(audio_path, max_duration=max_duration,
+                                         offset=offset)
     logger.info(f"{len(notes)} notas extraídas de {audio_path}")
     return notes_to_rousseau(notes, tonic_pc=tonic_pc, tempo_bpm=tempo_bpm)
 

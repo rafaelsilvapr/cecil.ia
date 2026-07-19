@@ -2,12 +2,18 @@
 YouTube Audio Downloader - Sistema Rousseau
 
 Módulo para download de áudio de vídeos do YouTube.
+
+Implementado sobre o yt-dlp (sucessor mantido do youtube-dl). A versão
+anterior usava pytube, que está abandonado e quebra a cada mudança do
+YouTube — a interface pública foi mantida igual.
 """
 
-from pytube import YouTube
 import os
+import shutil
 import tempfile
 import logging
+
+import yt_dlp
 
 # Configuração de logging
 logging.basicConfig(level=logging.INFO)
@@ -45,7 +51,8 @@ class YouTubeDownloader:
             'youtube.com/watch?',
             'youtu.be/',
             'youtube.com/embed/',
-            'm.youtube.com/watch?'
+            'm.youtube.com/watch?',
+            'youtube.com/shorts/'
         ]
         return any(pattern in url for pattern in youtube_patterns)
 
@@ -57,15 +64,17 @@ class YouTubeDownloader:
             url: str - URL do YouTube
 
         Returns:
-            dict com 'title', 'duration', 'author' ou None se erro
+            dict com 'title', 'duration', 'author', 'thumbnail' ou None se erro
         """
         try:
-            yt = YouTube(url)
+            opts = {"quiet": True, "no_warnings": True, "skip_download": True}
+            with yt_dlp.YoutubeDL(opts) as ydl:
+                info = ydl.extract_info(url, download=False)
             return {
-                'title': yt.title,
-                'duration': yt.length,
-                'author': yt.author,
-                'thumbnail': yt.thumbnail_url
+                'title': info.get('title'),
+                'duration': info.get('duration'),
+                'author': info.get('uploader') or info.get('channel'),
+                'thumbnail': info.get('thumbnail')
             }
         except Exception as e:
             logger.error(f"Erro ao obter informações: {e}")
@@ -75,11 +84,16 @@ class YouTubeDownloader:
         """
         Faz download do áudio de um vídeo do YouTube.
 
+        Se o ffmpeg estiver disponível, o áudio é convertido para MP3;
+        caso contrário, é salvo no formato nativo (m4a/webm).
+
         Args:
             url: str - URL do YouTube
             filename: str - nome customizado (opcional)
             progress_callback: função callback para progresso (opcional)
-                              recebe (stream, chunk, bytes_remaining)
+                              recebe o dict de status do yt-dlp
+                              (chaves úteis: 'status', 'downloaded_bytes',
+                              'total_bytes' ou 'total_bytes_estimate')
 
         Returns:
             str: caminho do arquivo baixado ou None se erro
@@ -87,27 +101,39 @@ class YouTubeDownloader:
         try:
             logger.info(f"Iniciando download: {url}")
 
-            yt = YouTube(url, on_progress_callback=progress_callback)
-
-            audio_stream = yt.streams.filter(only_audio=True).first()
-
-            if not audio_stream:
-                logger.error("Nenhum stream de áudio encontrado")
-                return None
-
             if filename:
                 base_filename = os.path.splitext(filename)[0]
             else:
-                base_filename = yt.title
+                base_filename = "%(title)s"
 
-            safe_filename = "".join(c for c in base_filename if c.isalnum() or c in (' ', '-', '_'))
-            safe_filename = safe_filename.strip()
+            has_ffmpeg = shutil.which("ffmpeg") is not None
 
-            logger.info(f"Baixando áudio: {safe_filename}")
-            output_path = audio_stream.download(
-                output_path=self.output_dir,
-                filename=f"{safe_filename}.mp3"
-            )
+            opts = {
+                "format": "bestaudio/best",
+                "outtmpl": os.path.join(self.output_dir, f"{base_filename}.%(ext)s"),
+                "restrictfilenames": True,
+                "quiet": True,
+                "no_warnings": True,
+                "noprogress": True,
+                "noplaylist": True,
+            }
+            if progress_callback:
+                opts["progress_hooks"] = [progress_callback]
+            if has_ffmpeg:
+                opts["postprocessors"] = [{
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "192",
+                }]
+
+            with yt_dlp.YoutubeDL(opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+
+            output_path = info.get("requested_downloads", [{}])[0].get("filepath")
+            if not output_path:
+                output_path = ydl.prepare_filename(info)
+                if has_ffmpeg:
+                    output_path = os.path.splitext(output_path)[0] + ".mp3"
 
             logger.info(f"Download concluído: {output_path}")
             return output_path
@@ -132,11 +158,14 @@ class YouTubeDownloader:
         if not info:
             return None, None
 
-        def progress(stream, chunk, bytes_remaining):
-            total = stream.filesize
-            downloaded = total - bytes_remaining
-            percentage = downloaded / total * 100
-            logger.info(f"Progresso: {percentage:.1f}%")
+        def progress(status):
+            if status.get("status") != "downloading":
+                return
+            total = status.get("total_bytes") or status.get("total_bytes_estimate")
+            downloaded = status.get("downloaded_bytes")
+            if total and downloaded is not None:
+                percentage = downloaded / total * 100
+                logger.info(f"Progresso: {percentage:.1f}%")
 
         path = self.download_audio(url, filename, progress_callback=progress)
 

@@ -364,7 +364,7 @@ def _render_pdf_bytes(renderer, grid):
 
 
 def _download_audio(url):
-    """Baixa o áudio do YouTube (pytube). Isolado para não quebrar o app."""
+    """Baixa o áudio do YouTube (yt-dlp). Isolado para não quebrar o app."""
     try:
         from youtube_downloader import YouTubeDownloader
     except Exception as e:  # pragma: no cover
@@ -384,8 +384,8 @@ def _download_audio(url):
         st.audio(path)
     else:
         st.error(
-            "Falha no download. O pytube costuma quebrar com mudanças do YouTube "
-            "— veja o README (migração para yt-dlp)."
+            "Falha no download. Verifique a URL e a conexão; se persistir, "
+            "atualize o yt-dlp (`pip install -U yt-dlp`)."
         )
 
 

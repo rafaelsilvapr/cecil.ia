@@ -12,6 +12,6 @@ reportlab>=4.0
 streamlit>=1.30
 
 # Download de áudio do YouTube
-# ATENÇÃO: pytube está desatualizado e quebra com frequência.
-# Recomenda-se migrar para yt-dlp (ver README, seção "Próximos passos").
-pytube>=15.0
+# (conversão para MP3 requer ffmpeg instalado no sistema; sem ele o áudio
+# é salvo no formato nativo m4a/webm)
+yt-dlp>=2025.1.1

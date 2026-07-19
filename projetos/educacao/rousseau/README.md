@@ -26,7 +26,7 @@ compasso fecham automaticamente** pela soma das durações. Há suporte a **paus
 | [`syllable_processor.py`](syllable_processor.py) | Separa letras em PT-BR em sílabas (via `pyphen`, com fallback manual por regras fonéticas) e detecta sinalefas. |
 | [`notation_renderer.py`](notation_renderer.py) | Gera a grade cifrada em **SVG** e **PDF** (layout de sistemas, A4), com espaçamento proporcional à duração. |
 | [`chord_visual.py`](chord_visual.py) | Componente Streamlit para exibir acordes (grau romano + números empilhados). |
-| [`youtube_downloader.py`](youtube_downloader.py) | Baixa áudio de vídeos do YouTube (via `pytube` — ver ressalva abaixo). |
+| [`youtube_downloader.py`](youtube_downloader.py) | Baixa áudio de vídeos do YouTube (via `yt-dlp`; converte para MP3 se houver `ffmpeg`). |
 
 ## Instalação
 
@@ -112,12 +112,12 @@ portanto, **reescrito do zero** sobre os módulos resgatados, replicando o fluxo
 
 ## Próximos passos sugeridos
 
-1. **Migrar `youtube_downloader` de `pytube` para `yt-dlp`** — `pytube` está abandonado e quebra
-   a cada mudança do YouTube.
-2. **Transcrição automática de melodia** — hoje a melodia (os números) é entrada manual. Integrar
+1. **Transcrição automática de melodia** — hoje a melodia (os números) é entrada manual. Integrar
    um extrator de pitch (ex.: `basic-pitch`) fecharia o fluxo "link do YouTube → partitura Rousseau".
-3. **Ampliar o banco de acordes** — incluir inversões, sétimas além dos dominantes e modo menor.
-4. **Testes automatizados** — formalizar as verificações (reconstrução + ritmo) como suíte de regressão.
-5. **Persistência de projetos** — salvar/carregar uma música já preenchida.
-6. **Refinos de gravação** — compasso de anacruse mais estreito na grade; ligaduras de valor
+2. **Ampliar o banco de acordes** — incluir inversões, sétimas além dos dominantes e modo menor.
+3. **Testes automatizados** — formalizar as verificações (reconstrução + ritmo) como suíte de regressão.
+4. **Persistência de projetos** — salvar/carregar uma música já preenchida.
+5. **Refinos de gravação** — compasso de anacruse mais estreito na grade; ligaduras de valor
    (notas que cruzam a barra de compasso); glifos de pausa por figura no lugar do bloco genérico.
+
+> Concluído: a migração de `pytube` para `yt-dlp` no `youtube_downloader.py` (jul/2026).

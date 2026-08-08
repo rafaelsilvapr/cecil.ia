@@ -10,4 +10,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  /* Sem espera de duplo-toque e sem "puxar para recarregar" no tablet. */
+  touch-action: manipulation;
+  overscroll-behavior-y: contain;
+  -webkit-tap-highlight-color: transparent;
 }

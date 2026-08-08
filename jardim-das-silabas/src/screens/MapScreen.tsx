@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { Check, Lock, Star } from 'lucide-react';
+import { Check, Lock, Sparkles, Star } from 'lucide-react';
 import { CHARS, MAP_NODES, SECTIONS } from '../game/config';
 
 type MapScreenProps = {
   currentMapLevel: number;
   streak: number;
   onStartLevel: (levelIndex: number) => void;
+  updateAvailable: boolean;
+  onUpdate: () => void;
 };
 
 const TreeSvg = ({ color = '#58CC02' }: { color?: string }) => (
@@ -39,7 +41,7 @@ const getOffset = (localIndex: number) => {
   return positions[localIndex % positions.length];
 };
 
-export function MapScreen({ currentMapLevel, streak, onStartLevel }: MapScreenProps) {
+export function MapScreen({ currentMapLevel, streak, onStartLevel, updateAvailable, onUpdate }: MapScreenProps) {
   const activeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,6 +61,21 @@ export function MapScreen({ currentMapLevel, streak, onStartLevel }: MapScreenPr
         <div className="font-extrabold text-gray-700 tracking-tight text-base">Jardim das Sílabas</div>
         <div className="w-8" />
       </div>
+
+      {updateAvailable && (
+        <div className="px-5 pt-4 pb-1 bg-white">
+          <button
+            type="button"
+            onClick={onUpdate}
+            aria-label="Tem novidade no jogo. Tocar para atualizar."
+            className="w-full flex items-center justify-center gap-3 rounded-2xl px-5 py-4 text-white font-extrabold text-lg transition-all active:translate-y-[2px] active:shadow-none"
+            style={{ background: '#CE82FF', boxShadow: '0 5px 0 #a855f7' }}
+          >
+            <Sparkles className="w-6 h-6 fill-white" aria-hidden="true" />
+            Tem novidade! Toque aqui
+          </button>
+        </div>
+      )}
 
       {SECTIONS.map(section => {
         const nodes = MAP_NODES.slice(section.range[0], section.range[1] + 1);
@@ -85,11 +102,7 @@ export function MapScreen({ currentMapLevel, streak, onStartLevel }: MapScreenPr
               </div>
             </div>
 
-            <div
-              className={`flex flex-col items-center gap-4 pb-10 relative ${
-                currentMapLevel === section.range[0] ? 'pt-16' : ''
-              }`}
-            >
+            <div className="flex flex-col items-center gap-4 pb-10 relative">
               {nodes.map((node, localIndex) => {
                 const globalIndex = section.range[0] + localIndex;
                 const isActive = globalIndex === currentMapLevel;
@@ -102,7 +115,9 @@ export function MapScreen({ currentMapLevel, streak, onStartLevel }: MapScreenPr
                   <div
                     key={node.id}
                     ref={isActive ? activeRef : undefined}
-                    className="relative"
+                    // A Cecília fica 68px acima do nó atual; sem essa folga ela
+                    // encavala no nó anterior.
+                    className={`relative ${isActive ? 'mt-16' : ''}`}
                     style={{ transform: `translateX(${offset}px)` }}
                   >
                     {localIndex === 2 && (

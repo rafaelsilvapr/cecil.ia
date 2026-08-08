@@ -92,7 +92,7 @@ export function GameScreen({
             return (
               <div
                 key={index}
-                className={`w-[72px] h-[72px] flex items-center justify-center rounded-xl transition-all duration-300 text-2xl font-bold ${
+                className={`w-[88px] h-[88px] flex items-center justify-center rounded-xl transition-all duration-300 text-3xl font-bold ${
                   filled ? 'bg-white scale-105' : 'bg-gray-100 border-2 border-dashed border-gray-300'
                 }`}
                 style={filled ? { boxShadow: `0 3px 0 ${section.accent}40`, color: section.accentDark } : {}}
@@ -103,15 +103,15 @@ export function GameScreen({
           })}
         </div>
 
-        <div className="flex flex-wrap gap-2.5 justify-center">
+        <div className="flex flex-wrap gap-3.5 justify-center">
           {shuffledOptions.map((syllable, index) => (
             <button
               key={`${syllable}-${index}`}
               type="button"
               onClick={() => onSyllableClick(syllable)}
               aria-label={`Sílaba ${syllable}`}
-              className="bg-white px-6 py-3.5 rounded-xl font-bold text-lg text-gray-700 transition-all active:translate-y-[2px] active:shadow-none border-2 border-gray-100"
-              style={{ boxShadow: '0 3px 0 #e5e7eb' }}
+              className="bg-white min-w-[96px] px-7 py-5 rounded-2xl font-bold text-2xl text-gray-700 transition-all active:translate-y-[3px] active:shadow-none border-2 border-gray-100"
+              style={{ boxShadow: '0 4px 0 #e5e7eb' }}
             >
               {syllable}
             </button>

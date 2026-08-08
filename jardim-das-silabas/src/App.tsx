@@ -7,9 +7,17 @@ import { CelebrationScreen } from './screens/CelebrationScreen';
 import { GameScreen } from './screens/GameScreen';
 import { MapScreen } from './screens/MapScreen';
 import { StoryScreen } from './screens/StoryScreen';
+import { applyPendingUpdate } from './pwa/update';
+import { useAppUpdate } from './pwa/useAppUpdate';
 import { telemetry } from './telemetry/telemetry';
 
 const STORAGE_KEY = 'jardim-silabas-v1';
+
+const EXERCISES_PER_PHASE = 8;
+/** Palavras de sílaba simples no começo de toda fase, para ela entrar no ritmo. */
+const WARMUP_COUNT = 2;
+/** Palavras de níveis já vencidos, para não esquecer o que aprendeu. */
+const REVIEW_COUNT = 2;
 
 type SavedProgress = {
   currentMapLevel: number;
@@ -103,7 +111,10 @@ function App() {
   const [storySection, setStorySection] = useState(0);
   const [pendingLevelIndex, setPendingLevelIndex] = useState(0);
   const [playedLevelIndex, setPlayedLevelIndex] = useState<number | null>(null);
+  const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
   const exerciseLockedRef = useRef(false);
+
+  const showUpdateButton = useAppUpdate({ isIdle: gameState === 'map', hasStartedPlaying });
 
   useEffect(() => {
     void telemetry.initialize(initialProgress.currentMapLevel);
@@ -150,7 +161,8 @@ function App() {
 
   const launchLevel = (levelIndex: number) => {
     const node = MAP_NODES[levelIndex];
-    const curriculumLevel = CURRICULUM.find(level => level.id === node.curriculumId) ?? CURRICULUM[0];
+    const curriculumIndex = Math.max(0, CURRICULUM.findIndex(level => level.id === node.curriculumId));
+    const curriculumLevel = CURRICULUM[curriculumIndex];
     let picked: WordData[] = [];
     const used = new Set<string>();
 
@@ -167,15 +179,22 @@ function App() {
       }
     };
 
-    const easyPool = CURRICULUM.find(level => level.id === 'nivel-1')?.words ?? curriculumLevel.words;
-    pick(easyPool, word => !isComplexWord(word), 2);
-    const complexCount = levelIndex < 10 ? 3 : levelIndex < 30 ? 4 : levelIndex < 50 ? 5 : 6;
-    pick(CURRICULUM.flatMap(level => level.words).filter(isComplexWord), () => true, complexCount);
+    // Aquecimento com sílabas simples, sempre.
+    pick(CURRICULUM[0].words, word => !isComplexWord(word), WARMUP_COUNT);
 
-    const remaining = 8 - picked.length;
+    // O miolo da fase vem do nível que ela alcançou — nunca de um nível que ela
+    // ainda não viu. Na primeira seção isso mantém a fase inteira em sílabas
+    // simples, sem dígrafo nem encontro consonantal.
+    pick(curriculumLevel.words, () => true, EXERCISES_PER_PHASE - WARMUP_COUNT - REVIEW_COUNT);
+
+    // Revisão dos níveis anteriores (a primeira seção não tem o que revisar).
+    const reviewPool = CURRICULUM.slice(0, curriculumIndex).flatMap(level => level.words);
+    if (reviewPool.length > 0) pick(reviewPool, () => true, REVIEW_COUNT);
+
+    const remaining = EXERCISES_PER_PHASE - picked.length;
     if (remaining > 0) pick(curriculumLevel.words, () => true, remaining);
 
-    picked = [...picked.slice(0, 2), ...picked.slice(2).sort(() => Math.random() - 0.5)];
+    picked = [...picked.slice(0, WARMUP_COUNT), ...picked.slice(WARMUP_COUNT).sort(() => Math.random() - 0.5)];
     telemetry.startPhase(levelIndex, picked.length, levelIndex < currentMapLevel);
     setCurrentExercises(picked);
     setPlayedLevelIndex(levelIndex);
@@ -187,6 +206,7 @@ function App() {
 
   const startLevel = (levelIndex: number) => {
     if (levelIndex > currentMapLevel) return;
+    setHasStartedPlaying(true);
 
     const section = SECTIONS.find(candidate => levelIndex >= candidate.range[0] && levelIndex <= candidate.range[1]);
     const sectionIndex = section ? SECTIONS.indexOf(section) : 0;
@@ -279,7 +299,13 @@ function App() {
       `}</style>
       <main className="font-sans text-gray-800 select-none">
         {gameState === 'map' && (
-          <MapScreen currentMapLevel={currentMapLevel} streak={streak} onStartLevel={startLevel} />
+          <MapScreen
+            currentMapLevel={currentMapLevel}
+            streak={streak}
+            onStartLevel={startLevel}
+            updateAvailable={showUpdateButton}
+            onUpdate={() => void applyPendingUpdate()}
+          />
         )}
         {gameState === 'story' && (
           <StoryScreen section={SECTIONS[storySection]} onContinue={() => launchLevel(pendingLevelIndex)} />

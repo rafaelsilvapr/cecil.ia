@@ -17,7 +17,10 @@ import type {
   TelemetryTable,
 } from './types';
 
-const APP_VERSION = '0.0.0';
+declare const __APP_VERSION__: string;
+
+/** Injetada no build (versão do package.json + SHA do commit). */
+const APP_VERSION = __APP_VERSION__;
 
 type ActivePhase = {
   levelIndex: number;

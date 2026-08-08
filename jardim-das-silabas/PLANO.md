@@ -194,7 +194,23 @@ celebração); performance mantida (imagens novas também otimizadas).
 **Aceite:** jogo instala na tela inicial do iPad e roda offline; fase 1 contém apenas
 sílabas simples; palavras erradas reaparecem conforme a spec.
 
-**Status:** ⬜ pendente — bloqueada pela Fase 5
+**Status:** 🟡 parcial em 2026-08-08 — feito o suficiente para o piloto no tablet Android:
+
+- ✅ item 2 (PWA): `vite-plugin-pwa` com manifest (verde `#58CC02`, ícones gerados da arte da
+  Cecília por `npm run generate:icons`, `display: standalone`, `orientation: portrait`) e
+  precache de todos os assets do jogo. Verificado: com o servidor derrubado o jogo abre e o
+  progresso continua. Canal de atualização em `src/pwa/` — atualiza sozinho quando ela abre o
+  jogo e mostra o botão "Tem novidade! Toque aqui" no mapa quando ela já estava jogando, nunca
+  no meio de uma fase. Os dois caminhos foram testados com builds sucessivos.
+- 🟡 item 1: `launchLevel` deixou de sortear palavras do currículo inteiro. Agora é
+  2 de aquecimento (sílaba simples) + 4 do nível alcançado + 2 de revisão dos níveis
+  anteriores. Em 3.000 sorteios simulados, as fases 1–10 saíram 100% em sílabas simples.
+  **Não é ainda a spec da Fase 5** (reaparecimento de palavra errada, progressão dentro do
+  nível): é o mínimo para ela não encontrar dígrafo no primeiro dia.
+- ⬜ item 3 (áudio gravado): depende da decisão da Fase 0.2. Segue tudo em TTS.
+
+**Pendência operacional:** o pacote de voz pt-BR offline precisa estar instalado no tablet,
+senão o jogo fica mudo sem internet.
 
 ---
 

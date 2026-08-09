@@ -1,6 +1,6 @@
 import { Volume2 } from 'lucide-react';
 import type { WordData } from '../data/curriculum';
-import { CHARS, type Section } from '../game/config';
+import type { Caregiver, Section } from '../game/config';
 
 type GameScreenProps = {
   currentExercise?: WordData;
@@ -11,13 +11,16 @@ type GameScreenProps = {
   progress: number;
   wateringCanFill: number;
   section: Section;
+  caregiver: Caregiver;
   onSyllableClick: (syllable: string) => void;
   onListen: (word: string) => void;
 };
 
-const MESSAGES = [
+// A fala pertence a quem está na foto, e a foto alterna entre mamãe e papai a
+// cada exercício. Por isso nenhuma mensagem fixa cita um dos dois pelo nome.
+const messagesFor = (caregiver: Caregiver) => [
   'Você consegue!', 'Vamos lá!', 'Que legal!', 'Muito bem!',
-  'Papai tá aqui!', 'Foco!', 'Linda demais!', 'Arrasou!',
+  `${caregiver.label} tá aqui!`, 'Foco!', 'Linda demais!', 'Arrasou!',
 ];
 
 export function GameScreen({
@@ -29,6 +32,7 @@ export function GameScreen({
   progress,
   wateringCanFill,
   section,
+  caregiver,
   onSyllableClick,
   onListen,
 }: GameScreenProps) {
@@ -36,7 +40,8 @@ export function GameScreen({
     return <div className="h-screen flex items-center justify-center text-gray-400">Carregando...</div>;
   }
 
-  const message = MESSAGES[currentExerciseIndex % MESSAGES.length];
+  const messages = messagesFor(caregiver);
+  const message = messages[currentExerciseIndex % messages.length];
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -55,11 +60,12 @@ export function GameScreen({
           <div className="relative flex-shrink-0">
             <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white" style={{ boxShadow: '0 3px 12px rgba(0,0,0,0.1)' }}>
               <img
-                src={CHARS.paiFilhaLivros}
-                alt="Papai"
+                key={caregiver.key}
+                src={caregiver.avatarImg}
+                alt={caregiver.avatarAlt}
                 draggable={false}
                 className="w-full h-full object-cover select-none pointer-events-none"
-                style={{ transform: 'scale(1.3)', objectPosition: 'center 30%' }}
+                style={{ transform: `scale(${caregiver.avatarScale})`, objectPosition: caregiver.avatarPosition }}
               />
             </div>
             <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white rounded-xl px-2.5 py-1 shadow-md whitespace-nowrap font-bold" style={{ fontSize: '11px', color: section.accentDark }}>

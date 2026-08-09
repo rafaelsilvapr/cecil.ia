@@ -1,18 +1,21 @@
 import { ArrowRight, Star } from 'lucide-react';
-import { CHARS, type Section } from '../game/config';
+import type { Caregiver, Section } from '../game/config';
 
 type CelebrationScreenProps = {
   currentMapLevel: number;
   section: Section;
+  caregiver: Caregiver;
   onContinue: () => void;
 };
 
-const MESSAGES = [
-  'Papai tá muito orgulhoso!',
+// Quem comemora alterna a cada fase. As mensagens que citam um responsável usam
+// sempre o que está na foto, e uma delas nomeia os dois.
+const messagesFor = (caregiver: Caregiver) => [
+  `${caregiver.label} tá muito ${caregiver.proud}!`,
   'Que filha inteligente!',
   'Você é demais!',
-  'Continuamos juntos!',
-  'Papai te ama!',
+  'Mamãe e papai tão orgulhosos!',
+  `${caregiver.label} te ama!`,
 ];
 
 const CONFETTI_COLORS = ['#FF69B4', '#7C3AED', '#F59E0B', '#10B981', '#3B82F6', '#EF4444', '#58CC02', '#CE82FF'];
@@ -25,8 +28,9 @@ const CONFETTI = Array.from({ length: 20 }, (_, index) => ({
   delay: ((index * 13) % 20) / 10,
 }));
 
-export function CelebrationScreen({ currentMapLevel, section, onContinue }: CelebrationScreenProps) {
-  const message = MESSAGES[currentMapLevel % MESSAGES.length];
+export function CelebrationScreen({ currentMapLevel, section, caregiver, onContinue }: CelebrationScreenProps) {
+  const messages = messagesFor(caregiver);
+  const message = messages[currentMapLevel % messages.length];
 
   return (
     <div
@@ -53,7 +57,14 @@ export function CelebrationScreen({ currentMapLevel, section, onContinue }: Cele
           className="w-60 h-60 rounded-[28px] overflow-hidden bg-white"
           style={{ boxShadow: `0 8px 30px rgba(0,0,0,0.12), 0 0 0 4px white, 0 0 0 8px ${section.accent}30` }}
         >
-          <img src={CHARS.paiFilhaCelebrando} alt="Celebrando juntos" draggable={false} className="w-full h-full object-cover select-none pointer-events-none" />
+          <img
+            key={caregiver.key}
+            src={caregiver.celebrationImg}
+            alt={caregiver.celebrationAlt}
+            draggable={false}
+            className="w-full h-full object-cover select-none pointer-events-none"
+            style={{ objectPosition: caregiver.celebrationPosition }}
+          />
         </div>
         <div className="absolute -top-3 -right-3 rounded-full p-2 shadow-lg" style={{ background: '#FFC800', animation: 'bob 1.5s ease-in-out infinite' }}>
           <Star className="text-white fill-white w-5 h-5" aria-hidden="true" />

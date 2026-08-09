@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CURRICULUM } from './data/curriculum';
 import type { WordData } from './data/curriculum';
 import { playSound } from './game/audio';
-import { getSectionForLevel, MAP_NODES, SECTIONS } from './game/config';
+import { caregiverAt, getSectionForLevel, MAP_NODES, SECTIONS } from './game/config';
 import { CelebrationScreen } from './screens/CelebrationScreen';
 import { GameScreen } from './screens/GameScreen';
 import { MapScreen } from './screens/MapScreen';
@@ -283,6 +283,10 @@ function App() {
   };
 
   const currentSection = getSectionForLevel(currentMapLevel);
+  // A fase entra na conta para que a fase seguinte não comece sempre com o mesmo
+  // responsável; dentro de cada fase a alternância continua fechando 4 e 4.
+  const exerciseCaregiver = caregiverAt((playedLevelIndex ?? currentMapLevel) + currentExerciseIndex);
+  const celebrationCaregiver = caregiverAt(currentMapLevel);
 
   return (
     <>
@@ -320,12 +324,18 @@ function App() {
             progress={progress}
             wateringCanFill={wateringCanFill}
             section={currentSection}
+            caregiver={exerciseCaregiver}
             onSyllableClick={handleSyllableClick}
             onListen={handleListen}
           />
         )}
         {gameState === 'celebration' && (
-          <CelebrationScreen currentMapLevel={currentMapLevel} section={currentSection} onContinue={closeCelebration} />
+          <CelebrationScreen
+            currentMapLevel={currentMapLevel}
+            section={currentSection}
+            caregiver={celebrationCaregiver}
+            onContinue={closeCelebration}
+          />
         )}
       </main>
     </>

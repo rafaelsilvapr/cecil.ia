@@ -949,7 +949,28 @@ travar o uso. Nenhuma tela, mensagem ou recurso pode ser só de um dos dois.**
 **Aceite:** Cecília ouve as vozes dos dois em proporção equilibrada; mamãe e papai têm
 exatamente as mesmas capacidades no painel; missões aparecem como presente.
 
-**Status:** ⬜ pronta para spec do Claude — Fase 10 concluída (item 2 pode ser antecipado)
+**Status:** 🟡 item 2 antecipado em 2026-08-08 — o restante segue pendente.
+
+Motivo da antecipação: a auditoria mostrou que a mãe aparecia **uma única vez no jogo inteiro**,
+na abertura da seção 3 (fase 21), enquanto a foto do pai estava fixa no `GameScreen` e no
+`CelebrationScreen`. Com a Cecília na fase 2, o único adulto que ela veria por semanas seria o
+pai — risco direto de a mãe não incentivar o uso, e o jogo depende dela para acontecer.
+
+O que mudou:
+
+- `CAREGIVERS` e `caregiverAt()` em `game/config.ts`: alternância **por paridade, não por
+  sorteio** — sorteio produziria três aparições seguidas do mesmo responsável. Verificado nas
+  60 fases: 4 mãe / 4 pai em todas, nenhuma repetição consecutiva, e 30/30 nas comemorações.
+- `GameScreen`: a foto alterna a cada exercício e as mensagens deixaram de citar o pai — quem
+  fala é quem está na foto (`${label} tá aqui!`).
+- `CelebrationScreen`: foto e mensagens alternam, com concordância ("Mamãe tá orgulhosa" /
+  "Papai tá orgulhoso") e uma mensagem que nomeia os dois.
+- Seções: mãe em 10–19 e 30–39, pai em 20–29 e 40–49.
+
+**Dívida de arte:** existe **uma** arte da mãe (`mae-filha-abraco.webp`) contra três do pai. A
+seção 30–39 repete o abraço para fechar a paridade, e a mesma imagem serve de avatar e de
+comemoração. Gerar 2–3 artes novas da mãe no estilo das existentes é o que falta para a
+paridade deixar de ser visível como repetição.
 
 ---
 

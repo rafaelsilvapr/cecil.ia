@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Check, Lock, Sparkles, Star } from 'lucide-react';
-import { CHARS, MAP_NODES, SECTIONS } from '../game/config';
+import { CHARS, growthForLevel, MAP_NODES, SECTIONS } from '../game/config';
+import { Plant } from '../game/garden';
 
 type MapScreenProps = {
   currentMapLevel: number;
@@ -59,7 +60,15 @@ export function MapScreen({ currentMapLevel, streak, onStartLevel, updateAvailab
           <span className="font-extrabold text-orange-500 text-lg">{streak}</span>
         </div>
         <div className="font-extrabold text-gray-700 tracking-tight text-base">Jardim das Sílabas</div>
-        <div className="w-8" />
+        {/* A planta fica no cabeçalho fixo porque é o único lugar que ela vê o
+            tempo todo. É o estado dela no jogo, não um enfeite. */}
+        <div
+          className="w-14 flex justify-end items-end"
+          role="img"
+          aria-label={`Sua plantinha depois de ${currentMapLevel} fases`}
+        >
+          <Plant growth={growthForLevel(currentMapLevel)} height={54} />
+        </div>
       </div>
 
       {updateAvailable && (

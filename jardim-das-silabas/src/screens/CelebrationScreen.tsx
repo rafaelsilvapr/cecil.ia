@@ -1,10 +1,16 @@
+import { useEffect, useState } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import type { Caregiver, Section } from '../game/config';
+import { PourScene } from '../game/garden';
+import { usePrefersReducedMotion } from '../game/motion';
 
 type CelebrationScreenProps = {
   currentMapLevel: number;
   section: Section;
   caregiver: Caregiver;
+  /** Tamanho da planta antes desta fase e depois dela. Iguais quando ela rejogou uma fase antiga. */
+  growthFrom: number;
+  growthTo: number;
   onContinue: () => void;
 };
 
@@ -28,13 +34,43 @@ const CONFETTI = Array.from({ length: 20 }, (_, index) => ({
   delay: ((index * 13) % 20) / 10,
 }));
 
-export function CelebrationScreen({ currentMapLevel, section, caregiver, onContinue }: CelebrationScreenProps) {
+export function CelebrationScreen({
+  currentMapLevel,
+  section,
+  caregiver,
+  growthFrom,
+  growthTo,
+  onContinue,
+}: CelebrationScreenProps) {
   const messages = messagesFor(caregiver);
   const message = messages[currentMapLevel % messages.length];
+  const reducedMotion = usePrefersReducedMotion();
+
+  const [pouring, setPouring] = useState(false);
+  const [popping, setPopping] = useState(false);
+  const [watered, setWatered] = useState(false);
+
+  // Sem movimento, a planta já entra crescida — o resultado é o mesmo, só não
+  // se mexe. Por isso é valor derivado e não estado sincronizado por efeito.
+  const growth = reducedMotion || watered ? growthTo : growthFrom;
+
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    // A planta só cresce depois que a água cai. É a única parte do jogo que
+    // ensina a relação inteira: acertei, o regador encheu, agora ela cresceu.
+    const timers = [
+      window.setTimeout(() => setPouring(true), 450),
+      window.setTimeout(() => { setWatered(true); setPopping(true); }, 1400),
+      window.setTimeout(() => setPopping(false), 1850),
+      window.setTimeout(() => setPouring(false), 2400),
+    ];
+    return () => timers.forEach(window.clearTimeout);
+  }, [reducedMotion]);
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen gap-6 p-6 relative overflow-hidden"
+      className="flex flex-col items-center justify-center min-h-screen gap-4 p-6 relative overflow-hidden"
       style={{ background: `linear-gradient(160deg, ${section.bgLight}, #fff, ${section.bgLight})` }}
     >
       {CONFETTI.map((item, index) => (
@@ -52,9 +88,13 @@ export function CelebrationScreen({ currentMapLevel, section, caregiver, onConti
 
       <h1 className="text-3xl font-extrabold text-center z-10" style={{ color: section.accentDark }}>Parabéns! 🎉</h1>
 
+      <div className="z-10" role="img" aria-label={growthTo > growthFrom ? 'O regador rega a plantinha e ela cresce' : 'O regador rega a plantinha'}>
+        <PourScene growth={growth} pouring={pouring} popping={popping} />
+      </div>
+
       <div className="relative z-10">
         <div
-          className="w-60 h-60 rounded-[28px] overflow-hidden bg-white"
+          className="w-44 h-44 rounded-[24px] overflow-hidden bg-white"
           style={{ boxShadow: `0 8px 30px rgba(0,0,0,0.12), 0 0 0 4px white, 0 0 0 8px ${section.accent}30` }}
         >
           <img
@@ -74,9 +114,9 @@ export function CelebrationScreen({ currentMapLevel, section, caregiver, onConti
         </div>
       </div>
 
-      <div className="bg-white/90 p-4 rounded-2xl shadow-lg max-w-xs text-center z-10">
+      <div className="bg-white/90 px-4 py-3 rounded-2xl shadow-lg max-w-xs text-center z-10">
         <p className="text-lg font-bold" style={{ color: section.accentDark }}>{message}</p>
-        <div className="flex justify-center gap-1 mt-2" aria-hidden="true">
+        <div className="flex justify-center gap-1 mt-1.5" aria-hidden="true">
           {[0, 1, 2].map(index => (
             <Star key={index} className="text-yellow-400 fill-yellow-400 w-6 h-6" style={{ animation: `bob 1.5s ease-in-out ${index * 0.15}s infinite` }} />
           ))}

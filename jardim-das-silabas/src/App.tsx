@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CURRICULUM } from './data/curriculum';
 import type { WordData } from './data/curriculum';
 import { playSound } from './game/audio';
-import { caregiverAt, getSectionForLevel, MAP_NODES, SECTIONS } from './game/config';
+import { caregiverAt, getSectionForLevel, growthForLevel, MAP_NODES, SECTIONS } from './game/config';
 import { CelebrationScreen } from './screens/CelebrationScreen';
 import { GameScreen } from './screens/GameScreen';
 import { MapScreen } from './screens/MapScreen';
@@ -288,6 +288,13 @@ function App() {
   const exerciseCaregiver = caregiverAt((playedLevelIndex ?? currentMapLevel) + currentExerciseIndex);
   const celebrationCaregiver = caregiverAt(currentMapLevel);
 
+  // A planta é o progresso real no currículo, então rejogar uma fase antiga não
+  // faz ela crescer — senão dava para deixá-la enorme repetindo a fase 1. A rega
+  // e o pulinho acontecem de qualquer jeito: a recompensa não depende disso.
+  const advancesLevel = playedLevelIndex === currentMapLevel && currentMapLevel < MAP_NODES.length - 1;
+  const growthFrom = growthForLevel(currentMapLevel);
+  const growthTo = growthForLevel(advancesLevel ? currentMapLevel + 1 : currentMapLevel);
+
   return (
     <>
       <style>{`
@@ -299,6 +306,18 @@ function App() {
           0% { transform: translateY(0) rotate(0); opacity: 0.6; }
           50% { transform: translateY(25px) rotate(180deg); opacity: 0.3; }
           100% { transform: translateY(0) rotate(360deg); opacity: 0.6; }
+        }
+        @keyframes waterFall {
+          0% { opacity: 0; transform: translate(0, 0); }
+          20% { opacity: 1; }
+          100% { opacity: 0; transform: translate(46px, 58px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
         }
       `}</style>
       <main className="font-sans text-gray-800 select-none">
@@ -334,6 +353,8 @@ function App() {
             currentMapLevel={currentMapLevel}
             section={currentSection}
             caregiver={celebrationCaregiver}
+            growthFrom={growthFrom}
+            growthTo={growthTo}
             onContinue={closeCelebration}
           />
         )}

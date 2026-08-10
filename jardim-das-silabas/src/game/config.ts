@@ -123,6 +123,10 @@ export const MAP_NODES = Array.from({ length: 60 }, (_, index) => {
   };
 });
 
+/** Quanto do currículo ela já andou, de 0 a 1. É o tamanho da plantinha. */
+export const growthForLevel = (levelIndex: number) =>
+  Math.max(0, Math.min(1, levelIndex / (MAP_NODES.length - 1)));
+
 export const getSectionForLevel = (levelIndex: number) => {
   const index = SECTIONS.findIndex(
     section => levelIndex >= section.range[0] && levelIndex <= section.range[1],

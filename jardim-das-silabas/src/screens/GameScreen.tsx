@@ -1,6 +1,7 @@
 import { Volume2 } from 'lucide-react';
 import type { WordData } from '../data/curriculum';
 import type { Caregiver, Section } from '../game/config';
+import { WateringCan } from '../game/garden';
 
 type GameScreenProps = {
   currentExercise?: WordData;
@@ -46,14 +47,20 @@ export function GameScreen({
   return (
     <div className="flex flex-col h-screen bg-white">
       <div className="px-4 pt-5 pb-3" style={{ background: section.bgLight }}>
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-2">
           <div className="px-3 py-1 rounded-full text-sm font-extrabold text-white" style={{ background: section.accent }}>
             {currentExerciseIndex + 1}/{exerciseCount}
           </div>
-          <div className="flex-1 h-3 bg-white/80 rounded-full overflow-hidden">
-            <div className="h-full rounded-full transition-all duration-700" style={{ width: `${wateringCanFill}%`, background: section.accent }} />
+          <div className="flex-1" />
+          {/* O regador é o progresso da fase. Cada acerto sobe um nível de água,
+              e no fim da fase ele rega a planta na tela de comemoração. */}
+          <div
+            role="img"
+            aria-label={`Regador ${Math.round(wateringCanFill)}% cheio`}
+            className="flex-shrink-0"
+          >
+            <WateringCan fill={wateringCanFill / 100} height={54} />
           </div>
-          <span className="text-lg" aria-hidden="true">🌱</span>
         </div>
 
         <div className="flex items-end justify-center gap-5 pb-3">
